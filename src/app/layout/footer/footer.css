@@ -1,0 +1,33 @@
+#footer {
+    display: none;
+    position: sticky;
+}
+#footer ul {
+    margin-bottom: 0;
+}
+
+#footer ul li {
+    border:none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+@media (max-width : 760px) {
+    #footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media (max-width : 400px) {
+    #footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left:0;
+    }
+}

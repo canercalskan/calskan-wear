@@ -1,0 +1,40 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(199, 198, 198);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-image: url('../../../../assets/images/last404.png');
+    object-fit:contain;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: center;
+    background-position-x: center;
+}
+
+.container span {
+    font-weight: bolder;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 150px;
+}
+span:hover {
+    cursor: default;
+}
+
+.container p {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    margin-top: 20rem;
+    font-size: 40px;
+    transition: all .1s;
+}
+.container p:hover {
+    cursor: pointer;
+    margin-left: -2rem;
+    color: rgb(127, 123, 123);
+}
+.container button {
+    font-size: larger;
+    padding: 10px 20px;
+}
