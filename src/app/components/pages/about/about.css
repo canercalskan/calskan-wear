@@ -1,0 +1,33 @@
+i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    color: #565f75;
+}
+h1 {
+    text-align: center;
+}
+a {
+    text-decoration: none;
+}
+.container {
+    border-radius: 10px;
+    width: 70vw;
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+/* .container:nth-of-type(odd) {
+    /* background-color: rgb(241, 241, 241); 
+}*/
+
+.container:first {
+    background-color: rgb(241, 241, 241); 
+}
+
+
+.container span {
+   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   letter-spacing: 1.5px;
+}

@@ -1,0 +1,21 @@
+<ng-navbar></ng-navbar>
+<form #registerForm = 'ngForm' (ngSubmit) = 'handleLogin(registerForm.value);registerForm.reset();' ngNativeValidate>
+    <div class="border-wrap">
+        <h2 class="text-center mb-3">ÜYE GİRİŞİ</h2>
+    <div class="form-group">
+        <label for="mail" >E-Posta Adresi</label>
+        <input type="email" class="form-control" name="mail" required ngModel>
+    </div>
+   
+    <div class="form-group">
+        <label for="password">Şifre</label>
+        <input type="password" class="form-control" name="password" required ngModel>
+    </div>
+    <div class="form-group">
+        <label for="remember">Beni Hatırla</label>
+        <input type="checkbox" style="width:auto;" class="ms-2" name="remember" ngModel>
+    </div>
+    <button type="submit" class="btn">Giriş Yap</button>
+    <span><a href="Register" class="text-decoration-none ms-3">Hesap Oluştur</a></span>
+</div>
+</form>

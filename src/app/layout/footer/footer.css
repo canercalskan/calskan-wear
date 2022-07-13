@@ -1,6 +1,11 @@
+* {
+    scroll-behavior: smooth;
+}
+
 #footer {
     display: none;
-    position: sticky;
+    position: fixed;
+    bottom: 0;
 }
 #footer ul {
     margin-bottom: 0;
@@ -8,6 +13,7 @@
 
 #footer ul li {
     border:none;
+    /* background-color: rgba(255, 255, 255, 0.707); */
 }
 
 a {
@@ -15,11 +21,23 @@ a {
     color: black;
 }
 
+a i {
+    transition: all .4s;
+}
+
+a i:hover {
+    color: rgb(169, 69, 69);
+}
+
 @media (max-width : 760px) {
     #footer {
+        width: 100vw;
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+    p {
+        font-size: 15px;
     }
 }
 
@@ -29,5 +47,5 @@ a {
         justify-content: center;
         align-items: center;
         margin-left:0;
-    }
+    };
 }
