@@ -15,6 +15,7 @@ import { AngularFireModule} from '@angular/fire/compat';
 import { AuthService } from './services/auth/auth.service';
 import { AccountComponent } from './components/user/account/account.component';
 import { AuthGuard } from './services/auth/auth.guard';
+import { UserService } from './services/user/user.service';
 const firebaseConfig = {
   apiKey: "AIzaSyBb5rDZjYMI5mtA9YJqt4fVfqhU8LC-7aA",
   authDomain: "test-b03cd.firebaseapp.com",
@@ -46,7 +47,8 @@ const firebaseConfig = {
     FormsModule,
     HttpClientModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AuthService , AuthGuard
+    AuthService , AuthGuard ,
+    UserService
   ],
   providers: [],
   bootstrap: [AppComponent]
