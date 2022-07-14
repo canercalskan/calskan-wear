@@ -39,9 +39,9 @@ button:hover {
 
 @media (max-width : 750px) {
     .border-wrap {
-        padding: 2rem 2rem;
+        padding: 2rem 4rem;
     }
     input {
-        width: 50vw;
+        width: 60vw;
     }
  } 

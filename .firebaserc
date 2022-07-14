@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "test-b03cd": {
+      "hosting": {
+        "calskan-wear": [
+          "test-b03cd"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "test-b03cd"
+  }
+}

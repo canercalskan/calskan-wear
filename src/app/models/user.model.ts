@@ -1,9 +1,8 @@
 export interface User {
-    id : number,
-    isLoggedIn : boolean,
+    uid : string,
     name: string,
     surname:string,
-    phone : number,
+    phone : string,
     mail : string,
     password : string,
     gender : string,
