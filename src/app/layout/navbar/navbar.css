@@ -32,6 +32,12 @@ i:hover {
  .navbar-toggler {
     border:none;
  }
+ #accdropdown:hover .dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-left: -5rem;
+ }
 
  #brand-md {
     max-width: 150px;

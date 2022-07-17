@@ -10,6 +10,7 @@
     <div class="form-group">
         <label for="password">Şifre</label>
         <input type="password" class="form-control" name="password" required ngModel>
+        <span *ngIf="passwordError" style="color:red;">Şifreniz hatalıdır</span>
     </div>
     <div class="form-group">
         <label for="remember">Beni Hatırla</label>
@@ -18,5 +19,5 @@
     <button type="submit" class="btn">Giriş Yap</button>
     <span><a href="Register" class="text-decoration-none ms-3">Hesap Oluştur</a></span>
 </div>
-<p *ngIf="loginError == true" style="color: red;">E-Posta veya şifre hatalı.</p>
+<p *ngIf="userError" style="color: red;">Böyle bir hesap bulunmamaktadır.</p>
 </form>

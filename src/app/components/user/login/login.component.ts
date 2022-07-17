@@ -1,27 +1,39 @@
-import { Component } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { User } from "src/app/models/user.model";
-import { Router } from "@angular/router";
-import { Observable } from "rxjs";
-import { AuthService } from "src/app/services/auth/auth.service";
+import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user.model';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
-    templateUrl:'./login.component.html',
-    styleUrls: ['./login.component.css'],
-    selector : 'login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
+  selector: 'login',
 })
 
 export class LoginComponent {
-    constructor( private router : Router , private authservice : AuthService){}
-    loginError : boolean = false;
-    handleLogin(user:User) {
-    this.authservice.login(user)
-    if(!(localStorage.getItem('isLoggedIn') == 'true')) {
-        this.loginError = true;
-    }
-    else {
+  constructor(private router: Router, private authservice: AuthService) {}
+  userError :boolean = false;
+  passwordError: boolean = false;
+  //PROBLEM : AYNI İŞİ FARKLI COMPONENTLARDA SENKRON ŞEKİLDE ÇÖZMEYE ÇALIŞIYORUZ.
+  handleLogin(user: User) {
+    this.authservice.login(user).then(() => {
+        localStorage.setItem('isLoggedIn','true')
+        localStorage.setItem('uid' , user.uid);
+        this.userError=false;
+        this.passwordError = false;
         this.router.navigate(['Account'])
-    }
-    console.log(this.loginError)
- }
+    }).catch(error => {
+        if(error.code == 'auth/user-not-found') {this.userError = true;}
+        else if(error.code == 'auth/wrong-password') {this.passwordError = true;}
+    })
+  }
+  handleLogOut() {
+    this.authservice.logOut().then(()=> {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('uid');
+        alert('Başarıyla çıkış yapıldı.')
+    })
+  }
+
+
 }

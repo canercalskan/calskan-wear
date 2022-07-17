@@ -11,7 +11,9 @@ export const environment = {
     authDomain: 'test-b03cd.firebaseapp.com',
     messagingSenderId: '1086960920202',
     measurementId: 'G-2M1LJF1706',
-  }
+  },
+  passwordError : false,
+  noUserError : false,
 };
 
 
