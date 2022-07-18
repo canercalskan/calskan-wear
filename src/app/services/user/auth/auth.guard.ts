@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from "@angul
 import { Router } from "@angular/router";
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 @NgModule()
-export class AuthGuard implements CanActivate {
+export class UserAuthGuard implements CanActivate {
     constructor(private router : Router , private fireAuth : AngularFireAuth){}
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         if(localStorage.getItem('isLoggedIn') == 'true') {

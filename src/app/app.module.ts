@@ -12,9 +12,9 @@ import { RegisterComponent } from './components/user/register/register.component
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/user/login/login.component';
 import { AngularFireModule} from '@angular/fire/compat';
-import { AuthService } from './services/auth/auth.service';
+import { AuthService } from './services/user/auth/auth.service';
 import { AccountComponent } from './components/user/account/account.component';
-import { AuthGuard } from './services/auth/auth.guard';
+import { UserAuthGuard } from './services/user/auth/auth.guard';
 import { UserService } from './services/user/user.service';
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminService } from './services/admin/admin.service';
@@ -22,6 +22,8 @@ import { AdminLogin } from './components/admin/login/login.component';
 import { ItemsService } from './services/admin/items.service';
 import { AdminNavbar } from './layout/navbar/admin/navbar';
 import { ProductActions } from './components/admin/actions/product-actions';
+import { AdminAuthGuard , AdminLoginGuard} from './services/admin/guards/auth.guard';
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBb5rDZjYMI5mtA9YJqt4fVfqhU8LC-7aA",
@@ -54,7 +56,7 @@ const firebaseConfig = {
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    AuthService , AuthGuard ,
+    AuthService , UserAuthGuard , AdminAuthGuard, AdminLoginGuard,
     UserService , AdminService , ItemsService,
     AngularFireModule.initializeApp(firebaseConfig),
   ],

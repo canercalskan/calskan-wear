@@ -6,20 +6,23 @@ import { About } from './components/pages/about/about';
 import { RegisterComponent } from './components/user/register/register.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { AccountComponent } from './components/user/account/account.component';
-import { AuthGuard } from './services/auth/auth.guard';
+import { UserAuthGuard } from './services/user/auth/auth.guard';
+import { AdminAuthGuard , AdminLoginGuard } from './services/admin/guards/auth.guard';
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminLogin } from './components/admin/login/login.component';
 import { ProductActions } from './components/admin/actions/product-actions';
+
+
 const routes: Routes = [
   {path : '' , component : HomeComponent},
-  {path : 'Administration' , component : AdminComponent},
-  {path : 'Administration/Actions' , component : ProductActions},
-  {path: 'AdminPaneLogin' , component : AdminLogin},
+  {path : 'Administration' , component : AdminComponent , canActivate : [AdminAuthGuard]},
+  {path : 'Administration/Actions' , component : ProductActions , canActivate : [AdminAuthGuard]},
+  {path: 'AdminPaneLogin' , component : AdminLogin , canActivate : [AdminLoginGuard]},
   {path:'Home' , component: HomeComponent},
   {path : 'About' , component : About},
   {path: 'Register' , component: RegisterComponent},
   {path: 'Login' , component: LoginComponent},
-  {path : 'Account' , component: AccountComponent , canActivate : [AuthGuard]},
+  {path : 'Account' , component: AccountComponent , canActivate : [UserAuthGuard]},
   {path: '**' , component: NotFoundComponent},
 ];
 

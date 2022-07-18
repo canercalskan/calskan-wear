@@ -2,7 +2,7 @@ import { Injectable, NgModule } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { User } from 'src/app/models/user.model';
-import { UserService } from '../user/user.service';
+import { UserService } from '../user.service';
 @Injectable({
   providedIn: 'root',
 })
