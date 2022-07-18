@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Navbar } from './layout/navbar/navbar';
+import { Navbar } from './layout/navbar/user/navbar';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule} from '@angular/common/http'
 import { AppComponent } from './app.component';
@@ -19,6 +19,10 @@ import { UserService } from './services/user/user.service';
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminService } from './services/admin/admin.service';
 import { AdminLogin } from './components/admin/login/login.component';
+import { ItemsService } from './services/admin/items.service';
+import { AdminNavbar } from './layout/navbar/admin/navbar';
+import { ProductActions } from './components/admin/actions/product-actions';
+
 const firebaseConfig = {
   apiKey: "AIzaSyBb5rDZjYMI5mtA9YJqt4fVfqhU8LC-7aA",
   authDomain: "test-b03cd.firebaseapp.com",
@@ -43,16 +47,16 @@ const firebaseConfig = {
     RegisterComponent,
     LoginComponent,
     AccountComponent ,
-    AdminComponent , AdminLogin
+    AdminComponent , AdminLogin , AdminNavbar  , ProductActions
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(firebaseConfig),
     AuthService , AuthGuard ,
-    UserService , AdminService
+    UserService , AdminService , ItemsService,
+    AngularFireModule.initializeApp(firebaseConfig),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,10 @@
-export interface Item {
-    id : string,
-    title : string,
-    price : string,
-    image : string,
-}
+export class Item {
+    key!: string;
+    name!: string;
+    url!: string;
+    file: File;
+  
+    constructor(file: File) {
+      this.file = file;
+    }
+  }

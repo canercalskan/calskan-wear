@@ -17,6 +17,7 @@ export class AdminLogin {
     this.adminExistError = false;
     this.adminPasswordError = false;
     this.service.authAdmin(admin).then(() => {
+        localStorage.setItem('admin' , admin.mail)
         this.router.navigate(['Administration'])
     }).catch(error => {
         if(error.code == 'auth/user-not-found') {this.adminExistError = true;}

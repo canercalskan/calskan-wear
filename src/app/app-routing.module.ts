@@ -9,10 +9,11 @@ import { AccountComponent } from './components/user/account/account.component';
 import { AuthGuard } from './services/auth/auth.guard';
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminLogin } from './components/admin/login/login.component';
-
+import { ProductActions } from './components/admin/actions/product-actions';
 const routes: Routes = [
   {path : '' , component : HomeComponent},
   {path : 'Administration' , component : AdminComponent},
+  {path : 'Administration/Actions' , component : ProductActions},
   {path: 'AdminPaneLogin' , component : AdminLogin},
   {path:'Home' , component: HomeComponent},
   {path : 'About' , component : About},
