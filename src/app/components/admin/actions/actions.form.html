@@ -1,29 +1,29 @@
+<admin-navbar></admin-navbar>
 
-<label>
-  <input
-    type="file"
-    class="text-nowrap text-truncate"
-    (change)="selectFile($event)"
-  />
-</label>
+<div class="form">
+  <form #uploadForm = 'ngForm' (ngSubmit) = 'upload(uploadForm.value); uploadForm.reset()'  ngNativeValidate>
+  <label for="title">Ürün Başlığı</label>
+  <input type="text" name="title" id="title" ngModel required>
+  <label for="description">Ürün Açıklaması</label>
+  <textarea name="description" id="description" cols="20" rows="5" ngModel></textarea>
+  <label for="fileupload">Ürün Görseli</label>
+  <input id="fileupload" type="file" (change)="selectFile($event)" />
+  <label for="price">Ürün Fiyatı</label>
+  <input type="text" id="price" name="price" ngModel>
+  
+  <button type="submit" class="btn btn-success btn-sm mt-2" [disabled]="!selectedFiles">Yükle</button>
 
-<button
-  class="btn btn-success btn-sm"
-  [disabled]="!selectedFiles"
-  (click)="upload()"
->
-  Upload
-</button>
-
-<div *ngIf="currentFileUpload" class="progress mt-2">
-  <div
-    class="progress-bar progress-bar-info"
-    role="progressbar"
-    attr.aria-valuenow="{{ percentage }}"
-    aria-valuemin="0"
-    aria-valuemax="100"
-    [ngStyle]="{ width: percentage + '%' }"
-  >
-    {{ percentage }}%
+  <div *ngIf="currentFileUpload" class="progress mt-2">
+    <div
+      class="progress-bar progress-bar-info"
+      role="progressbar"
+      attr.aria-valuenow="{{ percentage }}"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      [ngStyle]="{ width: percentage + '%' }"
+    >
+      {{ percentage }}%
+    </div>
   </div>
+</form>
 </div>

@@ -43,7 +43,7 @@ export class ItemsService {
   deleteFile(fileUpload: Item): void {
     this.deleteFileDatabase(fileUpload.key)
       .then(() => {
-        this.deleteFileStorage(fileUpload.name);
+        this.deleteFileStorage(fileUpload.file.name);
       })
       .catch(error => console.log(error));
   }

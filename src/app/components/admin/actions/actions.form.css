@@ -1,0 +1,27 @@
+.form {
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+}
+
+.form form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    display: block;
+    margin-top: 1rem;
+}
+
+input {
+    display: block;
+    padding: 5px;
+    margin: 2px;
+}
+
+textarea {
+    padding: 5px;
+    font-size: smaller;
+}
