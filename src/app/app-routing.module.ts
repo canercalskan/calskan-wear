@@ -7,8 +7,13 @@ import { RegisterComponent } from './components/user/register/register.component
 import { LoginComponent } from './components/user/login/login.component';
 import { AccountComponent } from './components/user/account/account.component';
 import { AuthGuard } from './services/auth/auth.guard';
+import { AdminComponent } from './components/admin/admin.component';
+import { AdminLogin } from './components/admin/login/login.component';
+
 const routes: Routes = [
   {path : '' , component : HomeComponent},
+  {path : 'Administration' , component : AdminComponent},
+  {path: 'AdminPaneLogin' , component : AdminLogin},
   {path:'Home' , component: HomeComponent},
   {path : 'About' , component : About},
   {path: 'Register' , component: RegisterComponent},

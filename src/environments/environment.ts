@@ -12,8 +12,7 @@ export const environment = {
     messagingSenderId: '1086960920202',
     measurementId: 'G-2M1LJF1706',
   },
-  passwordError : false,
-  noUserError : false,
+  dbUsers : 'https://test-b03cd-default-rtdb.europe-west1.firebasedatabase.app/users.json'
 };
 
 

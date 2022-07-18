@@ -16,6 +16,9 @@ import { AuthService } from './services/auth/auth.service';
 import { AccountComponent } from './components/user/account/account.component';
 import { AuthGuard } from './services/auth/auth.guard';
 import { UserService } from './services/user/user.service';
+import { AdminComponent } from './components/admin/admin.component';
+import { AdminService } from './services/admin/admin.service';
+import { AdminLogin } from './components/admin/login/login.component';
 const firebaseConfig = {
   apiKey: "AIzaSyBb5rDZjYMI5mtA9YJqt4fVfqhU8LC-7aA",
   authDomain: "test-b03cd.firebaseapp.com",
@@ -39,7 +42,8 @@ const firebaseConfig = {
     About , 
     RegisterComponent,
     LoginComponent,
-    AccountComponent
+    AccountComponent ,
+    AdminComponent , AdminLogin
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,7 @@ const firebaseConfig = {
     HttpClientModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AuthService , AuthGuard ,
-    UserService
+    UserService , AdminService
   ],
   providers: [],
   bootstrap: [AppComponent]

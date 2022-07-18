@@ -16,11 +16,11 @@ export class LoginComponent {
   passwordError: boolean = false;
   //PROBLEM : AYNI İŞİ FARKLI COMPONENTLARDA SENKRON ŞEKİLDE ÇÖZMEYE ÇALIŞIYORUZ.
   handleLogin(user: User) {
+    this.userError=false;
+    this.passwordError = false;
     this.authservice.login(user).then(() => {
         localStorage.setItem('isLoggedIn','true')
         localStorage.setItem('uid' , user.uid);
-        this.userError=false;
-        this.passwordError = false;
         this.router.navigate(['Account'])
     }).catch(error => {
         if(error.code == 'auth/user-not-found') {this.userError = true;}

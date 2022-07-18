@@ -1,0 +1,19 @@
+<body>
+<form #adminLogin = 'ngForm' (ngSubmit) = 'handleLogin(adminLogin.value);adminLogin.reset();' ngNativeValidate>
+    <div class="border-wrap">
+        <h4 class="text-center mb-1"><img src="../../../../assets/images/logo.png" alt="logo"></h4>
+    <div class="form-group">
+        <label for="mail" >E-Posta Adresi</label>
+        <input type="email" class="form-control" name="mail" required ngModel>
+    </div>
+   
+    <div class="form-group">
+        <label for="password">Şifre</label>
+        <input type="password" class="form-control" name="password" required ngModel>
+        <span *ngIf="adminPasswordError" style="color:red;">Şifreniz hatalıdır</span>
+    </div>
+    <button type="submit" class="btn">Giriş Yap</button>
+</div>
+<p *ngIf="adminExistError" style="color: red;">Böyle bir admin bulunmamaktadır.</p>
+</form>
+</body>
