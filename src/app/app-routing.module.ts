@@ -11,7 +11,7 @@ import { AdminAuthGuard , AdminLoginGuard } from './services/admin/guards/auth.g
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminLogin } from './components/admin/login/login.component';
 import { ProductActions } from './components/admin/actions/product-actions';
-
+import { Contact } from './components/pages/contact/contact';
 
 const routes: Routes = [
   {path : '' , component : HomeComponent},
@@ -20,6 +20,7 @@ const routes: Routes = [
   {path: 'AdminPaneLogin' , component : AdminLogin , canActivate : [AdminLoginGuard]},
   {path:'Home' , component: HomeComponent},
   {path : 'About' , component : About},
+  {path : 'Contact' , component: Contact},
   {path: 'Register' , component: RegisterComponent},
   {path: 'Login' , component: LoginComponent},
   {path : 'Account' , component: AccountComponent , canActivate : [UserAuthGuard]},

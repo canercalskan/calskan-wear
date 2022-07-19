@@ -1,0 +1,22 @@
+.contactForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+}
+ form {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+label {
+    margin-top: 10px;
+    margin-bottom: 3px;
+}
+
+input , textarea {
+    padding: 5px 10px;
+
+}
+

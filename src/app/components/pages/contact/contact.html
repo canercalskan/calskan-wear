@@ -1,0 +1,15 @@
+<ng-navbar></ng-navbar>
+<div class="container">
+<form #contactForm = 'ngForm' (ngSubmit)="handleContact(contactForm.value);contactForm.reset()">
+    <h2 class="text-center">İletişim</h2>
+        <label for="name" class="mt-0">İsminiz</label>
+        <input type="text" name="name" ngModel id="name" class="form-control" required>
+        <label for="mail">E-mail</label>
+        <input type="email" name="email" ngModel id="mail" class="form-control" required>
+        <small id="emailHelp" class="form-text text-muted">E-Mailiniz kimseyle paylaşılmayacaktır</small>
+        <br>
+        <label for="message">Mesajınız</label>
+        <textarea name="message" id="message" cols="20" rows="10" class="form-control" ngModel></textarea>
+        <button type="submit" class="btn btn-success mt-2">Gönder</button>
+    </form>
+</div>

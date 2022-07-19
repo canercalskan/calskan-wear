@@ -23,6 +23,7 @@ import { ItemsService } from './services/admin/items.service';
 import { AdminNavbar } from './layout/navbar/admin/navbar';
 import { ProductActions } from './components/admin/actions/product-actions';
 import { AdminAuthGuard , AdminLoginGuard} from './services/admin/guards/auth.guard';
+import { Contact } from './components/pages/contact/contact';
 
 
 const firebaseConfig = {
@@ -49,7 +50,8 @@ const firebaseConfig = {
     RegisterComponent,
     LoginComponent,
     AccountComponent ,
-    AdminComponent , AdminLogin , AdminNavbar  , ProductActions
+    AdminComponent , AdminLogin , AdminNavbar  , ProductActions,
+    Contact
   ],
   imports: [
     BrowserModule,
