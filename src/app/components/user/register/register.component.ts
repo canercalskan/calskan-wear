@@ -18,7 +18,6 @@ export class RegisterComponent {
   ) {}
   registerDone: boolean = false;
   
-  //authservice.register fonksiyonu başarıyla register olduğunda, kullanıcı authenticate olmuş şekilde oturum açmış oluyor.
   handleRegister(input: User): void {
     this.authservice.register(input).then((R) => {
       this.fireAuth.user.subscribe((r) => {

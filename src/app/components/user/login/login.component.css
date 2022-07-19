@@ -37,6 +37,16 @@ button:hover {
     background-color: rgb(136, 208, 255);;
 }
 
+#google-login {
+    border: 1px solid #F3B606;
+    padding: 10px 20px;
+    margin-left: 3px;
+}
+#google-login:hover {
+    color: white;
+    background-color: #F3B606;
+}
+
 @media (max-width : 750px) {
     .border-wrap {
         padding: 2rem 4rem;

@@ -1,0 +1,30 @@
+<admin-navbar></admin-navbar>   
+
+<!-- <div class="container">
+      <div class="card" style="width: 18rem" *ngFor="let item of fileUploads">
+        <img class="card-img-top" src="{{ item.url }}" alt="{{ item.name }}" />
+        <hr>
+        <div class="card-body">
+          <h5 class="card-title">{{item.title}}</h5>
+          <p class="card-text">
+           {{item.description}}
+          </p>
+          <p>{{item.price}}</p>
+        </div>
+      </div>
+</div> -->
+<div class="container">
+<div class="product-list">
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4" *ngFor="let item of fileUploads">
+            <div class="product-item">
+                <div class="image"><img src={{item.url}} alt={{item.name}}></div>
+                <div class="detail">
+                    <a href="#">{{item.title}}</a>
+                    <div class="price">{{item.price}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

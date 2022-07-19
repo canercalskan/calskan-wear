@@ -36,7 +36,7 @@ export class ItemsService {
   }
 
   getFiles(numberItems: number): AngularFireList<Item> {
-    return this.db.list(this.basePath, ref =>
+    return this.db.list('uploads', ref =>
       ref.limitToLast(numberItems));
   }
 

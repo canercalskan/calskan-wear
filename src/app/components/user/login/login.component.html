@@ -17,7 +17,8 @@
         <input type="checkbox" style="width:auto;" class="ms-2" name="remember" ngModel>
     </div>
     <button type="submit" class="btn">Giriş Yap</button>
-    <span><a href="Register" class="text-decoration-none ms-3">Hesap Oluştur</a></span>
+    <span (click) = 'handleGoogleLogin()' class="btn" id="google-login"><i class="bi bi-google" ></i> ile giriş</span>
+    <span><a href="Register" class="text-decoration-none ms-2">Hesap Oluştur</a></span>
 </div>
 <p *ngIf="userError" style="color: red;">Böyle bir hesap bulunmamaktadır.</p>
 </form>

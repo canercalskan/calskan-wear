@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/user/auth/auth.service';
@@ -14,7 +14,7 @@ export class LoginComponent {
   constructor(private router: Router, private authservice: AuthService) {}
   userError :boolean = false;
   passwordError: boolean = false;
-  //PROBLEM : AYNI İŞİ FARKLI COMPONENTLARDA SENKRON ŞEKİLDE ÇÖZMEYE ÇALIŞIYORUZ.
+
   handleLogin(user: User) {
     this.userError=false;
     this.passwordError = false;
@@ -27,6 +27,15 @@ export class LoginComponent {
         else if(error.code == 'auth/wrong-password') {this.passwordError = true;}
     })
   }
+
+  handleGoogleLogin() : void {
+    this.authservice.googleLogin().then((result) => {
+      console.log(result)
+    }).catch(error => {
+      alert(error.message);
+    })
+  }
+  
   handleLogOut() {
     this.authservice.logOut().then(()=> {
         localStorage.removeItem('isLoggedIn');

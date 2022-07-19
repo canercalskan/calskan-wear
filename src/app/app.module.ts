@@ -24,7 +24,7 @@ import { AdminNavbar } from './layout/navbar/admin/navbar';
 import { ProductActions } from './components/admin/actions/product-actions';
 import { AdminAuthGuard , AdminLoginGuard} from './services/admin/guards/auth.guard';
 import { Contact } from './components/pages/contact/contact';
-
+import { ProductsComponent } from './components/admin/products/products.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBb5rDZjYMI5mtA9YJqt4fVfqhU8LC-7aA",
@@ -50,8 +50,8 @@ const firebaseConfig = {
     RegisterComponent,
     LoginComponent,
     AccountComponent ,
-    AdminComponent , AdminLogin , AdminNavbar  , ProductActions,
-    Contact
+    AdminComponent , AdminLogin , AdminNavbar  , ProductActions, ProductsComponent,
+    Contact ,
   ],
   imports: [
     BrowserModule,

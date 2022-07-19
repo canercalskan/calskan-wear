@@ -12,11 +12,13 @@ import { AdminComponent } from './components/admin/admin.component';
 import { AdminLogin } from './components/admin/login/login.component';
 import { ProductActions } from './components/admin/actions/product-actions';
 import { Contact } from './components/pages/contact/contact';
+import { ProductsComponent } from './components/admin/products/products.component';
 
 const routes: Routes = [
   {path : '' , component : HomeComponent},
   {path : 'Administration' , component : AdminComponent , canActivate : [AdminAuthGuard]},
   {path : 'Administration/Actions' , component : ProductActions , canActivate : [AdminAuthGuard]},
+  {path:'Administration/Products' , component : ProductsComponent , canActivate : [AdminAuthGuard]},
   {path: 'AdminPaneLogin' , component : AdminLogin , canActivate : [AdminLoginGuard]},
   {path:'Home' , component: HomeComponent},
   {path : 'About' , component : About},
