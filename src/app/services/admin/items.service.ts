@@ -1,6 +1,7 @@
 import { Injectable, NgModule } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
+import { AngularFireDatabase, AngularFireList} from '@angular/fire/compat/database';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import {AngularFirestore} from '@angular/fire/compat/firestore'
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { Item } from '../../models/item.model';
@@ -11,7 +12,7 @@ import { Item } from '../../models/item.model';
 export class ItemsService {
   private basePath = '/uploads';
 
-  constructor(private db: AngularFireDatabase, private storage: AngularFireStorage) { }
+  constructor(private db: AngularFireDatabase, private storage: AngularFireStorage , private afs : AngularFirestore) { }
 
   pushFileToStorage(fileUpload: Item): Observable<number | undefined> {
     const filePath = `${this.basePath}/${fileUpload.file.name}`;
@@ -38,6 +39,10 @@ export class ItemsService {
   getFiles(numberItems: number): AngularFireList<Item> {
     return this.db.list('uploads', ref =>
       ref.limitToLast(numberItems));
+  }
+
+  getProduct(productKey : string) : Observable<any> {
+    return this.db.object('uploads/' + productKey).valueChanges();
   }
 
   deleteFile(fileUpload: Item): void {

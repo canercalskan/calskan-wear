@@ -13,6 +13,7 @@ import { AdminLogin } from './components/admin/login/login.component';
 import { ProductActions } from './components/admin/actions/product-actions';
 import { Contact } from './components/pages/contact/contact';
 import { ProductsComponent } from './components/admin/products/products.component';
+import { ProductDetails } from './components/admin/products/details/details.component';
 
 const routes: Routes = [
   {path : '' , component : HomeComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path : 'Administration/Actions' , component : ProductActions , canActivate : [AdminAuthGuard]},
   {path:'Administration/Products' , component : ProductsComponent , canActivate : [AdminAuthGuard]},
   {path: 'AdminPaneLogin' , component : AdminLogin , canActivate : [AdminLoginGuard]},
+  {path : 'Administration/Products/:productKey' , component : ProductDetails , canActivate : [AdminAuthGuard]},
   {path:'Home' , component: HomeComponent},
   {path : 'About' , component : About},
   {path : 'Contact' , component: Contact},
