@@ -25,7 +25,7 @@ import { ProductActions } from './components/admin/actions/product-actions';
 import { AdminAuthGuard , AdminLoginGuard} from './services/admin/guards/auth.guard';
 import { Contact } from './components/pages/contact/contact';
 import { ProductsComponent } from './components/admin/products/products.component';
-
+import { ProductDetails } from './components/admin/products/details/details.component';
 const firebaseConfig = {
   apiKey: "AIzaSyBb5rDZjYMI5mtA9YJqt4fVfqhU8LC-7aA",
   authDomain: "test-b03cd.firebaseapp.com",
@@ -37,8 +37,6 @@ const firebaseConfig = {
   measurementId: "G-2M1LJF1706"
 };
 
-// Initialize Firebase
-// const app = initializeApp(firebaseConfig);
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +49,7 @@ const firebaseConfig = {
     LoginComponent,
     AccountComponent ,
     AdminComponent , AdminLogin , AdminNavbar  , ProductActions, ProductsComponent,
-    Contact ,
+    Contact , ProductDetails
   ],
   imports: [
     BrowserModule,

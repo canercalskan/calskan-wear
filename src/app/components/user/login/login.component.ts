@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/user/auth/auth.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   templateUrl: './login.component.html',

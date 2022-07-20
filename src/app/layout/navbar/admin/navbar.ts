@@ -13,5 +13,6 @@ export class AdminNavbar{
         localStorage.removeItem('admin')
         this.fireAuth.signOut();
         this.router.navigate(['AdminPaneLogin'])
+        
     }
 }
