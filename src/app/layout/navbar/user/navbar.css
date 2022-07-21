@@ -73,7 +73,8 @@ i:hover {
     right: -50px;
     width: 50%;
     border: 1px solid black;
-    height: 120px
+    height: 120px;
+    transition: all 1s;
 }
 #account-dropdown-menu:hover {
     cursor:auto;

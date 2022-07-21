@@ -24,8 +24,10 @@ import { AdminNavbar } from './layout/navbar/admin/navbar';
 import { ProductActions } from './components/admin/actions/product-actions';
 import { AdminAuthGuard , AdminLoginGuard} from './services/admin/guards/auth.guard';
 import { Contact } from './components/pages/contact/contact';
-import { ProductsComponent } from './components/admin/products/products.component';
-import { ProductDetails } from './components/admin/products/details/details.component';
+import { ProductsComponent } from './components/pages/products/products.component';
+import { ProductDetails } from './components/pages/products/details/details.component';
+import { UserLoginGuard } from './services/user/auth/auth.guard';
+
 const firebaseConfig = {
   apiKey: "AIzaSyBb5rDZjYMI5mtA9YJqt4fVfqhU8LC-7aA",
   authDomain: "test-b03cd.firebaseapp.com",
@@ -57,7 +59,7 @@ const firebaseConfig = {
     FormsModule,
     HttpClientModule,
     AuthService , UserAuthGuard , AdminAuthGuard, AdminLoginGuard,
-    UserService , AdminService , ItemsService,
+    UserService , AdminService , ItemsService, UserLoginGuard,
     AngularFireModule.initializeApp(firebaseConfig),
   ],
   providers: [],

@@ -12,21 +12,22 @@ import { AdminComponent } from './components/admin/admin.component';
 import { AdminLogin } from './components/admin/login/login.component';
 import { ProductActions } from './components/admin/actions/product-actions';
 import { Contact } from './components/pages/contact/contact';
-import { ProductsComponent } from './components/admin/products/products.component';
-import { ProductDetails } from './components/admin/products/details/details.component';
+import { ProductsComponent } from './components/pages/products/products.component';
+import { ProductDetails } from './components/pages/products/details/details.component';
+import { UserLoginGuard } from './services/user/auth/auth.guard';
 
 const routes: Routes = [
   {path : '' , component : HomeComponent},
   {path : 'Administration' , component : AdminComponent , canActivate : [AdminAuthGuard]},
   {path : 'Administration/Actions' , component : ProductActions , canActivate : [AdminAuthGuard]},
-  {path:'Administration/Products' , component : ProductsComponent , canActivate : [AdminAuthGuard]},
+  {path:'Products' , component : ProductsComponent},
   {path: 'AdminPaneLogin' , component : AdminLogin , canActivate : [AdminLoginGuard]},
-  {path : 'Administration/Products/:productKey' , component : ProductDetails , canActivate : [AdminAuthGuard]},
+  {path : 'Products/:productKey' , component : ProductDetails},
   {path:'Home' , component: HomeComponent},
   {path : 'About' , component : About},
   {path : 'Contact' , component: Contact},
-  {path: 'Register' , component: RegisterComponent},
-  {path: 'Login' , component: LoginComponent},
+  {path: 'Register' , component: RegisterComponent , canActivate : [UserLoginGuard]},
+  {path: 'Login' , component: LoginComponent , canActivate : [UserLoginGuard]},
   {path : 'Account' , component: AccountComponent , canActivate : [UserAuthGuard]},
   {path: '**' , component: NotFoundComponent},
 ];

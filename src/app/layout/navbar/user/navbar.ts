@@ -13,6 +13,11 @@ export class Navbar {
     loginComp = new LoginComponent(this.router, this.AuthService)
     constructor(private router : Router , private AuthService : AuthService){}
     cartItems : Array<Item> = [];
+
+    loginStatus () {
+        if(localStorage.getItem('isLoggedIn') == 'true') {return true}
+        else {return false};
+    }
     
     logout():void {
         localStorage.removeItem('isLoggedIn')

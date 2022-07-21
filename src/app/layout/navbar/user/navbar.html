@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item active dropdown">
-                <a class="nav-link text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link text-dark" [routerLink]="['/Products']" routerLinkActive="router-link-active"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     SWEATSHIRT
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -24,13 +24,13 @@
                   </div>
             </li>
             <li class="nav-item active">
-              <a class="nav-link text-dark" href="#">T-SHIRT</a>
+              <a class="nav-link text-dark" [routerLink]="['/Products']" routerLinkActive="router-link-active">T-SHIRT</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link text-dark" href="#">PANTOLON</a>
+              <a class="nav-link text-dark" [routerLink]="['/Products']" routerLinkActive="router-link-active">PANTOLON</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link text-dark" href="#">EŞOFMAN</a>
+              <a class="nav-link text-dark" [routerLink]="['/Products']" routerLinkActive="router-link-active">EŞOFMAN</a>
             </li>
             <li class="nav-item active">
               <a href="About" class="nav-link text-dark">HAKKIMIZDA</a>
@@ -40,7 +40,7 @@
         <div class="float-end">  
           <i class="bi bi-person fs-2 mb-4 dropdown p-2 me-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="accountDropdown">
             <div class="dropdown-menu" id="account-dropdown-menu" aria-labelledby="navbarDropdown">
-              <ul class="list-unstyled">
+              <ul class="list-unstyled" *ngIf="!loginStatus()">
                 <li>
                   <a class="dropdown-item text-center bg-dark" [routerLink]="['/Login']" >
                    <span style="font-style:normal; color: white;">Giriş Yap</span>
@@ -51,9 +51,26 @@
                     <span style="font-style:normal;">Üye Ol</span>
                 </a>
                 </li>
-                <li style="background-color: orange;">
+                <li style="background-color: white;">
                   <a class="dropdown-item text-center" style="background-color: orange;" (click) = 'googleLogin()' href="#">
                     <span style="font-style:normal; color:white; text-align: center;"><i class="bi bi-google" style="color: white;"></i> Google ile Giriş</span>
+                </a>
+                </li>
+              </ul>
+              <ul class="list-unstyled" *ngIf="loginStatus()">
+                <li>
+                  <a class="dropdown-item text-center bg-dark" [routerLink]="['/Account']" >
+                   <span style="font-style:normal; color: white;">Hesabım</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item bg-white" style="border: 1px solid grey;" [routerLink]="['/Register']" >
+                    <span style="font-style:normal;">Siparişlerim</span>
+                </a>
+                </li>
+                <li style="background-color: white;">
+                  <a class="dropdown-item text-center" style="background-color: red;" (click) = 'logout()' href="#">
+                    <span style="font-style:normal; color:white; text-align: center;">Çıkış Yap</span>
                 </a>
                 </li>
               </ul>

@@ -29,7 +29,7 @@ export class LoginComponent {
 
   handleGoogleLogin() : void {
     this.authservice.googleLogin().then((result) => {
-      console.log(result)
+      localStorage.setItem('isLoggedIn' , 'true')
     }).catch(error => {
       alert(error.message);
     })
