@@ -1,8 +1,9 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/user/auth/auth.service";
-import {LoginComponent } from 'src/app/components/user/login/login.component'
+import { LoginComponent } from 'src/app/components/user/login/login.component'
 import { Item } from "src/app/models/item.model";
+import { AngularFireAuth } from "@angular/fire/compat/auth"; 
 
 @Component({
     selector:'ng-navbar',
@@ -10,12 +11,18 @@ import { Item } from "src/app/models/item.model";
     templateUrl : './navbar.html'
 })
 export class Navbar {
+    userName! : string
     loginComp = new LoginComponent(this.router, this.AuthService)
-    constructor(private router : Router , private AuthService : AuthService){}
+    constructor(private router : Router , private AuthService : AuthService , private fireAuth : AngularFireAuth){
+        this.fireAuth.user.subscribe(u => {
+            this.userName = u?.displayName!
+        })
+    }
     cartItems : Array<Item> = [];
-
     loginStatus () {
-        if(localStorage.getItem('isLoggedIn') == 'true') {return true}
+        if(localStorage.getItem('isLoggedIn') == 'true') {
+            return true
+        }
         else {return false};
     }
     

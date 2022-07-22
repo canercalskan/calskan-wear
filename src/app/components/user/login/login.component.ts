@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/user/auth/auth.service';
-
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 @Component({
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
@@ -10,16 +10,14 @@ import { AuthService } from 'src/app/services/user/auth/auth.service';
 })
 
 export class LoginComponent {
-  constructor(private router: Router, private authservice: AuthService) {}
+  constructor(private router: Router, private authservice: AuthService ) {}
   userError :boolean = false;
   passwordError: boolean = false;
-
   handleLogin(user: User) {
     this.userError=false;
     this.passwordError = false;
     this.authservice.login(user).then(() => {
         localStorage.setItem('isLoggedIn','true')
-        localStorage.setItem('uid' , user.uid);
         this.router.navigate(['Account'])
     }).catch(error => {
         if(error.code == 'auth/user-not-found') {this.userError = true;}

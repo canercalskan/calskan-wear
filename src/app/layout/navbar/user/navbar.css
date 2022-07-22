@@ -51,6 +51,10 @@ i:hover {
     padding:0 18px 0 12px;
     cursor:pointer;
 }
+
+#nav-username {
+    text-transform: capitalize;
+}
   
 #cart-count {
     display: inline;

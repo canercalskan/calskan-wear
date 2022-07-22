@@ -27,7 +27,8 @@ export class AuthService {
   }
 
   register(user: User) : Promise<void> {
-    return this.fireAuth.createUserWithEmailAndPassword(user.mail,user.password).then()
+    return this.fireAuth.createUserWithEmailAndPassword(user.mail,user.password).then(response => {
+      response.user!.updateProfile({displayName : user.name + ' ' + user.surname})}).then();
   }
 
   googleLogin() {
