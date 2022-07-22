@@ -36,6 +36,10 @@
     justify-content: space-evenly;
 }
 
+.card-actions i {
+    font-size: large;
+}
+
 .card-actions i:hover {
     cursor: pointer;
 }

@@ -3,15 +3,19 @@ import { ItemsService } from 'src/app/services/admin/items.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Item } from 'src/app/models/item.model';
+import { Navbar } from 'src/app/layout/navbar/user/navbar';
+import { UserService } from 'src/app/services/user/user.service';
 @Component({
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
   selector: 'products',
 })
 export class ProductsComponent implements OnInit {
+  cardItems : Item[] = [];
   fileUploads?: any[];
   productId? : number;
-  constructor(private ItemService: ItemsService , private route : ActivatedRoute) {}
+  navbar? : Navbar;
+  constructor(private ItemService: ItemsService , private route : ActivatedRoute , private UserService : UserService) {}
   ngOnInit(): void {
     this.ItemService.getFiles(6)
       .snapshotChanges()
@@ -26,7 +30,7 @@ export class ProductsComponent implements OnInit {
   }
 
   addToCard(item:Item) : void {
-    console.log(item)
+    this.UserService.addToCart(item);
   }
 }
 
