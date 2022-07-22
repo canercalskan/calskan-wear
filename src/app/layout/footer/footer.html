@@ -1,7 +1,14 @@
-<div class="footer-info w-100 text-center bg-light">
-   <a href="https://www.linkedin.com/in/caner-eren-%C3%A7al%C4%B1%C5%9Fkan-7a16a61a9/" target="_blank" style="color:rgb(69, 69, 239);">Caner Eren Çalışkan</a> tarafından hazırlanmıştır.
-</div>
-<div class="empty">
+<br><br><br>
+<div class="footer-info w-100 text-center" style="background-color:rgb(236, 246, 255);">
+    <div class="e-bulten">
+        <form #subscribe = 'ngForm' (ngSubmit) = 'handleSubscribe(subscribe.value); subscribe.reset();'>
+            <h3>E-Bülten</h3>
+            <p>İndirim, kampanya ve duyurulardan haberdar olmak için e-bültene abone olun.</p>
+            <input type="email" class="p-1"  placeholder="E-mail adresiniz" ngModel name="email">
+            <button class="btn text-white" type="submit">KAYDOL</button>
+        </form>
+    </div>
+   <a href="https://www.linkedin.com/in/caner-eren-%C3%A7al%C4%B1%C5%9Fkan-7a16a61a9/" target="_blank" style="color:rgb(69, 69, 239);">Caner Eren Çalışkan</a> tarafından geliştirilmiştir.
 </div>
     <ul class="list">
         <li class=" d-inline-block">

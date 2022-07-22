@@ -2,13 +2,9 @@
     scroll-behavior: smooth;
 }
 
-#footer-navbar {
-    display: none;
-    position: fixed;
+.footer-info {
+    position:absolute;
     bottom: 0;
-}
-#footer-navbar ul {
-    margin-bottom: 0;
 }
 
 .list {
@@ -21,6 +17,21 @@
     padding: 0;
     display: flex;
     justify-content: space-evenly;
+}
+
+.e-bulten {
+    padding: 1rem;
+    background-color: rgb(41, 41, 41);
+    color: white;
+}
+.e-bulten button {
+    background-color: #A1480B;
+    margin-bottom: 2px;
+}
+
+.contact {
+    background-color: #FA7355;
+    padding: 10px;
 }
 
 a {
@@ -39,6 +50,7 @@ a i:hover {
 @media (max-width : 767px) {
     .list {
         visibility: visible;
+        bottom: 190px;
     }
     .empty {
         height: 92px;

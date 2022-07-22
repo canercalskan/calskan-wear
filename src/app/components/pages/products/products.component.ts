@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ItemsService } from 'src/app/services/admin/items.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import { Item } from 'src/app/models/item.model';
 @Component({
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
@@ -22,17 +23,10 @@ export class ProductsComponent implements OnInit {
       .subscribe((fileUploads) => {
         this.fileUploads = fileUploads;
       });
-      // this.route.params.subscribe(params => {
-      //   this.productId = params['productId'];
-      // })
+  }
+
+  addToCard(item:Item) : void {
+    console.log(item)
   }
 }
-// constructor( private hospitalService: HospitalService, private route: ActivatedRoute ) // lets say you get the hospital info from the hospitalService via a get
-// ngOnInit(){
-//   this.route.params.subscribe(params => {
-//       this.hospitalId = params.hospitalId
-//       this.hospitalService.getHospital(this.hospitalId).subscribe( hospital => {
-//        this.hospital = hospital
-//       }
-//   }
-// }
+

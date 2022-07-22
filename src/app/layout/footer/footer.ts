@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { retry } from "rxjs";
+import { AngularFireDatabase } from "@angular/fire/compat/database";
 
 @Component({
     styleUrls: ['./footer.css'],
@@ -8,6 +8,7 @@ import { retry } from "rxjs";
 })
 
 export class Footer {
+    constructor(private db : AngularFireDatabase) {}
     loginStatus() : boolean{
         if(localStorage.getItem('isLoggedIn') == 'true') {
             return true;
@@ -15,5 +16,8 @@ export class Footer {
         else {
             return false;
         }
+    }
+    handleSubscribe(mail : string) : void {
+        this.db.list('subscribers').push(mail);
     }
 }
