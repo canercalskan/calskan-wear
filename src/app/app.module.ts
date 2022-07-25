@@ -29,6 +29,7 @@ import { ProductDetails } from './components/pages/products/details/details.comp
 import { UserLoginGuard } from './services/user/auth/auth.guard';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { TicketsComponent } from './components/pages/tickets/tickets.component';
+import { MailComponent } from './components/pages/mail/mail.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBb5rDZjYMI5mtA9YJqt4fVfqhU8LC-7aA",
@@ -53,7 +54,7 @@ const firebaseConfig = {
     LoginComponent,
     AccountComponent ,
     AdminComponent , AdminLogin , AdminNavbar  , ProductActions, ProductsComponent,
-    Contact , ProductDetails , TicketsComponent
+    Contact , ProductDetails , TicketsComponent , MailComponent
   ],
   imports: [
     BrowserModule,

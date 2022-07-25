@@ -16,7 +16,7 @@ import { ProductsComponent } from './components/pages/products/products.componen
 import { ProductDetails } from './components/pages/products/details/details.component';
 import { UserLoginGuard } from './services/user/auth/auth.guard';
 import { TicketsComponent } from './components/pages/tickets/tickets.component';
-
+import { MailComponent } from './components/pages/mail/mail.component';
 const routes: Routes = [
   {path : '' , component : HomeComponent},
   {path : 'Administration' , component : AdminComponent , canActivate : [AdminAuthGuard]},
@@ -31,6 +31,7 @@ const routes: Routes = [
   {path: 'Login' , component: LoginComponent , canActivate : [UserLoginGuard]},
   {path : 'Account' , component: AccountComponent , canActivate : [UserAuthGuard]},
   {path: 'Administration/Tickets' , component : TicketsComponent , canActivate : [AdminAuthGuard]},
+  {path: 'Administration/Mail' , component: MailComponent, canActivate : [AdminAuthGuard]},
   {path: '**' , component: NotFoundComponent},
 ];
 

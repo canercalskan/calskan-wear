@@ -14,7 +14,10 @@ export class AdminService {
     getTickets(): AngularFireList<Ticket> {
         return this.db.list('contacts');
       }
-      deleteTicket(key: string) : Promise<void> {
+    deleteTicket(key: string) : Promise<void> {
         return this.db.list('contacts').remove(key);
+      }
+      getMailList() : AngularFireList<string> {
+        return this.db.list('subscribers')
       }
 }

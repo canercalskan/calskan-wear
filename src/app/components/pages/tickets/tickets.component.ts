@@ -11,6 +11,7 @@ import { map } from "rxjs";
 export class TicketsComponent implements OnInit{
     constructor(private AdminService : AdminService){}
     tickets! : any[];
+    count = 0;
     ngOnInit(): void {
         this.AdminService.getTickets()
         .snapshotChanges()

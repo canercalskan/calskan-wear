@@ -1,0 +1,6 @@
+#mail-box {
+    width: 300px;
+    height: 400px;
+    border: 0.0001px solid rgb(184, 184, 184);
+    overflow: scroll;
+}

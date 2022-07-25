@@ -1,0 +1,8 @@
+<admin-navbar></admin-navbar>
+<h2 class="text-center">Aboneler</h2>
+<div class="container" id="mail-box">
+    <p *ngFor="let mail of mailList">
+        {{mail.email}}
+    </p>
+</div>
+<button class="btn btn-primary">Mail Gönder</button>

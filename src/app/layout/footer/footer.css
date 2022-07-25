@@ -15,6 +15,7 @@
     width: 100%;
     margin: 0;
     padding: 0;
+    padding-top: 5px;
     display: flex;
     justify-content: space-evenly;
 }
@@ -45,6 +46,21 @@ a i {
 
 a i:hover {
     color: rgb(169, 69, 69);
+}
+
+#cart-count-footer {
+    display: inline;
+    position: relative;
+    top: -20px;
+    color: rgb(158, 85, 85);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-decoration: none;
+    text-transform: none;
+    font-style: normal;
+    font-size: 20px;
+    width: 15px;
+    height: 15px;
+    text-align: center;
 }
 
 @media (max-width : 767px) {

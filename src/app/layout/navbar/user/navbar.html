@@ -95,7 +95,7 @@
                   <i class="bi bi-x-lg" style="position: absolute; right:0;" (click) = 'removeItem(item)'></i>
                 </li>
               </ul>
-              <div class="cart-actions">
+              <div *ngIf="cartItems.length > 0" class="cart-actions">
                 <button class="btn w-100 text-white p-2" style="background-color: #353535 ; font-size: small;">SEPETİ GÖRÜNTÜLE</button>
                 <button class="btn w-100 text-dark p-2 mt-2" style="background-color: #F0CB00; font-size: small;">ALIŞVERİŞİ TAMAMLA</button>
               </div>
