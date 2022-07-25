@@ -5,6 +5,7 @@ import { User } from "src/app/models/user.model";
 import { environment } from "src/environments/environment";
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Item } from "src/app/models/item.model";
+import { Ticket } from "src/app/models/ticket.model";
 
 @NgModule()
 @Injectable({providedIn:'root'})
@@ -15,8 +16,8 @@ export class UserService {
     registerUser(user : User) : Observable<User> {
         return this.http.post<User>(environment.dbUsers , user)
     }
-    contact(form : object) : void {
-         this.db.list('contacts').push(form)
+    contact(form : Ticket) {
+        this.db.list('contacts').push(form);
     }
     addToCart(item:Item) {
         // if(this.cartItems.find(i => i.key == item.key)) {

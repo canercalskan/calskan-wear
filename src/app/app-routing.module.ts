@@ -15,6 +15,7 @@ import { Contact } from './components/pages/contact/contact';
 import { ProductsComponent } from './components/pages/products/products.component';
 import { ProductDetails } from './components/pages/products/details/details.component';
 import { UserLoginGuard } from './services/user/auth/auth.guard';
+import { TicketsComponent } from './components/pages/tickets/tickets.component';
 
 const routes: Routes = [
   {path : '' , component : HomeComponent},
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path: 'Register' , component: RegisterComponent , canActivate : [UserLoginGuard]},
   {path: 'Login' , component: LoginComponent , canActivate : [UserLoginGuard]},
   {path : 'Account' , component: AccountComponent , canActivate : [UserAuthGuard]},
+  {path: 'Administration/Tickets' , component : TicketsComponent , canActivate : [AdminAuthGuard]},
   {path: '**' , component: NotFoundComponent},
 ];
 

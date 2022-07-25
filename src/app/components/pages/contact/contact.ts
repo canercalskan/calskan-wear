@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Ticket } from "src/app/models/ticket.model";
 import { UserService } from "src/app/services/user/user.service";
 @Component({
     templateUrl : './contact.html',
@@ -8,8 +9,7 @@ import { UserService } from "src/app/services/user/user.service";
 
 export class Contact {
     constructor(private UserService : UserService){}
-    handleContact(form : object) : void {
-        console.log(form)
-       this.UserService.contact(form)
+    handleContact(form : Ticket) : void {
+        this.UserService.contact(form)
     }
 }
