@@ -27,6 +27,7 @@ import { Contact } from './components/pages/contact/contact';
 import { ProductsComponent } from './components/pages/products/products.component';
 import { ProductDetails } from './components/pages/products/details/details.component';
 import { UserLoginGuard } from './services/user/auth/auth.guard';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBb5rDZjYMI5mtA9YJqt4fVfqhU8LC-7aA",
@@ -61,6 +62,7 @@ const firebaseConfig = {
     AuthService , UserAuthGuard , AdminAuthGuard, AdminLoginGuard,
     UserService , AdminService , ItemsService, UserLoginGuard,
     AngularFireModule.initializeApp(firebaseConfig),
+    SweetAlert2Module.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
