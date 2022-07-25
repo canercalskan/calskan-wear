@@ -20,4 +20,9 @@ export class Footer {
     handleSubscribe(mail : string) : void {
         this.db.list('subscribers').push(mail);
     }
+
+    showCart() : void {
+        let cart = document.getElementById('cart-dropdown')!;
+        cart.style.right = '0';
+    }
 }

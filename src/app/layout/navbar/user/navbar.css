@@ -39,6 +39,19 @@ i:hover {
     margin-left: -5rem;
  }
 
+ #cart-dropdown {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: -18rem;
+    transition: all .6s;
+    height: 100vh;
+    padding: 10px;
+    width: 270px;
+    overflow: scroll;
+ }
+
  #brand-md {
     max-width: 150px;
     max-height: 200px;
@@ -105,11 +118,19 @@ i:hover {
     display: block;
     text-align: center;
     background-color: #dedede;
-    /* padding: 6px 8px 5px; */
     font-size: 12px;
     color: #000;
-    /* line-height: 17px; */
     text-transform: uppercase;
+}
+
+.collapse {
+    text-align: center;
+    transition: all .5s;
+}
+
+.delete-item:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
 
  @media (max-width : 1000px) {
@@ -143,6 +164,17 @@ i:hover {
   position: relative;
   border-radius: 3px;
   padding: 20px;
+  height: 100vh;
+}
+
+.cart-actions {
+    /* position: fixed; */
+    bottom: 0;
+    font-size: small;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
   
  @media (max-width : 1120px) {

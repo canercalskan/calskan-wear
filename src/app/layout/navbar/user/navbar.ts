@@ -14,6 +14,8 @@ import { UserService } from "src/app/services/user/user.service";
 })
 export class Navbar {
     userName! : string
+    collapseShown : boolean = false;
+    itemQuantity : number = 1;
     loginComp = new LoginComponent(this.router, this.AuthService)
     constructor(private router : Router , private AuthService : AuthService , private fireAuth : AngularFireAuth , private UserService : UserService){
         this.fireAuth.user.subscribe(u => {
@@ -21,6 +23,7 @@ export class Navbar {
         })
     }
     productsComp! : ProductsComponent;
+    f!  : File
     cartItems : Array<Item> = [];
     loginStatus () {
         this.cartItems = this.UserService.getCartItems();
@@ -36,5 +39,30 @@ export class Navbar {
     }
     googleLogin():void{
         this.loginComp.handleGoogleLogin()
+    }
+
+    showCart() : void {
+        let cart = document.getElementById('cart-dropdown')!;
+        cart.style.right = '0';
+    }
+
+    hideCart() : void{
+        let cart = document.getElementById('cart-dropdown')!;
+        cart.style.right = '-18rem'
+    }
+    showCollapse() : void {
+        let collapse = document.getElementById('navbarNav')!;
+        if(!this.collapseShown) {
+            collapse.style.display = 'block';
+            this.collapseShown = true;
+        }
+        else if(this.collapseShown) {
+            collapse.style.display = 'none';
+            this.collapseShown = false;
+        }
+    }
+
+    removeItem(item:Item) : void {
+        this.UserService.removeFromCart(item);
     }
 }

@@ -3,7 +3,7 @@
         <a class="navbar-brand" href="..">
             <img src="../../../assets/images/logo.png" alt="calskanlogo">
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" (click) = 'showCollapse()'>
           <span class="navbar-toggler-icon"></span>
         </button>
         <img src="../../../assets/images/logo.png" alt="calskanlogo" id="brand-md">
@@ -77,7 +77,29 @@
               </ul>
             </div>
           </i>
-            <i class="bi bi-cart2 fs-2 mb-4 "><div id="cart-count">{{cartItems.length}}</div></i> 
+
+            <i class="bi bi-cart2 fs-2 mb-4" id="cart-image" (click) = 'showCart()'><div id="cart-count">{{cartItems.length}}</div></i> 
+            <div class="dropdown-menu" id="cart-dropdown" aria-labelledby="navbarDropdown">
+              <div style="justify-content:space-between; display: flex;"><span class="fw-bold">SEPET</span> <span><i class="bi bi-x-lg m-0 p-0 text-danger" (click) = 'hideCart()'></i></span></div>
+              <hr>
+              <p *ngIf="cartItems.length == 0" class="text-center">Sepette ürün yok</p>
+              <ul class="list-unstyled">
+                <li *ngFor="let item of cartItems" class="mt-4 d-flex">
+                  <img src={{item.url}} alt={{item.name}} style="width:50px ; height: 70px;">
+                  <div style ="justify-content: center;">
+                    <a href="#" class="bg-white ms-2" style="font-size:10px ;">{{item.title}}</a>
+                    <p class="ms-2" style="color:grey; font-size: small;">Adet : {{itemQuantity}}</p>
+                    <p class="ms-2" style="color:grey; font-size: small; margin-top: -10px;">Beden : L</p>
+                    <p class="fw-bold ms-2" style="font-size:13px ;">{{item.price}}</p>
+                  </div>
+                  <i class="bi bi-x-lg" style="position: absolute; right:0;" (click) = 'removeItem(item)'></i>
+                </li>
+              </ul>
+              <div class="cart-actions">
+                <button class="btn w-75 text-white p-2" style="background-color: #353535 ; ">SEPETİ GÖRÜNTÜLE</button>
+                <button class="btn w-75 text-dark p-2 mt-2" style="background-color: #F0CB00; ">ALIŞVERİŞİ TAMAMLA</button>
+              </div>
+            </div>
         </div>
       </nav>
 </div>

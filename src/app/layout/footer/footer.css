@@ -10,7 +10,7 @@
 .list {
     visibility: hidden;
     position: fixed;
-    background-color: rgba(255, 255, 255, 0.497);
+    background-color: rgba(255, 255, 255, 0.77);
     bottom: 0;
     width: 100%;
     margin: 0;
@@ -50,7 +50,7 @@ a i:hover {
 @media (max-width : 767px) {
     .list {
         visibility: visible;
-        bottom: 190px;
+        bottom: 0;
     }
     .empty {
         height: 92px;

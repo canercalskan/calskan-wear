@@ -5,6 +5,7 @@ import { User } from "src/app/models/user.model";
 import { environment } from "src/environments/environment";
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Item } from "src/app/models/item.model";
+
 @NgModule()
 @Injectable({providedIn:'root'})
 
@@ -18,7 +19,14 @@ export class UserService {
          this.db.list('contacts').push(form)
     }
     addToCart(item:Item) {
-        this.cartItems.push(item)
+        // if(this.cartItems.find(i => i.key == item.key)) {
+        //     alert('Ürün zaten sepete eklendi')
+        //     return;
+        // }
+         this.cartItems.push(item)
+    }
+    removeFromCart(item:Item) : void {
+        this.cartItems = this.cartItems.filter(items => items.key != item.key)
     }
 
     getCartItems() : Item[] {
