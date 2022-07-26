@@ -86,7 +86,7 @@
                   <img src={{item.url}} alt={{item.name}} style="width:50px ; height: 70px;">
                   <div style ="justify-content: center;">
                     <a href="#" class="bg-white ms-1" style="font-size:10px ;">{{item.title}}</a>
-                    <p class="ms-2" style="color:grey; font-size: small;">Adet : {{itemQuantity}}</p>
+                    <p class="ms-2" style="color:grey; font-size: small;">Adet : {{item.quantity}}</p>
                     <p class="ms-2" style="color:grey; font-size: small; margin-top: -10px;">Beden : L</p>
                     <p class="fw-bold ms-2" style="font-size:13px ;">{{item.price}} ₺</p>
                   </div>
@@ -97,7 +97,7 @@
               <div class="cart-actions" *ngIf="cartItems.length > 0">
                 <p class="text-center">Toplam : {{cartTotal}} ₺</p>
                 <button class="btn w-100 text-white p-2" style="background-color: #353535 ; font-size: small;">SEPETİ GÖRÜNTÜLE</button>
-                <button [routerLink]="['../Checkout']" routerLinkActive="router-link-active"  class="btn w-100 text-dark p-2 mt-2" style="background-color: #F0CB00; font-size: small;">ALIŞVERİŞİ TAMAMLA</button>
+                <button class="btn w-100 text-dark p-2 mt-2" style="background-color: #F0CB00; font-size: small;" (click) = 'checkout()'>ALIŞVERİŞİ TAMAMLA</button>
               </div>
             </div>
         </div>

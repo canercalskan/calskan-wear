@@ -1,20 +1,30 @@
 <ng-navbar></ng-navbar>
-<div class="container wrapper">
-    <ul></ul>
-    <div class="products">
-        <ul class="list-unstyled">
-            <li *ngFor="let item of items" class="mt-4 d-flex">
-                <img src={{item.url}} alt={{item.name}} style="width:200px ; height: 150px;">
-                <div style ="justify-content: center;">
-                  <a href="#" class="bg-white ms-1">{{item.title}}</a>
-                  <p class="ms-2" style="color:grey;">Adet : 1</p>
-                  <p class="ms-2" style="color:grey; font-size: small; margin-top: -10px">Beden : L</p>
-                  <p class="fw-bold ms-2" style="font-size:13px ;">{{item.price}} ₺</p>
-                </div>
-              </li>
-        </ul>
-    </div>
+
+<ul class="list-unstyled sections" >
+    <li>Özet</li>
+    <li>Kargo</li>
+    <li>Ödeme</li>
+    <li>Onay</li>
+</ul>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-8">
+            <div class="products">
+                <ul class="list-unstyled">
+                    <li *ngFor="let item of items" class="mt-4 d-flex">
+                        <img src={{item.url}} alt={{item.name}} style="width:200px ; height: 150px;">
+                        <div style ="justify-content: center;">
+                          <a href="#" class="bg-white ms-1">{{item.title}}</a>
+                          <p class="ms-2" style="color:grey;">Adet : 1</p>
+                          <p class="ms-2" style="color:grey; font-size: small; margin-top: -10px">Beden : L</p>
+                          <p class="fw-bold ms-2" style="font-size:13px ;">{{item.price}} ₺</p>
+                        </div>
+                      </li>
+                </ul>
+            </div>
+        </div>
     <div class="ozet"></div>
+</div>
 </div>
 
 <!-- <footer></footer>  -->

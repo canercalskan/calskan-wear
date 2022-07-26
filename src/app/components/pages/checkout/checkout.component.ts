@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { Item } from "src/app/models/item.model";
 @Component({
     styleUrls : ['./checkout.component.css'],

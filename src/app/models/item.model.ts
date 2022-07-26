@@ -5,8 +5,8 @@ export class Item {
     title!: string;
     description!: string;
     price!:number;
+    quantity : number = 1;
     file: File;
-  
     constructor(file: File) {
       this.file = file;
     }

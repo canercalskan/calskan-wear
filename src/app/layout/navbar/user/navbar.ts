@@ -6,6 +6,7 @@ import { Item } from "src/app/models/item.model";
 import { AngularFireAuth } from "@angular/fire/compat/auth"; 
 import { ProductsComponent } from "src/app/components/pages/products/products.component";
 import { UserService } from "src/app/services/user/user.service";
+import Swal from "sweetalert2";
 
 @Component({
     selector:'ng-navbar',
@@ -35,11 +36,11 @@ export class Navbar {
         else {return false};
     }
     
-    logout():void {
+    logout() : void {
         localStorage.removeItem('isLoggedIn')
         this.router.navigate([this.router.url]);
     }
-    googleLogin():void{
+    googleLogin() : void{
         this.loginComp.handleGoogleLogin()
     }
 
@@ -65,5 +66,10 @@ export class Navbar {
     }
     removeItem(item:Item) : void {
         this.UserService.removeFromCart(item);
+    }
+
+    checkout() : void {
+        this.UserService.pay(this.cartItems , this.cartTotal);
+        Swal.fire('Sipariş Verildi!' , 'Ürünleriniz hazırlanmaya başladı, siparişiniz için teşekkürler.' , 'success')
     }
 }

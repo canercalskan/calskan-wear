@@ -1,1 +1,24 @@
 <admin-navbar></admin-navbar>
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Kullanıcı</th>
+        <th scope="col">Ürün</th>
+        <th scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orderList">        
+        <td>
+            {{order.user}}
+        </td>
+        <td>
+            <p *ngFor="let item of order.items">
+                <a href="../Products/{{item.key}}" target="_blank">{{item.title}}</a>
+            </p>
+        </td>
+        <td style="max-width:100px ;">{{order.total}}</td>
+      </tr>
+    </tbody>
+  </table>
