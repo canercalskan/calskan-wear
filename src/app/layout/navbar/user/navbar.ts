@@ -70,6 +70,8 @@ export class Navbar {
 
     checkout() : void {
         this.UserService.pay(this.cartItems , this.cartTotal);
+        localStorage.removeItem('cartItems');
+        localStorage.removeItem('cartTotal');
         Swal.fire('Sipariş Verildi!' , 'Ürünleriniz hazırlanmaya başladı, siparişiniz için teşekkürler.' , 'success')
     }
 }

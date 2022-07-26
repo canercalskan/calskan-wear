@@ -11,12 +11,11 @@
     width: 500px;
     height: auto;
     padding: 1rem;
-    display: flex;
+    /* display: flex; */
 }
 
 .ozet {
     border: 1px solid grey;
-    
     padding: 1.6rem;
 }
 .sections {

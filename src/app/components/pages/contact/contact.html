@@ -2,9 +2,11 @@
 <form #contactForm = 'ngForm' (ngSubmit)="handleContact(contactForm.value);contactForm.reset()" ngNativeValidate>
     <h2 class="text-center">İletişim</h2>
         <label for="name" class="mt-0">İsminiz</label>
-        <input type="text" name="name" ngModel id="name" class="form-control" required>
+        <input type="text" name="name" ngModel id="name" class="form-control" required *ngIf="!loggedIn">
+        <input type="text" *ngIf="loggedIn" name="name" ngModel id="name" class="form-control" required value={{userName}}>
         <label for="mail">E-mail</label>
-        <input type="email" name="email" ngModel id="mail" class="form-control" required>
+        <input type="email" name="email" ngModel id="mail" class="form-control" required *ngIf="!loggedIn">
+        <input type="email" name="email" ngModel id="mail" class="form-control" required *ngIf="loggedIn" value={{userMail}}>
         <small id="emailHelp" class="form-text text-muted">E-Mailiniz kimseyle paylaşılmayacaktır</small>
         <br>
         <label for="message">Mesajınız</label>
