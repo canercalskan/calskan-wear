@@ -5,11 +5,13 @@ import { ActivatedRoute } from '@angular/router';
 import { Item } from 'src/app/models/item.model';
 import { Navbar } from 'src/app/layout/navbar/user/navbar';
 import { UserService } from 'src/app/services/user/user.service';
+
 @Component({
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
   selector: 'products',
 })
+
 export class ProductsComponent implements OnInit {
   cardItems : Item[] = [];
   fileUploads?: any[];

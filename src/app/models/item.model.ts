@@ -4,7 +4,7 @@ export class Item {
     url!: string;
     title!: string;
     description!: string;
-    price!:string;
+    price!:number;
     file: File;
   
     constructor(file: File) {

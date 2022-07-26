@@ -21,7 +21,8 @@
             <p>Yeni Gelenler</p>
         </li>
         <li class=" d-inline-block" (click) = 'showCart()'>
-            <a><i class="bi bi-cart fs-1 ps-1"></i> <div id="cart-count-footer">{{cartItems.length}}</div></a>
+            <a><i class="bi bi-cart fs-1 ps-1"></i> </a>
+                        <!-- <div id="cart-count-footer">{{cartItems.length}}</div> -->
             <div>Sepet</div>
         </li>
         <li *ngIf="!loginStatus()" class=" d-inline-block">

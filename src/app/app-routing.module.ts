@@ -17,6 +17,8 @@ import { ProductDetails } from './components/pages/products/details/details.comp
 import { UserLoginGuard } from './services/user/auth/auth.guard';
 import { TicketsComponent } from './components/pages/tickets/tickets.component';
 import { MailComponent } from './components/pages/mail/mail.component';
+import { OrdersComponent } from './components/pages/orders/orders.component';
+import { CheckoutComponent } from './components/pages/checkout/checkout.component';
 const routes: Routes = [
   {path : '' , component : HomeComponent},
   {path : 'Administration' , component : AdminComponent , canActivate : [AdminAuthGuard]},
@@ -32,6 +34,8 @@ const routes: Routes = [
   {path : 'Account' , component: AccountComponent , canActivate : [UserAuthGuard]},
   {path: 'Administration/Tickets' , component : TicketsComponent , canActivate : [AdminAuthGuard]},
   {path: 'Administration/Mail' , component: MailComponent, canActivate : [AdminAuthGuard]},
+  {path : 'Administration/Orders' , component : OrdersComponent, canActivate : [AdminAuthGuard]},
+  {path : 'Checkout' , component: CheckoutComponent},
   {path: '**' , component: NotFoundComponent},
 ];
 

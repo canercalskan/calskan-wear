@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { Ticket } from "src/app/models/ticket.model";
 import { AdminService } from "src/app/services/admin/admin.service";
 import { map } from "rxjs";
+import Swal from "sweetalert2";
+
 @Component({
     styleUrls : ['./tickets.component.css'],
     templateUrl : './tickets.component.html',
@@ -24,8 +26,13 @@ export class TicketsComponent implements OnInit{
           this.tickets = tickets;
         });
     }
+
     deleteTicket(ticket : Ticket) {
-        console.log(ticket.key)
-        this.AdminService.deleteTicket(ticket.key).then(() => {alert('Silindi')}).catch(err => {alert(err)})
+      Swal.fire('Emin Misiniz?','Ticket silindikten sonra geri kurtarılamaz', 'warning').then((willDelete) => {
+        if(willDelete) {
+          Swal.fire('Ticket Silindi' , '', 'success')
+          this.AdminService.deleteTicket(ticket.key);
+        }
+      })
     }
 }

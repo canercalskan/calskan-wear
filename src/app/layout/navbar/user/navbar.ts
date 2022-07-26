@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/user/auth/auth.service";
 import { LoginComponent } from 'src/app/components/user/login/login.component'
@@ -24,9 +24,11 @@ export class Navbar {
     }
     productsComp! : ProductsComponent;
     f!  : File
-    cartItems : Array<Item> = [];
-    loginStatus () {
+    cartTotal : number = this.UserService.cartTotal;
+    cartItems : Array<Item> = this.UserService.cartItems || [];
+    loginStatus () { 
         this.cartItems = this.UserService.getCartItems();
+        this.cartTotal = +localStorage.getItem('cartTotal')!
         if(localStorage.getItem('isLoggedIn') == 'true') {
             return true
         }
@@ -61,7 +63,6 @@ export class Navbar {
             this.collapseShown = false;
         }
     }
-
     removeItem(item:Item) : void {
         this.UserService.removeFromCart(item);
     }

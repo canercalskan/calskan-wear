@@ -30,7 +30,8 @@ import { UserLoginGuard } from './services/user/auth/auth.guard';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { TicketsComponent } from './components/pages/tickets/tickets.component';
 import { MailComponent } from './components/pages/mail/mail.component';
-
+import { OrdersComponent } from './components/pages/orders/orders.component';
+import { CheckoutComponent } from './components/pages/checkout/checkout.component';
 const firebaseConfig = {
   apiKey: "AIzaSyBb5rDZjYMI5mtA9YJqt4fVfqhU8LC-7aA",
   authDomain: "test-b03cd.firebaseapp.com",
@@ -54,7 +55,7 @@ const firebaseConfig = {
     LoginComponent,
     AccountComponent ,
     AdminComponent , AdminLogin , AdminNavbar  , ProductActions, ProductsComponent,
-    Contact , ProductDetails , TicketsComponent , MailComponent
+    Contact , ProductDetails , TicketsComponent , MailComponent , OrdersComponent, CheckoutComponent
   ],
   imports: [
     BrowserModule,
