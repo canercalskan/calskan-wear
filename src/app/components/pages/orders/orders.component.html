@@ -6,6 +6,8 @@
         <th scope="col">Kullanıcı</th>
         <th scope="col">Ürün</th>
         <th scope="col">Total</th>
+        <th scope="col">Durum</th>
+        <th scope="col">İşlemler</th>
       </tr>
     </thead>
     <tbody>
@@ -14,11 +16,17 @@
             {{order.user}}
         </td>
         <td>
-            <p *ngFor="let item of order.items">
+          <ol style="list-style-type:upper-roman">
+            <li *ngFor="let item of order.items" style="margin-left: -50px;">
                 <a href="../Products/{{item.key}}" target="_blank">{{item.title}}</a>
-            </p>
+            </li>
+          </ol>
         </td>
         <td style="max-width:100px ;" class="text-success">₺{{order.total}}</td>
+        <td class="text-info">Bekliyor</td>
+        <td>
+          <button class="btn btn-danger">İptal</button>
+        </td>
       </tr>
     </tbody>
   </table>

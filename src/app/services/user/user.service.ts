@@ -8,6 +8,7 @@ import { Item } from "src/app/models/item.model";
 import { Ticket } from "src/app/models/ticket.model";
 import { OrderModel } from "src/app/models/order.model";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
+import Swal from "sweetalert2";
 
 
 @NgModule()
@@ -25,19 +26,22 @@ export class UserService {
     }
 
     addToCart(item:Item) {
-    //    let done = false;
-    //     this.cartItems.forEach(i => {
-    //         if(item.key == i.key){
-    //             item.quantity++;
-    //             // i.price = i.quantity * i.price;
-    //             this.cartTotal += item.price * item.quantity;
-    //             done = true;
-    //         }
-    //     })
-        this.cartTotal += item.price
-        this.cartItems.push(item)
-        localStorage.setItem('cartTotal' , this.cartTotal.toString())
-        localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
+    let done = false;
+        this.cartItems.forEach(i => {
+            if(item.key == i.key) {
+                i.quantity++;
+                this.cartTotal+=item.price;
+                localStorage.setItem('cartTotal' , this.cartTotal.toString())
+                localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
+                done = true;
+            }
+        })
+        if(!done) {
+            this.cartTotal += item.price
+            this.cartItems.push(item);
+            localStorage.setItem('cartTotal' , this.cartTotal.toString())
+            localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
+        }
     }
 
     removeFromCart(item:Item) : void { 
@@ -71,6 +75,17 @@ export class UserService {
                 this.cartItems = [];
                 return
             }
+        })
+    }
+
+    verifyEmail() : void {
+        this.fireAuth.user.subscribe(currentUser => {
+            if(!(currentUser?.emailVerified)) {
+                // currentUser?.sendEmailVerification();
+                 currentUser?.sendEmailVerification();
+                 Swal.fire('Hesap doğrulama', 'Hesabınızı doğrulamak için gereken adımlar mailinize iletilmiştir.' ,'info')
+            }
+            else return;
         })
     }
 }

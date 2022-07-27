@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
+import { UserService } from "src/app/services/user/user.service";
+import Swal from "sweetalert2";
 @Component({
     templateUrl : './account.component.html',
     styleUrls : ['./account.component.css'],
@@ -7,15 +9,13 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 })
 
 export class AccountComponent implements OnInit {
-    user! : string;
-    // userMail! : string
-    // uid! : string
-    constructor(private fireAuth : AngularFireAuth){}
+    constructor(private fireAuth : AngularFireAuth, private UserService : UserService){}
     ngOnInit(): void {
-        this.fireAuth.currentUser.then(u => {this.user = u?.displayName!})
-        // this.fireAuth.currentUser.then(activeUser => {
-        //     this.userName = activeUser?.displayName!;
-        //     this.userMail = activeUser?.email;
-        // })
+        this.fireAuth.user.subscribe( u => {
+            if(u?.emailVerified) {
+                Swal.fire('Doğrulandı','Hesabınız doğrulandı, keyifli alışverişler!','success')
+            }
+        })
+        this.UserService.verifyEmail();
     }
 }

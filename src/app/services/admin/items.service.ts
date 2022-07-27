@@ -41,6 +41,7 @@ export class ItemsService {
       ref.limitToLast(numberItems));
   }
 
+
   getProduct(productKey : string) : Observable<any> {
     return this.db.object('uploads/' + productKey).valueChanges();
   }

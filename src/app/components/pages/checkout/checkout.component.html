@@ -1,15 +1,14 @@
 <ng-navbar></ng-navbar>
 
-<ul class="list-unstyled sections" >
+<!-- <ul class="list-unstyled sections" >
     <li>Özet</li>
     <li>Kargo</li>
     <li>Ödeme</li>
     <li>Onay</li>
-</ul>
+</ul> -->
 <div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-8">
-            <div class="products">
+        <div class="products mt-2">
+            <p class="fs-5">Ürünlerim</p>
                 <ul class="list-unstyled">
                     <li *ngFor="let item of items" class="mt-4 d-flex">
                         <img src={{item.url}} alt={{item.name}} style="width:200px ; height: 150px;">
@@ -21,10 +20,18 @@
                         </div>
                       </li>
                 </ul>
-            </div>
         </div>
-    <div class="ozet col-xs-12 col-sm-8"></div>
-</div>
+    <div class="ozet mt-2">
+        <p class="fs-5">Sipariş Özeti</p>
+        <div class="ozet-content">
+            <span class="float-start fw-bold">Ara toplam </span> <span class="float-end fw-bold">{{total}} ₺</span>
+        </div>
+        <button class="btn btn-info mt-1 w-100 fw-bold">ÖDEME</button>
+        <div class="ssl d-flex mt-2">
+            <p class="fw-bold text-success mt-2 text-center">100% GÜVENLİ ALIŞVERİŞ</p>
+            <p class="info ps-2 pe-2 text-center">256bit SSL sertifikası ile internet sitemizden <br> güvenli alışveriş yapabilirsiniz</p>
+        </div>
+    </div>
 </div>
 
 <!-- <footer></footer>  -->
