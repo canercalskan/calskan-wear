@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'admin-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  templateUrl: './admin-login.component.html',
+  styleUrls: ['./admin-login.component.css'],
 })
 export class AdminLogin {
   constructor(private service: AdminService , private router : Router) {

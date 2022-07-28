@@ -3,8 +3,8 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { Router } from "@angular/router";
 @Component( {
     selector : 'admin-navbar',
-    templateUrl : './navbar.html',
-    styleUrls : ['./navbar.css']
+    templateUrl : './admin-navbar.component.html',
+    styleUrls : ['./admin-navbar.component.css']
 })
 
 export class AdminNavbar{

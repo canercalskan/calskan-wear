@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/user/auth/auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 @Component({
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  templateUrl: './user-login.component.html',
+  styleUrls: ['./user-login.component.css'],
   selector: 'login',
 })
 

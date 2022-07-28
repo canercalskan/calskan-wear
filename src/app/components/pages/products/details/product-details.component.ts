@@ -6,8 +6,8 @@ import { Item } from "src/app/models/item.model";
 
 @Component({
     selector : 'product-details',
-    templateUrl : './details.component.html',
-    styleUrls : ['./details.component.css'],
+    templateUrl : './product-details.component.html',
+    styleUrls : ['./product-details.component.css'],
 })
 export class ProductDetails implements OnInit {
     product! : Item;

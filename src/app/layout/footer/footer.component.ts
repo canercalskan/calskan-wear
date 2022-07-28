@@ -3,8 +3,8 @@ import { AngularFireDatabase } from "@angular/fire/compat/database";
 import { Item } from "src/app/models/item.model";
 import { UserService } from "src/app/services/user/user.service";
 @Component({
-    styleUrls: ['./footer.css'],
-    templateUrl: './footer.html',
+    styleUrls: ['./footer.component.css'],
+    templateUrl: './footer.component.html',
     selector : 'footer'
 })
 

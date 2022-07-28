@@ -29,3 +29,17 @@ export class UserLoginGuard implements CanActivate {
         }
     }
 }
+
+@NgModule()
+export class CheckoutGuard implements CanActivate {
+    constructor(private router : Router){}
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+        if(localStorage.getItem('cartItems') && localStorage.getItem('cartItems')?.length! > 0 && +localStorage.getItem('cartTotal')! > 0) {
+            return true
+        }
+        else {
+            this.router.navigate(['Home'])
+            return false;
+        }
+    }
+}

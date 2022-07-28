@@ -4,9 +4,9 @@ import { AuthService } from 'src/app/services/user/auth/auth.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 @Component({
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
-  selector: 'register',
+  templateUrl: './user-register.component.html',
+  styleUrls: ['./user-register.component.css'],
+  selector: 'user-register',
 })
 export class RegisterComponent {
   constructor(

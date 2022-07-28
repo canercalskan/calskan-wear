@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/user/auth/auth.service";
-import { LoginComponent } from 'src/app/components/user/login/login.component'
+import { LoginComponent } from 'src/app/components/user/login/user-login.component'
 import { Item } from "src/app/models/item.model";
 import { AngularFireAuth } from "@angular/fire/compat/auth"; 
 import { ProductsComponent } from "src/app/components/pages/products/products.component";
@@ -10,8 +10,8 @@ import Swal from "sweetalert2";
 
 @Component({
     selector:'ng-navbar',
-    styleUrls : ['./navbar.css'],
-    templateUrl : './navbar.html'
+    styleUrls : ['./user-navbar.component.css'],
+    templateUrl : './user-navbar.component.html'
 })
 export class Navbar {
     userName! : string

@@ -4,9 +4,9 @@ import { Item } from 'src/app/models/item.model';
 
 @Injectable({ providedIn: 'root' })
 @Component({
-  templateUrl : './actions.form.html',
+  templateUrl : './actions-form.component.html',
   selector : 'admin-actions',
-  styleUrls : ['./actions.form.css']
+  styleUrls : ['./actions-form.component.css']
 })
 
 export class ProductActions {

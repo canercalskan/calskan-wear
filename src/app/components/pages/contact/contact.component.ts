@@ -5,8 +5,8 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 import Swal from "sweetalert2";
 
 @Component({
-    templateUrl : './contact.html',
-    styleUrls : ['./contact.css'],
+    templateUrl : './contact.component.html',
+    styleUrls : ['./contact.component.css'],
     selector : 'contact'
 })
 
