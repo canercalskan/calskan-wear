@@ -38,6 +38,7 @@ export class Navbar {
     
     logout() : void {
         localStorage.removeItem('isLoggedIn')
+        this.fireAuth.signOut()
         this.router.navigate([this.router.url]);
     }
     googleLogin() : void{

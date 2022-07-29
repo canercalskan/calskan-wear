@@ -36,6 +36,10 @@
     width: auto;
 }
 
+.ozet-content {
+    overflow: scroll;
+}
+
 .ssl {
     display: flex;
     justify-content: center;
