@@ -10,7 +10,6 @@ import { OrderModel } from "src/app/models/order.model";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import Swal from "sweetalert2";
 
-
 @NgModule()
 @Injectable({providedIn:'root'})
 
@@ -46,7 +45,7 @@ export class UserService {
 
     removeFromCart(item:Item) : void { 
         this.cartItems = this.cartItems.filter(items => items.key != item.key)
-        this.cartTotal -= item.price
+        this.cartTotal -= item.price * item.quantity
         localStorage.setItem('cartItems' , JSON.stringify(this.cartItems));
         localStorage.setItem('cartTotal' , this.cartTotal.toString());
     }

@@ -21,6 +21,7 @@
     min-width: 28px;
     font-size: 16px;
     font-weight: bold;
+    text-align: center;
 }
 
 .beden ul li:hover {
@@ -42,6 +43,11 @@
     position: relative;
     top: 2px;
     left: 5px;
+}
+
+.clicked {
+    background-color: black;
+    color: white;
 }
 
 @media (max-width:700px) {

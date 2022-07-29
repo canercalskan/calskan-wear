@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Navbar } from './layout/navbar/user/user-navbar.component';
+import { Navbar } from './layout/navbar/user/normal-navbar/user-navbar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule} from '@angular/common/http'
 import { AppComponent } from './app.component';
@@ -32,6 +32,7 @@ import { TicketsComponent } from './components/pages/tickets/tickets.component';
 import { MailComponent } from './components/pages/mail/mail.component';
 import { OrdersComponent } from './components/pages/orders/orders.component';
 import { CheckoutComponent } from './components/pages/checkout/checkout.component';
+import { CheckoutNavbar } from './layout/navbar/user/checkout-navbar/checkout-navbar.component';
 const firebaseConfig = {
   apiKey: "AIzaSyBb5rDZjYMI5mtA9YJqt4fVfqhU8LC-7aA",
   authDomain: "test-b03cd.firebaseapp.com",
@@ -55,7 +56,7 @@ const firebaseConfig = {
     LoginComponent,
     AccountComponent ,
     AdminComponent , AdminLogin , AdminNavbar  , ProductActions, ProductsComponent,
-    Contact , ProductDetails , TicketsComponent , MailComponent , OrdersComponent, CheckoutComponent
+    Contact , ProductDetails , TicketsComponent , MailComponent , OrdersComponent, CheckoutComponent , CheckoutNavbar
   ],
   imports: [
     BrowserModule,

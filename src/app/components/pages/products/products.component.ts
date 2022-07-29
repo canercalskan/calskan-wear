@@ -3,7 +3,7 @@ import { ItemsService } from 'src/app/services/admin/items.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Item } from 'src/app/models/item.model';
-import { Navbar } from 'src/app/layout/navbar/user/user-navbar.component';
+import { Navbar } from 'src/app/layout/navbar/user/normal-navbar/user-navbar.component';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -33,6 +33,9 @@ export class ProductsComponent implements OnInit {
 
   addToCard(item:Item) : void {
     this.UserService.addToCart(item);
+    let cart = document.getElementById('cart-dropdown')!;
+    cart.style.right = '0';
   }
+  
 }
 

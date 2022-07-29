@@ -85,7 +85,7 @@
                 <li *ngFor="let item of cartItems" class="mt-4 d-flex">
                   <img src={{item.url}} alt={{item.name}} style="width:50px ; height: 70px;">
                   <div style ="justify-content: center;">
-                    <a href="#" class="bg-white ms-1" style="font-size:10px ;">{{item.title}}</a>
+                    <a href="#" class="bg-white ms-1" style="font-size:10px ;min-width: 100px; text-align:left; text-decoration: none">{{item.title}}</a>
                     <p class="ms-2" style="color:grey; font-size: small;">Adet : {{item.quantity}}</p>
                     <p class="ms-2" style="color:grey; font-size: small; margin-top: -10px;">Beden : L</p>
                     <p class="fw-bold ms-2" style="font-size:13px ;">{{item.price}} ₺</p>

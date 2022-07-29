@@ -1,0 +1,21 @@
+.navbar {
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    background-color: black;
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content:space-around;
+}
+
+.navbar p {
+    font-family:'Courier New', Courier, monospace;
+    color: white;
+    margin-top: 3px;
+    font-size: 18px;
+}
+
+.navbar p:hover {
+    cursor:default;
+}
