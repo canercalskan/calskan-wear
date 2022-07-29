@@ -11,6 +11,8 @@
       aria-controls="navbarNav"
       aria-expanded="false"
       aria-label="Toggle navigation"
+      id="navbar-burger"
+      (click) = 'showNavbar()'
     >
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -19,6 +21,7 @@
       alt="calskanlogo"
       id="brand-md"
     />
+    <i class="bi bi-x float-end fs-1" *ngIf="navbarVisible" (click) = 'hideNavbar()'></i>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">

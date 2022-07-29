@@ -3,7 +3,10 @@
     height: 400px;
     vertical-align: middle;
     border: 0;
+ }
 
+ .image img:hover {
+    cursor: pointer;
  }
 
  row::before {
@@ -21,7 +24,7 @@
 }
 
 .detail {
-    margin-top: -44px;
+   margin-top: -45px;
 }
 
 .card-actions {

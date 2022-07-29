@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4" *ngFor="let item of fileUploads">
             <div class="product-item">
-                <div class="image"><img src={{item.url}} alt={{item.name}}>
+                <div class="image"><img src={{item.url}} alt={{item.name}} routerLink={{item.key}} routerLinkActive="router-link-active" >
                     <span class="card-actions">
                         <i class="bi bi-bag" style="font-style:normal;" [swal]="['Başarılı!', 'Sepete Eklendi', 'success']" (click) = 'addToCard(item)' id="sepet"><span class="ms-2">Sepete Ekle</span></i>
                         <i class="bi bi-heart" style="font-style:normal;" id="favori"><span class="ms-2">Favoriler</span></i>
