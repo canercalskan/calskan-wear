@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AdminService } from 'src/app/services/admin/admin.service';
 import { Admin } from 'src/app/models/admin.model';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'admin-login',
@@ -20,7 +21,7 @@ export class AdminLogin {
         localStorage.setItem('admin' , admin.mail)
         this.router.navigate(['Administration'])
     }).catch(error => {
-        if(error.code == 'auth/user-not-found') {this.adminExistError = true;}
+        if(error.code == 'auth/user-not-found') {this.adminExistError = true; Swal.fire('Hata', 'E-Posta veya şifreniz hatalı' , 'error')}
         else if(error.code == 'auth/wrong-password') {this.adminPasswordError = true;}
     });
   }

@@ -20,6 +20,12 @@ export class CheckoutComponent {
         Swal.fire('Sipariş Oluşturuldu', 'Ürünleriniz hazırlanmaya başladı, siparişiniz için teşekkür ederiz.' , 'success').then(() => {
             this.router.navigate(['Home'])
         })
+    }
+    increase(item : Item) : void {
+        item.quantity++
+    }
 
+    decrease(item : Item) : void {
+        item.quantity--
     }
 }

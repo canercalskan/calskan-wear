@@ -95,7 +95,7 @@
               </ul>
               <p *ngIf="cartItems.length == 0" class="text-center">Sepette ürün yok</p>
               <div class="cart-actions" *ngIf="cartItems.length > 0">
-                <p class="text-center">Toplam : {{cartTotal}} ₺</p>
+                <p class="text-center">Toplam : {{cartTotal.toFixed(2)}} ₺</p>
                 <button class="btn w-100 text-white p-2" style="background-color: #353535 ; font-size: small;" [routerLink]="['../Checkout']" routerLinkActive="router-link-active" >SEPETİ GÖRÜNTÜLE</button>
                 <button class="btn w-100 text-dark p-2 mt-2" style="background-color: #F0CB00; font-size: small;" (click) = 'checkout()'>ALIŞVERİŞİ TAMAMLA</button>
               </div>

@@ -7,7 +7,7 @@
                         <img src={{item.url}} alt={{item.name}} style="width:200px ; height: 150px;">
                         <div style ="justify-content: center;">
                           <a href="#" class="bg-white ms-1">{{item.title}}</a>
-                          <p class="ms-2" style="color:grey;">Adet : 1</p>
+                          <p class="ms-2" style="color:grey;">Adet : {{item.quantity}} <span id="quantity"><i class="bi bi-plus text-success" (click) = 'increase(item)'></i><i class="bi bi-dash text-danger" (click) = 'decrease(item)'></i></span></p>
                           <p class="ms-2" style="color:grey; font-size: small; margin-top: -10px">Beden : L</p>
                           <p class="fw-bold ms-2" style="font-size:13px ;">{{item.price}} ₺</p>
                         </div>
@@ -28,5 +28,5 @@
             <p class="fw-bold text-success mt-2 text-center">100% GÜVENLİ ALIŞVERİŞ</p>
             <p class="info ps-2 pe-2 text-center">256bit SSL sertifikası ile internet sitemizden <br> güvenli alışveriş yapabilirsiniz</p>
         </div>
-    </div>
+    </div>  
 </div>

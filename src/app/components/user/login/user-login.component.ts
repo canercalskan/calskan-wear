@@ -3,6 +3,7 @@ import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/user/auth/auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import Swal from 'sweetalert2';
 @Component({
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.css'],
@@ -20,7 +21,7 @@ export class LoginComponent {
         localStorage.setItem('isLoggedIn','true')
         this.router.navigate(['Account'])
     }).catch(error => {
-        if(error.code == 'auth/user-not-found') {this.userError = true;}
+        if(error.code == 'auth/user-not-found') {this.userError = true; Swal.fire('Hata' , 'Böyle bir kullanıcı bulunmamaktadır' , 'error')}
         else if(error.code == 'auth/wrong-password') {this.passwordError = true;}
     })
   }
