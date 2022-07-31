@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ElementRef } from "@angular/core";
 import { Item } from "src/app/models/item.model";
 import { UserService } from "src/app/services/user/user.service";
 import Swal from "sweetalert2";
@@ -22,10 +22,34 @@ export class CheckoutComponent {
         })
     }
     increase(item : Item) : void {
-        item.quantity++
+        item.quantity++;
+        this.total += item.price;
+        for(var i in this.items) {
+            if(this.items[i].key === item.key) {
+                this.items[i].quantity = item.quantity;
+                localStorage.setItem('cartItems' , JSON.stringify(this.items))
+                localStorage.setItem('cartTotal' , this.total.toString())
+                break;
+            }
+        }
     }
 
     decrease(item : Item) : void {
         item.quantity--
+        this.total -= item.price;
+        for(var i in this.items) {
+            if(this.items[i].quantity > 0 && this.items[i].key === item.key) {
+                this.items[i].quantity = item.quantity;
+                localStorage.setItem('cartItems' , JSON.stringify(this.items))
+                localStorage.setItem('cartTotal' , this.total.toString())
+                break;
+            }
+            else if(this.items[i].quantity <= 0 && this.items[i].key === item.key) {
+                this.items = this.items.filter(j => j!= this.items[i])
+                localStorage.setItem('cartItems' , JSON.stringify(this.items))
+                localStorage.setItem('cartTotal' , this.total.toString())
+                break;
+            }
+        }
     }
 }

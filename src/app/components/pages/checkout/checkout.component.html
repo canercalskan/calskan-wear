@@ -21,7 +21,7 @@
                 <span>{{item.quantity}}</span>x <span>{{item.title}}</span><span class="float-end"> {{(item.price * item.quantity).toFixed(2)}}</span>
             </p>
             <hr>
-            <span class="float-start fw-bold" >Ara toplam </span> <span class="float-end fw-bold">{{total}} ₺</span>
+            <span class="float-start fw-bold" >Ara toplam </span> <span class="float-end fw-bold">{{total.toFixed(2)}} ₺</span>
         </div>
         <button class="btn btn-info mt-1 w-100 fw-bold" (click) = 'pay()'>ÖDEME</button>
         <div class="ssl d-flex mt-2">
