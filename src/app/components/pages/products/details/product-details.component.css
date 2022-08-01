@@ -9,7 +9,9 @@
 
 .product-details {
     line-height: 15px;
-    margin-left: 13rem;
+    /* margin-left: 10rem; */
+    float: left;
+
 }
 
 .beden ul li {
@@ -52,7 +54,10 @@
 
 @media (max-width:700px) {
     .product-details {
-        margin-left: 2rem;
+        margin-left: 1rem;
         margin-top: 1.3rem;
+    }
+    .info h6 i{
+        margin-right: 1rem;
     }
 }

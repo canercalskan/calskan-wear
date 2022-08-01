@@ -73,24 +73,28 @@ export class ProductDetails implements OnInit {
             this.mClicked = false;
             this.lClicked = false;
             this.xlClicked = false;
+            return
         }
         else if(beden == 'm') {
             this.mClicked = true;
             this.sClicked = false;
             this.lClicked = false;
             this.xlClicked = false
+            return
         }
         else if(beden == 'l') {
             this.lClicked = true;
             this.sClicked = false;
             this.mClicked = false;
             this.xlClicked = false;
+            return
         }
         else if(beden == 'xl') {
-            this.xlClicked == true;
+            this.xlClicked = true;
             this.sClicked = false;
             this.mClicked = false;
             this.lClicked = false;
+            return
         }
     }
 }

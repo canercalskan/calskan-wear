@@ -82,4 +82,7 @@
     .ozet {
         margin-left: 0;
     }
+    .products ul li {
+        /* margin: 0; */
+    }
 }

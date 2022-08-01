@@ -39,7 +39,7 @@
         </div>
         <div class="float-end"> 
           <span *ngIf="loginStatus()" id="nav-username">{{userName}}</span>
-          <i class="bi bi-person fs-2 mb-4 dropdown p-2 me-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="accountDropdown">
+          <i class="bi bi-person fs-2 mb-4 dropdown p-2 me-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="accountDropdown" (click) = 'MobileShowUserActions()'>
             <div class="dropdown-menu" id="account-dropdown-menu" aria-labelledby="navbarDropdown">
               <ul class="list-unstyled" *ngIf="!loginStatus()">
                 <li>

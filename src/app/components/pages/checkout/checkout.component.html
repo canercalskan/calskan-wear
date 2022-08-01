@@ -7,7 +7,13 @@
                         <img src={{item.url}} alt={{item.name}} style="width:200px ; height: 150px;">
                         <div style ="justify-content: center;">
                           <a [routerLink]="['/Products/item.key']" routerLinkActive="router-link-active" >{{item.title}}</a>
-                          <p class="ms-2" style="color:grey;">Adet : {{item.quantity}} <span id="quantity"><i class="bi bi-plus text-success" (click) = 'increase(item)'></i><i class="bi bi-dash text-danger" (click) = 'decrease(item)'></i></span></p>
+                          <p class="ms-2" style="color:grey;">Adet : {{item.quantity}}
+                             <span id="quantity">
+                                <i class="bi bi-plus text-success" (click) = 'increase(item)'></i>
+                                <i *ngIf="item.quantity > 1" class="bi bi-dash text-danger" (click) = 'decrease(item)'></i>
+                                <i *ngIf="item.quantity == 1" class="bi bi-trash text-danger" (click) = 'decrease(item)' style="font-size:17px ;"></i>
+                            </span>
+                          </p>
                           <p class="ms-2" style="color:grey; font-size: small; margin-top: -10px">Beden : L</p>
                           <p class="fw-bold ms-2" style="font-size:13px ;">{{item.price}} ₺</p>
                         </div>
@@ -18,7 +24,9 @@
         <p class="fs-5">Sipariş Özeti</p>
         <div class="ozet-content">
             <p *ngFor="let item of items">
-                <span>{{item.quantity}}</span>x <span>{{item.title}}</span><span class="float-end"> {{(item.price * item.quantity).toFixed(2)}}</span>
+               <span *ngIf="item.quantity > 0">
+                    <span>{{item.quantity}}</span>x <span>{{item.title}}</span><span class="float-end"> {{(item.price * item.quantity).toFixed(2)}}</span>
+                </span> 
             </p>
             <hr>
             <span class="float-start fw-bold" >Ara toplam </span> <span class="float-end fw-bold">{{total.toFixed(2)}} ₺</span>

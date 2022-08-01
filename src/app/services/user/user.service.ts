@@ -53,7 +53,7 @@ export class UserService {
     }
 
     removeFromCart(item:Item) : void { 
-        this.cartItems = this.cartItems.filter(items => items.key != item.key)
+        this.cartItems = this.cartItems.filter(items => items != item) // ufak bir bug mevcut
         this.cartTotal -= item.price * item.quantity
         localStorage.setItem('cartItems' , JSON.stringify(this.cartItems));
         localStorage.setItem('cartTotal' , this.cartTotal.toString());

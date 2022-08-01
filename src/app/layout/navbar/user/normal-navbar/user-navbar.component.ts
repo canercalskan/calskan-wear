@@ -69,6 +69,14 @@ export class Navbar {
         this.UserService.removeFromCart(item);
     }
 
+    MobileShowUserActions() : void {
+        let user = document.getElementById('accountDropdown')
+        let userMenu = document.getElementById('account-dropdown-menu')!
+        user?.addEventListener('click' , () => {
+            userMenu.style.display = 'flex'
+        })
+    }
+
     checkout() : void {
         this.UserService.pay(this.cartItems , this.cartTotal);
         localStorage.removeItem('cartItems');

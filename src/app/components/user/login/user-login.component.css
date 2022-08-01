@@ -54,4 +54,8 @@ button:hover {
     input {
         width: 60vw;
     }
+    .border-wrap span a {
+        display: block;
+        margin-top: .5rem;
+    }
  } 
