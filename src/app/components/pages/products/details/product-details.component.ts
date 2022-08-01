@@ -4,6 +4,7 @@ import { ItemsService } from "src/app/services/admin/items.service";
 import { OnInit } from "@angular/core";
 import { Item } from "src/app/models/item.model";
 import { UserService } from "src/app/services/user/user.service";
+import Swal from "sweetalert2";
 
 @Component({
     selector : 'product-details',
@@ -38,8 +39,32 @@ export class ProductDetails implements OnInit {
 
     addToCart(item:Item) : void {
         let cart = document.getElementById('cart-dropdown')
-        this.UserService.addToCart(item);
-        cart!.style.right = '0'
+        if(!this.sClicked && !this.mClicked && !this.lClicked && !this.xlClicked) {
+            Swal.fire('Beden Seçilmedi', 'Lütfen beden seçiniz' , 'warning');
+            return;
+        }
+        else {
+            if(this.sClicked) {
+                item.size = 'S'
+                this.UserService.addToCart(item);
+                cart!.style.right = '0'
+            }
+            else if(this.mClicked) {
+                item.size = 'M'
+                this.UserService.addToCart(item);
+                cart!.style.right = '0'
+            }
+            else if(this.lClicked) {
+                item.size = 'L'
+                this.UserService.addToCart(item);
+                cart!.style.right = '0'
+            }
+            else if(this.xlClicked) {
+                item.size = 'XL'
+                this.UserService.addToCart(item);
+                cart!.style.right = '0'
+            }
+        }
     }
 
     sizeHandler(beden : string) : void {

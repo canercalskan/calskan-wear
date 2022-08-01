@@ -25,14 +25,20 @@ export class UserService {
     }
 
     addToCart(item:Item) {
-    let done = false;
+        let done = false;
         this.cartItems.forEach(i => {
-            if(item.key == i.key) {
+            if(i.key == item.key && i.size == item.size) {
                 i.quantity++;
                 this.cartTotal+=item.price;
                 localStorage.setItem('cartTotal' , this.cartTotal.toString())
                 localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
                 done = true;
+                Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
+                    location.reload();
+                })
+            }
+            else {
+                done = false;
             }
         })
         if(!done) {
@@ -40,6 +46,9 @@ export class UserService {
             this.cartItems.push(item);
             localStorage.setItem('cartTotal' , this.cartTotal.toString())
             localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
+            Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
+                location.reload();
+            })
         }
     }
 

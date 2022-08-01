@@ -51,5 +51,9 @@ export class CheckoutComponent {
                 break;
             }
         }
+        if(this.items.length === 0) {
+            location.reload();
+            this.router.navigate(['Home'])
+        }
     }
 }
