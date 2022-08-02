@@ -18,7 +18,11 @@ export class Navbar {
     collapseShown : boolean = false;
     itemQuantity : number = 1;
     loginComp = new LoginComponent(this.router, this.AuthService)
+    noMobile = true;
     constructor(private router : Router , private AuthService : AuthService , private fireAuth : AngularFireAuth , private UserService : UserService){
+        if(window.screen.width < 900) {
+            this.noMobile = false;
+        }
         this.fireAuth.user.subscribe(u => {
             this.userName = u?.displayName!
         })

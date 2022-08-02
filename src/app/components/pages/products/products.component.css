@@ -84,9 +84,6 @@
     justify-content: center;
     align-items: center;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
-    /* animation-name: bg;
-    animation-duration: 4s;
-    animation-iteration-count: infinite; */
 }
 
 @keyframes bg {

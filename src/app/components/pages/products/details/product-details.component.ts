@@ -23,6 +23,7 @@ export class ProductDetails implements OnInit {
         this.route.params.subscribe(params => { 
             this.ItemService.getProduct(params["productKey"]).subscribe( product => {
                this.product = product;
+               this.product.key = params['productKey'];
             })
         })
     }

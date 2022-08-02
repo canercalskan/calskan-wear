@@ -133,6 +133,11 @@ i:hover {
     text-decoration: underline;
 }
 
+/* #cart-image {
+     position: absolute;
+    right: 0; 
+} */
+
  @media (max-width : 1000px) {
     .navbar-brand {
         display: none;
@@ -168,7 +173,6 @@ i:hover {
 }
 
 .cart-actions {
-    /* position: fixed; */
     bottom: 0;
     font-size: small;
     display: flex;
@@ -185,9 +189,25 @@ i:hover {
 
  @media (max-width : 500px) {
     #brand-md {
-        margin-left: 26.6%;
+        margin-left: 23.0%;
     }
+
+    #cart-image {
+        margin-left: 2rem;
+        /* background-color: red; */
+    }
+
     #accountDropdown {
         visibility: hidden;
     }
  } 
+
+  @media(max-width : 375px) { /* iphone mini */
+    
+    #brand-md {
+        margin-left: 20%;
+    }
+    /* #cart-image {
+        /* background-color: yellow; 
+    } */
+  }

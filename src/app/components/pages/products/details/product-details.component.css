@@ -9,7 +9,6 @@
 
 .product-details {
     line-height: 15px;
-    /* margin-left: 10rem; */
     float: left;
 
 }
@@ -59,5 +58,23 @@
     }
     .info h6 i{
         margin-right: 1rem;
+    }
+}
+
+@media (max-width:400px) {
+    .product-details {
+        padding: 3rem;
+    }
+}
+
+@media (max-width : 500px) {
+    .product-details {
+        padding: 2rem;
+    }
+}
+
+@media (max-width : 375px) { /* iphone 13 mini */
+    .product-details {
+        padding: 3rem;
     }
 }
