@@ -27,7 +27,7 @@ export class UserService {
     addToCart(item:Item) {
         let done = false;
         this.cartItems.forEach(i => {
-            if(i.key == item.key && i.size == item.size) {
+            if(i.key == item.key && i.selectedSize == item.selectedSize) {
                 i.quantity++;
                 this.cartTotal+=item.price;
                 localStorage.setItem('cartTotal' , this.cartTotal.toString())

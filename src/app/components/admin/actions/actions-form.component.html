@@ -10,6 +10,28 @@
   <input id="fileupload" type="file" (change)="selectFile($event)" />
   <label for="price">Ürün Fiyatı</label>
   <input type="number" step="0.01" id="price" name="price" ngModel>
+  <label for="sizes">Bedenler</label>
+  <div id="sizes">
+    <label for="s">XXS</label>
+    <input type="checkbox"   id="xxs" (change) = 'selectSizeHandler("XXS")'>
+    <label for="s">XS</label>
+    <input type="checkbox"  id="xs" (change) = 'selectSizeHandler("XS")'>
+    <label for="s">S</label>
+    <input type="checkbox" id="s" (change) = 'selectSizeHandler("S")'>
+    <label for="s">M</label>
+    <input type="checkbox" id="m" (change) = 'selectSizeHandler("M")'>
+    <label for="s">L</label>
+    <input type="checkbox"  id="l" (change) = 'selectSizeHandler("L")'>
+    <label for="s">XL</label>
+    <input type="checkbox"  id="xl" (change) = 'selectSizeHandler("XL")'>
+    <label for="s">XXL</label>
+    <input type="checkbox" id="xxl" (change) = 'selectSizeHandler("XXL")'>
+  </div>
+
+  <div class="" *ngFor="let size of sizes">
+    <label for="">{{size}} Beden Stok Miktarı</label>
+    <input type="number" name={{size}} ngModel>
+  </div>
   
   <button type="submit" class="btn btn-success btn-sm mt-2" [disabled]="!selectedFiles">Yükle</button>
 

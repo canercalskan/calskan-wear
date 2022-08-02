@@ -14,10 +14,13 @@ import Swal from "sweetalert2";
 export class ProductDetails implements OnInit {
     product! : Item;
     deliveryShown : boolean = false;
+    xxsClicked : boolean = false;
+    xsClicked : boolean = false;
     sClicked : boolean = false;
     mClicked : boolean = false;
     lClicked : boolean = false;
     xlClicked : boolean = false;
+    xxlClicked : boolean = false;
     constructor(private route : ActivatedRoute , private ItemService : ItemsService , private UserService : UserService){}
     ngOnInit() {
         this.route.params.subscribe(params => { 
@@ -40,28 +43,43 @@ export class ProductDetails implements OnInit {
 
     addToCart(item:Item) : void {
         let cart = document.getElementById('cart-dropdown')
-        if(!this.sClicked && !this.mClicked && !this.lClicked && !this.xlClicked) {
+        if(!this.xxsClicked && !this.xsClicked && !this.sClicked && !this.mClicked && !this.lClicked && !this.xlClicked && !this.xxlClicked) {
             Swal.fire('Beden Seçilmedi', 'Lütfen beden seçiniz' , 'warning');
             return;
         }
         else {
-            if(this.sClicked) {
-                item.size = 'S'
+            if(this.xxsClicked) {
+                item.selectedSize = 'XL'
+                this.UserService.addToCart(item);
+                cart!.style.right = '0'
+            }
+            else if(this.xsClicked) {
+                item.selectedSize = 'XL'
+                this.UserService.addToCart(item);
+                cart!.style.right = '0'
+            }
+            else if(this.sClicked) {
+                item.selectedSize = 'S'
                 this.UserService.addToCart(item);
                 cart!.style.right = '0'
             }
             else if(this.mClicked) {
-                item.size = 'M'
+                item.selectedSize = 'M'
                 this.UserService.addToCart(item);
                 cart!.style.right = '0'
             }
             else if(this.lClicked) {
-                item.size = 'L'
+                item.selectedSize = 'L'
                 this.UserService.addToCart(item);
                 cart!.style.right = '0'
             }
             else if(this.xlClicked) {
-                item.size = 'XL'
+                item.selectedSize = 'XL'
+                this.UserService.addToCart(item);
+                cart!.style.right = '0'
+            }
+            else if(this.xxlClicked) {
+                item.selectedSize = 'XL'
                 this.UserService.addToCart(item);
                 cart!.style.right = '0'
             }
@@ -69,32 +87,74 @@ export class ProductDetails implements OnInit {
     }
 
     sizeHandler(beden : string) : void {
-        if(beden == 's') {
-            this.sClicked = true;
+        if(beden == 'XXS') {
+            this.xxsClicked = true;
+            this.xsClicked = false
+            this.sClicked = false;
             this.mClicked = false;
             this.lClicked = false;
             this.xlClicked = false;
+            this.xxlClicked = false;
             return
         }
-        else if(beden == 'm') {
+        else if(beden == 'XS') {
+            this.xsClicked = true;
+            this.xxsClicked = false
+            this.sClicked = false;
+            this.mClicked = false;
+            this.lClicked = false;
+            this.xlClicked = false;
+            this.xxlClicked = false;
+            return
+        }
+        else if(beden == 'S') {
+            this.sClicked = true;
+            this.xxsClicked = false;
+            this.xsClicked = false;
+            this.mClicked = false;
+            this.lClicked = false;
+            this.xlClicked = false;
+            this.xxlClicked = false;
+            return
+        }
+        else if(beden == 'M') {
             this.mClicked = true;
+            this.xxsClicked = false;
+            this.xsClicked = false;
             this.sClicked = false;
             this.lClicked = false;
             this.xlClicked = false
+            this.xxlClicked = false;
             return
         }
-        else if(beden == 'l') {
+        else if(beden == 'L') {
             this.lClicked = true;
+            this.xxsClicked = false;
+            this.xsClicked = false;
             this.sClicked = false;
             this.mClicked = false;
             this.xlClicked = false;
+            this.xxlClicked = false;
             return
         }
-        else if(beden == 'xl') {
+        else if(beden == 'XL') {
             this.xlClicked = true;
+            this.xxsClicked = false;
+            this.xsClicked = false;
             this.sClicked = false;
             this.mClicked = false;
             this.lClicked = false;
+            this.xxlClicked = false;
+            return
+        }
+        else if(beden == 'XXL') {
+            this.xxlClicked = true;
+            this.xxsClicked = false;
+            this.xsClicked = false;
+            this.sClicked = false;
+            this.mClicked = false;
+            this.lClicked = false;
+            this.xlClicked = false;
             return
         }
     }

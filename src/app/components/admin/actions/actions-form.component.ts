@@ -14,6 +14,7 @@ export class ProductActions {
   selectedFiles?: FileList;
   currentFileUpload?: Item;
   percentage = 0;
+  sizes : string[] = [];
   ngOnInit(): void {}
 
   selectFile(event: any): void {
@@ -33,6 +34,8 @@ export class ProductActions {
         this.currentFileUpload.description = item.description;
         this.currentFileUpload.title = item.title;
         this.currentFileUpload.price = item.price;
+        this.currentFileUpload.sizes = this.sizes;
+        console.log(this.currentFileUpload);
         this.UploadService.pushFileToStorage(this.currentFileUpload).subscribe(
           (percentage) => {
             this.percentage = Math.round(percentage ? percentage : 0);
@@ -50,6 +53,22 @@ export class ProductActions {
         const itemToBeDeleted = new Item(file);
         this.UploadService.deleteFile(itemToBeDeleted)
       }
+    }
+  }
+
+  selectSizeHandler(size : string) : void {
+    let found = false;
+    for(let i = 0; i< this.sizes.length; i++) {
+      if(this.sizes[i] == size) {
+        this.sizes = this.sizes.filter(j => j != size)
+        console.log(this.sizes)
+        found = true;
+        break;
+      }
+    }
+    if(!found) {
+      this.sizes.push(size);
+      console.log(this.sizes)
     }
   }
 }

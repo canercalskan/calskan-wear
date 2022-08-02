@@ -14,7 +14,7 @@
                                 <i *ngIf="item.quantity == 1" class="bi bi-trash text-danger" (click) = 'decrease(item)' style="font-size:17px ;"></i>
                             </span>
                           </p>
-                          <p class="ms-2" style="color:grey; font-size: small; margin-top: -10px">Beden : L</p>
+                          <p class="ms-2" style="color:grey; font-size: small; margin-top: -10px">Beden : {{item.selectedSize}}</p>
                           <p class="fw-bold ms-2" style="font-size:13px ;">{{item.price}} ₺</p>
                         </div>
                       </li>

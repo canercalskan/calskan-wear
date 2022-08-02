@@ -6,7 +6,12 @@ export class Item {
     description!: string;
     price!:number;
     quantity : number = 1;
-    size!: string
+    // sizes!: [{
+    //   size : string,
+    //   stok : number 
+    // }];
+    sizes! : string[];
+    selectedSize! : string;
     file: File;
     constructor(file: File) {
       this.file = file;

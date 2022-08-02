@@ -13,10 +13,11 @@
             <div class="beden">
                 <p class="fw-light"><span class="text-danger">*</span> Beden Seçiniz</p>
                 <ul class="list-unstyled">
-                    <li [ngClass]="{clicked : sClicked}" (click)= 'sizeHandler("s")'>S</li>
+                    <!-- <li [ngClass]="{clicked : sClicked}" (click)= 'sizeHandler("s")'>S</li>
                     <li [ngClass]="{clicked : mClicked}" (click) = 'sizeHandler("m")'>M</li>
                     <li [ngClass]="{clicked : lClicked}" (click) = 'sizeHandler("l")'>L</li>
-                    <li [ngClass]="{clicked : xlClicked}" (click) = 'sizeHandler("xl")'>XL</li>
+                    <li [ngClass]="{clicked : xlClicked}" (click) = 'sizeHandler("xl")'>XL</li> -->
+                    <li *ngFor="let size of product.sizes" (click) = 'sizeHandler(size)'>{{size}}</li>
                 </ul>
             </div>
             <div class="actions">

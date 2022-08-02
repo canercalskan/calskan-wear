@@ -25,3 +25,15 @@ textarea {
     padding: 5px;
     font-size: smaller;
 }
+
+/* #sizes {
+    display: inline-block;
+} */
+
+#sizes input , #sizes label{
+    display: inline-block;
+}
+
+#sizes input {
+    margin-right: 1rem;
+}
