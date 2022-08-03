@@ -35,7 +35,7 @@ export class CheckoutComponent {
         //     }
         // }
        this.items.forEach(i => {
-            if(i.key === item.key) {
+            if(i.key === item.key && i.selectedSize === item.selectedSize) {
                 i.quantity += 1;
                 this.total += i.price;
                 localStorage.setItem('cartItems' , JSON.stringify(this.items));
@@ -65,7 +65,7 @@ export class CheckoutComponent {
             item.quantity--;
             this.total -= item.price;
             for(var i in this.items) {
-                if(this.items[i].quantity > 0 && this.items[i].key === item.key) {
+                if(this.items[i].quantity > 0 && this.items[i].key === item.key && this.items[i].selectedSize === item.selectedSize) {
                     this.items[i].quantity = item.quantity;
                     localStorage.setItem('cartItems' , JSON.stringify(this.items));
                     localStorage.setItem('cartTotal' , this.total.toString());
@@ -78,7 +78,7 @@ export class CheckoutComponent {
                     break;
                 }
             }
-            //
+            
         }
         if(this.items.length === 0) {
             location.reload();

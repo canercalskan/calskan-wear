@@ -35,10 +35,8 @@ export class UserService {
                 done = true;
                 Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
                     location.reload();
+                    return;
                 })
-            }
-            else {
-                done = false;
             }
         })
         if(!done) {
