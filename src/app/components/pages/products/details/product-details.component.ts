@@ -14,6 +14,7 @@ import Swal from "sweetalert2";
 export class ProductDetails implements OnInit {
     product! : Item;
     deliveryShown : boolean = false;
+    descriptionShown : boolean = false;
     xxsClicked : boolean = false;
     xsClicked : boolean = false;
     sClicked : boolean = false;
@@ -62,6 +63,18 @@ export class ProductDetails implements OnInit {
         let message = document.getElementById('delivery-hidden');
         message!.style.display = 'none';
         this.deliveryShown = false;
+    }
+
+    showDescription() : void {
+        let description = document.getElementById('description-hidden')!;
+        description.style.display = 'block'; 
+        this.descriptionShown = true;
+    }
+
+    hideDescription() : void {
+        let description = document.getElementById('description-hidden')!
+        description.style.display = 'none';
+        this.descriptionShown = false;
     }
 
     addToCart(item:Item) : void {
