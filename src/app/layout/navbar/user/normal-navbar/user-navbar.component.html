@@ -78,8 +78,8 @@
               </ul>
             </div>
           </i>
-            <i *ngIf="noMobile" class="bi bi-cart2 fs-2 mb-4" id="cart-image" (click) = 'showCart()'><div id="cart-count" *ngIf="cartItems">{{cartItems.length}}</div></i> 
-            <div class="dropdown-menu" id="cart-dropdown" aria-labelledby="navbarDropdown">
+            <i *ngIf="noMobile" class="bi bi-cart2 fs-2 mb-4" id="cart-image" (click) = 'showCart()'><div id="cart-count">{{cartItems.length}}</div></i> 
+            <div *ngIf="cartItems" class="dropdown-menu" id="cart-dropdown" aria-labelledby="navbarDropdown">
               <div style="justify-content:space-between; display: flex;"><span class="fw-bold">SEPET</span><span><i class="bi bi-x-lg m-0 p-0 text-danger" (click) = 'hideCart()'></i></span></div>
               <hr>
               <ul class="list-unstyled">

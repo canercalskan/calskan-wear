@@ -26,13 +26,15 @@ export class Navbar {
         this.fireAuth.user.subscribe(u => {
             this.userName = u?.displayName!
         })
+        // this.cartItems = this.UserService.getCartItems();
     }
     productsComp! : ProductsComponent;
     f!  : File
     cartTotal : number = this.UserService.cartTotal;
     cartItems : Array<Item> = this.UserService.cartItems || [];
     loginStatus () { 
-        this.cartItems = this.UserService.getCartItems();
+        this.cartItems = this.UserService.cartItems;
+        if(this.cartItems == null) {this.cartItems = []}
         this.cartTotal = +localStorage.getItem('cartTotal')!
         if(localStorage.getItem('isLoggedIn') == 'true') {
             return true

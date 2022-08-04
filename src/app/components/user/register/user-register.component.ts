@@ -19,7 +19,10 @@ export class RegisterComponent {
   
   handleRegister(input: User): void {
     this.authservice.register(input).then(() => {
-      this.UserService.registerUser(input).subscribe();
+      this.fireAuth.currentUser.then(u => {
+        input.uid = u!.uid
+        this.UserService.registerUser(input)
+      })
       this.registerDone = true;
       this.authservice.logOut().then(() => {Swal.fire('Başarılı' , 'E-Posta ve şifrenizle giriş yapabilirsiniz' , 'success')})
     })

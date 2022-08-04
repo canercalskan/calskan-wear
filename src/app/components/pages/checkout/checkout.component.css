@@ -9,6 +9,15 @@
     justify-content:space-evenly;
 }
 
+#iyzico-pay {
+    width: 300px;
+    height: 80px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -1rem;
+}
+
 .ozet-content {
     background-color: #F2F2F2;
     height: 200px;
@@ -73,6 +82,10 @@
     .ssl {
         margin-bottom: 1rem;
     }
+    #iyzico-pay {
+        width: 200px;
+        height: 50px;
+    }
 }
 
 @media(max-width : 500px) {
@@ -81,8 +94,5 @@
     }
     .ozet {
         margin-left: 0;
-    }
-    .products ul li {
-        /* margin: 0; */
     }
 }
