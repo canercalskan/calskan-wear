@@ -35,80 +35,30 @@ export class UserService {
         let done = false;
         let cartKey = localStorage.getItem('cartKey');
         if(cartKey == null || cartKey == undefined) {
-            // if(this.cartItems.length == 0) {
-                this.cartItems.push(item);
-                this.cartKey = this.db.list('carts').push(this.cartItems).key!;
-                localStorage.setItem('cartKey' , this.cartKey!);
-                return;
-            //} 
+            this.cartItems.push(item);
+            this.cartKey = this.db.list('carts').push(this.cartItems).key!;
+            localStorage.setItem('cartKey' , this.cartKey!);
+            return;
         }
     
-            this.cartItems.forEach(i => {
-                if(i.key == item.key && i.selectedSize == item.selectedSize) {
-                    //i.quantity++;
-                    //this.cartTotal+=item.price;
-                    // this.db.list('/carts/' + this.cartKey).push(this.cartTotal).toString();
-                    // localStorage.setItem('cartTotal' , this.cartTotal.toString())
-                    // localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
-                    // this.cartKey = this.db.list('carts').push(this.cartItems).key?.toString()!;
-                    // localStorage.setItem('cartKey' , this.cartKey);
-                    //item.quantity++
-                    //this.db.list('/carts/' + cartKey).update(item.key,item)
-                    //this.db.list('/carts/' + cartKey).set(item.key,item)
-                    i.quantity++;
-                    this.db.list('carts').update(cartKey! , this.cartItems)
-                    done = true;
-                    Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
-                        //  location.reload();
-                    })
+        this.cartItems.forEach(i => {
+            if(i.key == item.key && i.selectedSize == item.selectedSize) {
+                i.quantity++;
+                this.db.list('carts').update(cartKey! , this.cartItems)
+                done = true;
+                Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success')
                 }
             })
             if(!done) {
-                //this.cartTotal += item.price
-                // this.cartItems.push(item);
-                // this.cartKey = this.db.list('carts').push(this.cartItems).key?.toString()!;
-                // this.db.list('/carts/' + cartKey).push(this.cartItems)
                 this.cartItems.push(item);
                 this.db.list('carts').update(cartKey! , this.cartItems);
-                // this.db.list('/carts/' + cartKey).push(item);
-                // localStorage.setItem('cartKey' , this.cartKey);
-                // localStorage.setItem('cartTotal' , this.cartTotal.toString())
-                // localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
-                Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
-                    location.reload();
-                })
+                Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success')
             }
-            
-        //}
-
-        // else {
-        //     this.cartItems.forEach((i: { key: string; selectedSize: string; quantity: number; }) => {
-        //         if(i.key == item.key && i.selectedSize == item.selectedSize) {
-        //             i.quantity++;
-        //             this.cartTotal+=item.price;
-        //             // localStorage.setItem('cartTotal' , this.cartTotal.toString())
-        //             // localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
-        //             this.db.list("/carts/" + this.cartKey).push(item);
-        //             done = true;
-        //             Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
-        //                 location.reload();
-        //                 return;
-        //             })
-        //         }
-        //     })
-        //     if(!done) {
-        //         this.cartTotal += item.price
-        //         this.cartItems.push(item);
-        //         this.db.list("/carts/" + this.cartKey).push(item);
-        //         // localStorage.setItem('cartTotal' , this.cartTotal.toString())
-        //         // localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
-        //         Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
-        //             // location.reload();
-        //         })
-        //     }
-
-    
         }
+
+
+        //LOCALSTORAGE İLE SEPET ALGORİTMASI
+
         // this.cartItems.forEach((i: { key: string; selectedSize: string; quantity: number; }) => {
         //     if(i.key == item.key && i.selectedSize == item.selectedSize) {
         //         i.quantity++;
@@ -141,15 +91,9 @@ export class UserService {
 
     removeFromCart(item:Item) : void { 
         let cartKey = localStorage.getItem('cartKey');
-        //this.cartItems = this.cartItems.filter(items => items != item) 
-        // this.cartItems = this.cartItems.filter(items => items!=item);
-        this.cartTotal -= item.price * item.quantity
-        // localStorage.setItem('cartItems' , JSON.stringify(this.cartItems));
-        // localStorage.setItem('cartTotal' , this.cartTotal.toString());
-
-        //Ürün databasedeki ilgili cart'a pushlanırken ayrı bir key yaratılıyor. Her ürün için sepetKey adında bir değişken 
-        //oluşturup o keye erişmeyi deneyebiliriz.
-        this.db.list('/carts/' + cartKey).remove('-N8cjkDSM0Gy5xMauiW1')
+        console.log(cartKey)
+        this.cartItems = this.cartItems.filter(items => items != item) 
+        this.db.list('carts').update(cartKey! , this.cartItems);
     }
 
     getCartItems() : Item[] {
@@ -157,7 +101,6 @@ export class UserService {
     }
 
     pay(items : Item[] , amount : number) : void {
-        console.log(this.fireAuth.currentUser)
         let order = new OrderModel();
         order.items = items;
         order.total = amount;
@@ -167,6 +110,8 @@ export class UserService {
                 this.db.list('orders').push(order);
                 this.cartTotal = 0;
                 this.cartItems = [];
+                this.db.list('carts').remove(this.cartKey)
+                localStorage.removeItem('cartKey')
                 return
             }
             else {
@@ -174,6 +119,8 @@ export class UserService {
                 this.db.list('orders').push(order);
                 this.cartTotal = 0;
                 this.cartItems = [];
+                this.db.list('carts').remove(this.cartKey)
+                localStorage.removeItem('cartKey')
                 return
             }
         })
@@ -182,7 +129,6 @@ export class UserService {
     verifyEmail() : void {
         this.fireAuth.user.subscribe(currentUser => {
             if(!(currentUser?.emailVerified)) {
-                // currentUser?.sendEmailVerification();
                  currentUser?.sendEmailVerification();
                  Swal.fire('Hesap doğrulama', 'Hesabınızı doğrulamak için gereken adımlar mailinize iletilmiştir.' ,'info')
             }
