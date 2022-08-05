@@ -2,7 +2,8 @@ import { NgModule } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from "@angular/router";
 import { Router } from "@angular/router";
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable } from "rxjs";
+import { AngularFireDatabase } from "@angular/fire/compat/database";
+import { AngularFireDatabaseModule } from "@angular/fire/compat/database";
 @NgModule()
 export class UserAuthGuard implements CanActivate {
     constructor(private router : Router , private fireAuth : AngularFireAuth){}
@@ -32,10 +33,15 @@ export class UserLoginGuard implements CanActivate {
 
 @NgModule()
 export class CheckoutGuard implements CanActivate {
-    constructor(private router : Router){}
+    constructor(private router : Router , private db : AngularFireDatabase ){}
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        if(localStorage.getItem('cartItems') && localStorage.getItem('cartItems')?.length! > 0 && +localStorage.getItem('cartTotal')! > 0) {
-            return true
+        // if(localStorage.getItem('cartItems') && localStorage.getItem('cartItems')?.length! > 0 && +localStorage.getItem('cartTotal')! > 0) {
+        //     return true
+
+        //}
+        let cartKey = localStorage.getItem('cartKey');
+        if(this.db.list('/carts/' + cartKey) !== null || this.db.list('/carts/'+ cartKey) !== undefined) {
+            return true;
         }
         else {
             this.router.navigate(['Home'])

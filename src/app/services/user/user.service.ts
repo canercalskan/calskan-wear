@@ -12,13 +12,14 @@ import Swal from "sweetalert2";
 @Injectable({providedIn:'root'})
 
 export class UserService {
-    cartItems! : Array<Item>;
+    cartItems! : Item[];
     cartTotal : number = +localStorage.getItem('cartTotal')!;
+    cartKey! : string
     constructor(private http: HttpClient , private db : AngularFireDatabase , private fireAuth : AngularFireAuth){
-        //this.db.object<Array<Item>>
+        this.cartKey = localStorage.getItem('cartKey')!
         this.db.list<Item>("/carts/" + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(items => {
-            this.cartItems = items!;
-            if(this.cartItems == null) {
+            this.cartItems = items;
+            if(this.cartItems == null ||this.cartItems == undefined) {
                 this.cartItems = []
             }
         })
@@ -30,39 +31,47 @@ export class UserService {
         this.db.list('contacts').push(form)
     }
 
-    //Eğer localstorage'da set edilmiş bir cartKey varsa, o keyi alıp database'de ilgili cart' a erişip düzenlemeleri yap
-    //Eğer localstorage'da set edilmiş bir cartKey yoksa, yeni bir key yarat ve erişip düzenlemeleri yap
-
     addToCart(item:Item) {
-        let cartKey = localStorage.getItem('cartKey');
         let done = false;
-        if(cartKey == null || cartKey == undefined) {
-            if(this.cartItems.length == 0) {
+        let cartKey = localStorage.getItem('cartKey');
+        if(cartKey == null || cartKey == undefined) {
+            // if(this.cartItems.length == 0) {
                 this.cartItems.push(item);
-                cartKey = this.db.list('carts').push(this.cartItems).key!.toString();
-                localStorage.setItem('cartKey' , cartKey);
+                this.cartKey = this.db.list('carts').push(this.cartItems).key!;
+                localStorage.setItem('cartKey' , this.cartKey!);
                 return;
-            } 
-            this.cartItems.forEach((i : { key: string; selectedSize: string; quantity: number; })  => {
+            //} 
+        }
+    
+            this.cartItems.forEach(i => {
                 if(i.key == item.key && i.selectedSize == item.selectedSize) {
-                    i.quantity++;
-                    this.cartTotal+=item.price;
+                    //i.quantity++;
+                    //this.cartTotal+=item.price;
+                    // this.db.list('/carts/' + this.cartKey).push(this.cartTotal).toString();
                     // localStorage.setItem('cartTotal' , this.cartTotal.toString())
                     // localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
-                    cartKey = this.db.list('carts').push(this.cartItems).key?.toString()!;
-                    localStorage.setItem('cartKey' , cartKey);
+                    // this.cartKey = this.db.list('carts').push(this.cartItems).key?.toString()!;
+                    // localStorage.setItem('cartKey' , this.cartKey);
+                    //item.quantity++
+                    //this.db.list('/carts/' + cartKey).update(item.key,item)
+                    //this.db.list('/carts/' + cartKey).set(item.key,item)
+                    i.quantity++;
+                    this.db.list('carts').update(cartKey! , this.cartItems)
                     done = true;
                     Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
-                        location.reload();
-                        return;
+                        //  location.reload();
                     })
                 }
             })
             if(!done) {
-                this.cartTotal += item.price
+                //this.cartTotal += item.price
+                // this.cartItems.push(item);
+                // this.cartKey = this.db.list('carts').push(this.cartItems).key?.toString()!;
+                // this.db.list('/carts/' + cartKey).push(this.cartItems)
                 this.cartItems.push(item);
-                cartKey = this.db.list('carts').push(this.cartItems).key?.toString()!;
-                localStorage.setItem('cartKey' , cartKey);
+                this.db.list('carts').update(cartKey! , this.cartItems);
+                // this.db.list('/carts/' + cartKey).push(item);
+                // localStorage.setItem('cartKey' , this.cartKey);
                 // localStorage.setItem('cartTotal' , this.cartTotal.toString())
                 // localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
                 Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
@@ -70,33 +79,35 @@ export class UserService {
                 })
             }
             
-        }
+        //}
 
-        else {
-            this.cartItems.forEach((i: { key: string; selectedSize: string; quantity: number; }) => {
-                if(i.key == item.key && i.selectedSize == item.selectedSize) {
-                    i.quantity++;
-                    this.cartTotal+=item.price;
-                    // localStorage.setItem('cartTotal' , this.cartTotal.toString())
-                    // localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
-                    this.db.list("/carts/" + cartKey).push(item);
-                    done = true;
-                    Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
-                        location.reload();
-                        return;
-                    })
-                }
-            })
-            if(!done) {
-                this.cartTotal += item.price
-                this.cartItems.push(item);
-                this.db.list("/carts/" + cartKey).push(item);
-                // localStorage.setItem('cartTotal' , this.cartTotal.toString())
-                // localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
-                Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
-                    // location.reload();
-                })
-            }
+        // else {
+        //     this.cartItems.forEach((i: { key: string; selectedSize: string; quantity: number; }) => {
+        //         if(i.key == item.key && i.selectedSize == item.selectedSize) {
+        //             i.quantity++;
+        //             this.cartTotal+=item.price;
+        //             // localStorage.setItem('cartTotal' , this.cartTotal.toString())
+        //             // localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
+        //             this.db.list("/carts/" + this.cartKey).push(item);
+        //             done = true;
+        //             Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
+        //                 location.reload();
+        //                 return;
+        //             })
+        //         }
+        //     })
+        //     if(!done) {
+        //         this.cartTotal += item.price
+        //         this.cartItems.push(item);
+        //         this.db.list("/carts/" + this.cartKey).push(item);
+        //         // localStorage.setItem('cartTotal' , this.cartTotal.toString())
+        //         // localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
+        //         Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
+        //             // location.reload();
+        //         })
+        //     }
+
+    
         }
         // this.cartItems.forEach((i: { key: string; selectedSize: string; quantity: number; }) => {
         //     if(i.key == item.key && i.selectedSize == item.selectedSize) {
@@ -124,13 +135,21 @@ export class UserService {
         //         // location.reload();
         //     })
         // }
-    }
+    //  }
+
+
 
     removeFromCart(item:Item) : void { 
+        let cartKey = localStorage.getItem('cartKey');
         //this.cartItems = this.cartItems.filter(items => items != item) 
+        // this.cartItems = this.cartItems.filter(items => items!=item);
         this.cartTotal -= item.price * item.quantity
-        localStorage.setItem('cartItems' , JSON.stringify(this.cartItems));
-        localStorage.setItem('cartTotal' , this.cartTotal.toString());
+        // localStorage.setItem('cartItems' , JSON.stringify(this.cartItems));
+        // localStorage.setItem('cartTotal' , this.cartTotal.toString());
+
+        //Ürün databasedeki ilgili cart'a pushlanırken ayrı bir key yaratılıyor. Her ürün için sepetKey adında bir değişken 
+        //oluşturup o keye erişmeyi deneyebiliriz.
+        this.db.list('/carts/' + cartKey).remove('-N8cjkDSM0Gy5xMauiW1')
     }
 
     getCartItems() : Item[] {
