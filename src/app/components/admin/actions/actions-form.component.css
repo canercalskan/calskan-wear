@@ -26,10 +26,6 @@ textarea {
     font-size: smaller;
 }
 
-/* #sizes {
-    display: inline-block;
-} */
-
 #sizes input , #sizes label{
     display: inline-block;
 }

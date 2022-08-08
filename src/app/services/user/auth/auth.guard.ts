@@ -35,10 +35,6 @@ export class UserLoginGuard implements CanActivate {
 export class CheckoutGuard implements CanActivate {
     constructor(private router : Router , private db : AngularFireDatabase ){}
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        // if(localStorage.getItem('cartItems') && localStorage.getItem('cartItems')?.length! > 0 && +localStorage.getItem('cartTotal')! > 0) {
-        //     return true
-
-        //}
         let cartKey = localStorage.getItem('cartKey');
         if(this.db.list('/carts/' + cartKey) !== null || this.db.list('/carts/'+ cartKey) !== undefined) {
             return true;

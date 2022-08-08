@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/user/auth/auth.service';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import Swal from 'sweetalert2';
 @Component({
   templateUrl: './user-login.component.html',

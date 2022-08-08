@@ -34,7 +34,7 @@ export class UserService {
     addToCart(item:Item) {
         let done = false;
         let cartKey = localStorage.getItem('cartKey');
-        if(cartKey == null || cartKey == undefined) {
+        if(cartKey == null || cartKey == undefined) {
             this.cartItems.push(item);
             this.cartKey = this.db.list('carts').push(this.cartItems).key!;
             localStorage.setItem('cartKey' , this.cartKey!);
@@ -46,7 +46,8 @@ export class UserService {
                 i.quantity++;
                 this.db.list('carts').update(cartKey! , this.cartItems)
                 done = true;
-                Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success')
+                Swal.fire('Başarılı', 'Var olan ürün güncellendi' , 'success')
+                return;
                 }
             })
             if(!done) {
@@ -55,7 +56,6 @@ export class UserService {
                 Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success')
             }
         }
-
 
         //LOCALSTORAGE İLE SEPET ALGORİTMASI
 
@@ -87,13 +87,14 @@ export class UserService {
         // }
     //  }
 
-
-
     removeFromCart(item:Item) : void { 
-        let cartKey = localStorage.getItem('cartKey');
-        console.log(cartKey)
+        let cartKey = localStorage.getItem('cartKey')!;
         this.cartItems = this.cartItems.filter(items => items != item) 
-        this.db.list('carts').update(cartKey! , this.cartItems);
+
+        if(this.cartItems.length == 0) {
+            localStorage.removeItem(cartKey);
+        }
+        this.db.list('carts').set(cartKey , this.cartItems).then((r)=>console.log(r));
     }
 
     getCartItems() : Item[] {
@@ -104,35 +105,31 @@ export class UserService {
         let order = new OrderModel();
         order.items = items;
         order.total = amount;
-        this.fireAuth.user.subscribe(u => {
-            if(u?.displayName != null) {
-                order.user = u?.displayName + ' : ' + u?.email ;
-                this.db.list('orders').push(order);
-                this.cartTotal = 0;
-                this.cartItems = [];
-                this.db.list('carts').remove(this.cartKey)
-                localStorage.removeItem('cartKey')
-                return
+        this.fireAuth.user.subscribe(u => { 
+            if(u?.displayName) {
+                order.user = u.displayName + ' : ' + u?.email;
             }
             else {
-                order.user = 'Anonymous'
-                this.db.list('orders').push(order);
+                order.user = 'Anonymous';
+            }
+            console.log(order)
+            this.db.list('orders').push(order).then(() => {
                 this.cartTotal = 0;
                 this.cartItems = [];
-                this.db.list('carts').remove(this.cartKey)
-                localStorage.removeItem('cartKey')
-                return
-            }
+                this.db.list('carts').remove(this.cartKey).then(() => {
+                    localStorage.removeItem('cartKey')
+                })
+            })
         })
     }
-
     verifyEmail() : void {
         this.fireAuth.user.subscribe(currentUser => {
             if(!(currentUser?.emailVerified)) {
                  currentUser?.sendEmailVerification();
                  Swal.fire('Hesap doğrulama', 'Hesabınızı doğrulamak için gereken adımlar mailinize iletilmiştir.' ,'info')
             }
-            else return;
+            else 
+                return;
         })
     }
 }

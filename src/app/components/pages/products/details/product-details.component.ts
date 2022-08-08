@@ -22,20 +22,13 @@ export class ProductDetails implements OnInit {
     lClicked : boolean = false;
     xlClicked : boolean = false;
     xxlClicked : boolean = false;
-    xxs!: HTMLElement // document.getElementById('xxs');
-    xs! :HTMLElement// document.getElementById('xs');
-    s!: HTMLElement // document.getElementById ('s')
-    m !: HTMLElement //document.getElementById('m')
-    l!: HTMLElement //document.getElementById('l')
-    xl!: HTMLElement //document.getElementById('xl')
-    xxl!: HTMLElement // document.getElementById('xxl')
-    //  xxs? = document.getElementById('XXS');
-    //  xs? = document.getElementById('XS')
-    //  s? = document.getElementById('S')
-    //  m? = document.getElementById('M')
-    //  l? = document.getElementById('L')
-    //  xl? = document.getElementById('XL')
-    //  xxl? = document.getElementById('XXL')
+    xxs!: HTMLElement 
+    xs! :HTMLElement
+    s!: HTMLElement 
+    m !: HTMLElement 
+    l!: HTMLElement 
+    xl!: HTMLElement 
+    xxl!: HTMLElement 
 
     constructor(private route : ActivatedRoute , private ItemService : ItemsService , private UserService : UserService){}
     ngOnInit() {

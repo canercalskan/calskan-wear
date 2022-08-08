@@ -26,7 +26,6 @@ export class Navbar {
         this.fireAuth.user.subscribe(u => {
             this.userName = u?.displayName!
         })
-        // this.cartItems = this.UserService.getCartItems();
     }
     productsComp! : ProductsComponent;
     f!  : File

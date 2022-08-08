@@ -194,7 +194,7 @@ i:hover {
 
     #cart-image {
         margin-left: 2rem;
-        /* background-color: red; */
+       
     }
 
     #accountDropdown {
@@ -202,12 +202,9 @@ i:hover {
     }
  } 
 
-  @media(max-width : 375px) { /* iphone mini */
+  @media(max-width : 375px) { 
     
     #brand-md {
         margin-left: 20%;
     }
-    /* #cart-image {
-        /* background-color: yellow; 
-    } */
   }

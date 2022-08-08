@@ -73,7 +73,7 @@
     }
 }
 
-@media (max-width : 375px) { /* iphone 13 mini */
+@media (max-width : 375px) { 
     .product-details {
         padding: 3rem;
     }

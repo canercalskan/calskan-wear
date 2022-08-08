@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { Item } from "src/app/models/item.model";
 import { UserService } from "src/app/services/user/user.service";
 import Swal from "sweetalert2";
@@ -19,8 +19,10 @@ export class CheckoutComponent {
             console.log(response)
         })
     }
+    
     items! : Item[];
     total : number = +(+localStorage.getItem('cartTotal')!).toFixed(2);
+
     pay() : void {
         this.UserService.pay(this.items,this.total)
         localStorage.removeItem('cartItems');
@@ -29,13 +31,12 @@ export class CheckoutComponent {
             this.router.navigate(['Home'])
         })
     }
+
     increase(item : Item) : void {
        this.items.forEach(i => {
-            if(i.key === item.key && i.selectedSize === item.selectedSize) {
-                // i.quantity += 1;
+            if(i.key === item.key && i.selectedSize === item.selectedSize) {  
                 item.quantity++;
                 this.total += i.price;
-                // localStorage.setItem('cartItems' , JSON.stringify(this.items));
                 if(this.items.length == 1) {
                     this.db.list<Item>('/carts/' + '0').update(item.key , item);
                     console.log('tek item artırıldı');
@@ -43,7 +44,6 @@ export class CheckoutComponent {
                 else {
                     this.db.list<Item>('/carts/' + localStorage.getItem('cartKey')?.toString()).update(item.key, item);
                 }
-        
                 localStorage.setItem('cartTotal' , this.total.toString())
                 return;
             }
@@ -54,7 +54,6 @@ export class CheckoutComponent {
         if(item.quantity <= 1) {
            this.items =  this.items.filter(i => i!= item);
            this.total -= item.price;
-            // localStorage.setItem( 'cartItems', JSON.stringify(this.items))
             this.db.list<Item>('/carts/' + localStorage.getItem('cartKey')?.toString()).remove(item.key);
             localStorage.setItem('cartTotal' , this.total.toString());
         }
@@ -64,18 +63,15 @@ export class CheckoutComponent {
             for(var i in this.items) {
                 if(this.items[i].quantity > 0 && this.items[i].key === item.key && this.items[i].selectedSize === item.selectedSize) {
                     this.items[i].quantity = item.quantity;
-                    // localStorage.setItem('cartItems' , JSON.stringify(this.items));
                     localStorage.setItem('cartTotal' , this.total.toString());
                     break;
                 }
                 else if(this.items[i].quantity <= 0 && this.items[i].key === item.key) {
                     this.items = this.items.filter(j => j!= this.items[i]);
-                    // localStorage.setItem('cartItems' , JSON.stringify(this.items));
                     localStorage.setItem('cartTotal' , this.total.toString());
                     break;
                 }
-            }
-            
+            }      
         }
         if(this.items.length === 0) {
             location.reload();
