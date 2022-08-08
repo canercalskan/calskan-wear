@@ -38,6 +38,7 @@ export class UserService {
             this.cartItems.push(item);
             this.cartKey = this.db.list('carts').push(this.cartItems).key!;
             localStorage.setItem('cartKey' , this.cartKey!);
+            location.reload()
             return;
         }
     
@@ -46,46 +47,21 @@ export class UserService {
                 i.quantity++;
                 this.db.list('carts').update(cartKey! , this.cartItems)
                 done = true;
-                Swal.fire('Başarılı', 'Var olan ürün güncellendi' , 'success')
-                return;
-                }
-            })
+                Swal.fire('Başarılı', 'Var olan ürün güncellendi' , 'success').then(() => {
+                    location.reload()
+                    return;
+                })
+            }
+          })
             if(!done) {
                 this.cartItems.push(item);
                 this.db.list('carts').update(cartKey! , this.cartItems);
-                Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success')
+                Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
+                    location.reload();
+                    return;
+                })
             }
-        }
-
-        //LOCALSTORAGE İLE SEPET ALGORİTMASI
-
-        // this.cartItems.forEach((i: { key: string; selectedSize: string; quantity: number; }) => {
-        //     if(i.key == item.key && i.selectedSize == item.selectedSize) {
-        //         i.quantity++;
-        //         this.cartTotal+=item.price;
-        //         // localStorage.setItem('cartTotal' , this.cartTotal.toString())
-        //         // localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
-        //         cartKey = this.db.list('carts').push(this.cartItems).key?.toString()!;
-        //         localStorage.setItem('cartKey' , cartKey);
-        //         done = true;
-        //         Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
-        //             location.reload();
-        //             return;
-        //         })
-        //     }
-        // })
-        // if(!done) {
-        //     this.cartTotal += item.price
-        //     this.cartItems.push(item);
-        //     cartKey = this.db.list('carts').push(this.cartItems).key?.toString()!;
-        //     localStorage.setItem('cartKey' , cartKey);
-        //     // localStorage.setItem('cartTotal' , this.cartTotal.toString())
-        //     // localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
-        //     Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
-        //         // location.reload();
-        //     })
-        // }
-    //  }
+        } 
 
     removeFromCart(item:Item) : void { 
         let cartKey = localStorage.getItem('cartKey')!;
