@@ -1,0 +1,56 @@
+.sidebar {
+    float: left;
+    display: flex;
+    background-color: #11101D;
+    color: black;
+    height: 80vh;
+    padding: 10px;
+    flex-direction: column;
+    justify-content:space-evenly;
+}
+
+.sidebar ul li {
+    margin-bottom: 3rem;
+    transition: all .5s;
+    color: white;
+    padding: 10px;
+}
+
+.sidebar ul li:hover {
+    cursor: pointer;
+    background-color: gray;
+}
+
+#codeForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.rateField span {
+    border: 1px solid grey;
+    padding: 5px;
+    margin: 5px;
+    transition: all .5s;
+}
+.rateField span:hover {
+    cursor: pointer;
+    background-color: rgb(22, 169, 22);
+    color: white;
+}
+.rateField {
+    display: block;
+}
+
+form button {
+    padding: 5px 20px;
+    border: 1px solid grey;
+    background-color: white;
+    transition: all .5s ;
+}
+
+form button:hover {
+    background-color: rgb(1, 149, 217);
+    color: white;
+}
