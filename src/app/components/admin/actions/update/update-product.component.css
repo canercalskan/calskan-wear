@@ -30,6 +30,20 @@ button {
     padding: .5rem;
     transition: all .6s;
     border-radius: 8px;
+    min-width: 100px;
+}
+
+#deleteButton {
+    border: 1px solid red;
+    color: red;
+    background-color: #ffff;
+    transition: all .7s;
+    margin-left: 3px;
+}
+
+#deleteButton:hover {
+    color: white;
+    background-color: red;
 }
 
 button:hover {

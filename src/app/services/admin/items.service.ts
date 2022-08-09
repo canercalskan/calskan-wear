@@ -45,8 +45,8 @@ export class ItemsService {
     return this.db.object(this.basePath + '/' + productKey).valueChanges();
   }
 
-  deleteFile(fileUpload: Item): void {
-    this.deleteFileDatabase(fileUpload.key)
+  deleteFile(fileUpload: Item): Promise<void> {
+    return this.deleteFileDatabase(fileUpload.key)
       .then(() => {
         this.deleteFileStorage(fileUpload.file.name);
       })

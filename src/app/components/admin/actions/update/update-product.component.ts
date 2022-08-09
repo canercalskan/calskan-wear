@@ -38,8 +38,6 @@ export class UpdateProduct implements OnInit {
     updateProduct(data : Item) : void {
         if (this.selectedImage) {
             const file: File = this.selectedImage.item(0)!;
-            
-
             if (file) {
               console.log(this.product)
               this.currentFileUpload = new Item(file);
@@ -63,5 +61,14 @@ export class UpdateProduct implements OnInit {
             //     })
             // }).catch(err => {Swal.fire(err , '' , 'error')})
         }
+    }
+
+    deleteProduct(product : Item) : void {
+        product.key = this.product.key;
+        this.ItemService.deleteFile(product).then(() => {
+            Swal.fire('Başarılı' , 'Ürün başarıyla kaldırıldı' , 'success').then(() => {
+                this.router.navigate(['/Administration/Update'])
+            })
+        })
     }
 }
