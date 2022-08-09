@@ -3,7 +3,6 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } fro
 import { Router } from "@angular/router";
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabase } from "@angular/fire/compat/database";
-import { AngularFireDatabaseModule } from "@angular/fire/compat/database";
 @NgModule()
 export class UserAuthGuard implements CanActivate {
     constructor(private router : Router , private fireAuth : AngularFireAuth){}

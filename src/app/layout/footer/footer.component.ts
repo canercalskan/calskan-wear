@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { AngularFireDatabase } from "@angular/fire/compat/database";
-import { SwalComponent, SwalDirective } from "@sweetalert2/ngx-sweetalert2";
 import { Item } from "src/app/models/item.model";
 import { UserService } from "src/app/services/user/user.service";
 import Swal from "sweetalert2";

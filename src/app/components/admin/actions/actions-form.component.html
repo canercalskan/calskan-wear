@@ -1,5 +1,11 @@
 <admin-navbar></admin-navbar>
 
+<!-- <ul>
+  <li *ngFor="let item of products">
+    <p>{{item.key}}</p>
+  </li>
+</ul> -->
+
 <div class="form">
   <form #uploadForm = 'ngForm' (ngSubmit) = 'upload(uploadForm.value); uploadForm.reset()'  ngNativeValidate>
   <label for="title">Ürün Başlığı</label>

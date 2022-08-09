@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from "@angular/router";
-
 import { Router } from "@angular/router";
 @NgModule()
 

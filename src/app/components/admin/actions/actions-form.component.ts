@@ -1,6 +1,9 @@
-import { Component, Injectable, NgModule } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { ItemsService } from 'src/app/services/admin/items.service';
 import { Item } from 'src/app/models/item.model';
+import { map } from 'rxjs/operators';
+import Swal from 'sweetalert2';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 @Injectable({ providedIn: 'root' })
 @Component({
@@ -10,17 +13,30 @@ import { Item } from 'src/app/models/item.model';
 })
 
 export class ProductActions {
-  constructor(private UploadService: ItemsService) {}
+  constructor(private UploadService: ItemsService , private ItemService : ItemsService , private db : AngularFireDatabase) {}
   selectedFiles?: FileList;
   currentFileUpload?: Item;
   percentage = 0;
   sizes : string[] = [];
-  ngOnInit(): void {}
+  products : any[]= [];
+  ngOnInit(): void {
+    this.ItemService.getFiles(6)
+      .snapshotChanges()
+      .pipe(
+        map((changes) =>
+          changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
+        )
+      )
+      .subscribe((fileUploads) => {
+        this.products = fileUploads;
+        console.log(this.products)
+      });
+  }
 
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
     if (this.selectedFiles) {
-      alert('Görseller yüklenmeye hazır');
+      Swal.fire('Görseller upload etmeye hazır' , '' , 'info');
     }
   }
 
@@ -39,9 +55,14 @@ export class ProductActions {
         this.UploadService.pushFileToStorage(this.currentFileUpload).subscribe(
           (percentage) => {
             this.percentage = Math.round(percentage ? percentage : 0);
+            console.log(this.percentage);
+            if(this.percentage === 100) {
+              Swal.fire('Tamamlandı' , 'Ürün veritabanına yüklendi ve sitede listelendi' , 'success').then(() => {
+                location.reload();
+              })
           }
-        );
-      }
+        }
+      )}
     }
   }
 
@@ -71,4 +92,9 @@ export class ProductActions {
       console.log(this.sizes)
     }
   }
+
+  updateProduct(product : Item) : void {
+    this.db.list('uploads').update(product.key, product);
+  }
+
 }
