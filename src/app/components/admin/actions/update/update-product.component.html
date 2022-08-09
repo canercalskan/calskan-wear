@@ -1,0 +1,31 @@
+<admin-navbar></admin-navbar>
+<div class="container">
+    <div class="">
+        <img src={{product.url}} alt={{product.title}}>
+    </div>
+   
+    
+    <form #updateForm = 'ngForm' (ngSubmit) = "updateProduct(updateForm.value)" ngNativeValidate>
+        <label for="productTitle">Ürün Başlığı</label>
+        <input type="text" name="title" id="productTitle" ngModel placeholder={{product.title}} class="mb-3">
+        <label for="productDescription">Ürün Açıklaması</label>
+        <textarea name="description" id="productDescription" cols="22" rows="5" placeholder={{product.description}} ngModel class="mb-3"></textarea>
+        <label for="productPrice">Fiyat</label>
+        <input type="number" name="price" id="productPrice" placeholder={{product.price}} ngModel class="mb-3">
+        <label for="productImage">Ürün Görseli</label>
+        <input type="file" id="productImage" (change) = "selectFile($event)" class="mb-3">
+        <button type="submit">Güncelle</button>
+        <div *ngIf="currentFileUpload" class="progress mt-2">
+            <div
+              class="progress-bar progress-bar-info"
+              role="progressbar"
+              attr.aria-valuenow="{{ percentage }}"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              [ngStyle]="{ width: percentage + '%' }"
+            >
+              {{ percentage }}%
+            </div>
+          </div>
+    </form>
+</div>

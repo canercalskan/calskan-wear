@@ -1,9 +1,10 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable, NgModule, OnInit } from '@angular/core';
 import { ItemsService } from 'src/app/services/admin/items.service';
 import { Item } from 'src/app/models/item.model';
 import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 @Component({
@@ -13,13 +14,18 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 })
 
 export class ProductActions {
-  constructor(private UploadService: ItemsService , private ItemService : ItemsService , private db : AngularFireDatabase) {}
+  constructor(private UploadService: ItemsService , private ItemService : ItemsService , private db : AngularFireDatabase , private router : Router) {}
   selectedFiles?: FileList;
   currentFileUpload?: Item;
   percentage = 0;
   sizes : string[] = [];
   products : any[]= [];
+  showUpdate : boolean = false;
+
   ngOnInit(): void {
+    if(this.router.url === '/Administration/Update') {
+      this.showUpdate = true;
+    }
     this.ItemService.getFiles(6)
       .snapshotChanges()
       .pipe(
@@ -51,11 +57,9 @@ export class ProductActions {
         this.currentFileUpload.title = item.title;
         this.currentFileUpload.price = item.price;
         this.currentFileUpload.sizes = this.sizes;
-        console.log(this.currentFileUpload);
         this.UploadService.pushFileToStorage(this.currentFileUpload).subscribe(
           (percentage) => {
             this.percentage = Math.round(percentage ? percentage : 0);
-            console.log(this.percentage);
             if(this.percentage === 100) {
               Swal.fire('Tamamlandı' , 'Ürün veritabanına yüklendi ve sitede listelendi' , 'success').then(() => {
                 location.reload();
@@ -91,10 +95,6 @@ export class ProductActions {
       this.sizes.push(size);
       console.log(this.sizes)
     }
-  }
-
-  updateProduct(product : Item) : void {
-    this.db.list('uploads').update(product.key, product);
   }
 
 }

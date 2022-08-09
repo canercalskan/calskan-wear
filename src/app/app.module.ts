@@ -33,6 +33,7 @@ import { MailComponent } from './components/pages/mail/mail.component';
 import { OrdersComponent } from './components/pages/orders/orders.component';
 import { CheckoutComponent } from './components/pages/checkout/checkout.component';
 import { CheckoutNavbar } from './layout/navbar/user/checkout-navbar/checkout-navbar.component';
+import { UpdateProduct } from './components/admin/actions/update/update-product.component';
 const firebaseConfig = {
   apiKey: "AIzaSyBb5rDZjYMI5mtA9YJqt4fVfqhU8LC-7aA",
   authDomain: "test-b03cd.firebaseapp.com",
@@ -55,7 +56,7 @@ const firebaseConfig = {
     RegisterComponent,
     LoginComponent,
     AccountComponent ,
-    AdminComponent , AdminLogin , AdminNavbar  , ProductActions, ProductsComponent,
+    AdminComponent , AdminLogin , AdminNavbar  , ProductActions, ProductsComponent, UpdateProduct,
     Contact , ProductDetails , TicketsComponent , MailComponent , OrdersComponent, CheckoutComponent , CheckoutNavbar
   ],
   imports: [

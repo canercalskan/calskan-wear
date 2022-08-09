@@ -1,0 +1,68 @@
+.container {
+    display: flex;
+    justify-content:space-evenly;
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+
+form {
+    position: relative;
+    left: -100px;
+}
+
+input , textarea{
+    display: block;
+    padding: 5px;
+    border: 1px solid grey;
+    border-radius: 8px;
+}
+
+ img {
+    width: 400px;
+    height: 450px;
+}
+
+button {
+    margin-top: 5px;
+    color: black;
+    background-color: #ffff;
+    border: 1px solid rgb(46, 208, 46);
+    padding: .5rem;
+    transition: all .6s;
+    border-radius: 8px;
+}
+
+button:hover {
+    color: #ffff;
+    background-color: rgb(46, 208, 46);
+}
+
+#changeImage {
+    position: absolute;
+    left: 300px;
+    background-color: transparent;
+    color: red;
+    border: 1px solid red;
+}
+
+#productImage {
+    border: none;
+}
+
+@media (max-width:700px) {
+    .info h6 i{
+        margin-right: 1rem;
+    }
+}
+
+@media (max-width:400px) {
+
+}
+
+@media (max-width : 500px) {
+
+}
+
+@media (max-width : 375px) { 
+
+}

@@ -36,13 +36,13 @@ export class ItemsService {
   }
 
   getFiles(numberItems: number): AngularFireList<Item> {
-    return this.db.list('uploads', ref =>
+    return this.db.list(this.basePath, ref =>
       ref.limitToLast(numberItems));
   }
 
 
   getProduct(productKey : string) : Observable<any> {
-    return this.db.object('uploads/' + productKey).valueChanges();
+    return this.db.object(this.basePath + '/' + productKey).valueChanges();
   }
 
   deleteFile(fileUpload: Item): void {
@@ -51,6 +51,10 @@ export class ItemsService {
         this.deleteFileStorage(fileUpload.file.name);
       })
       .catch(error => console.log(error));
+  }
+
+  updateProduct(data : Item) : Promise<AngularFireList<Item>> {
+    return this.db.list('uploads').update(data.key , data).then()
   }
 
   private deleteFileDatabase(key: string): Promise<void> {
