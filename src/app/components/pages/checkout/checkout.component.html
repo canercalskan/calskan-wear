@@ -29,6 +29,9 @@
                     <span>{{item.quantity}}</span>x <span>{{item.title}}</span><span class="float-end"> {{(item.price * item.quantity).toFixed(2)}}</span>
                 </span> 
             </p>
+            <p *ngIf="activatedOffer" class="text-info">{{activatedOffer.code}}
+                <span class="float-end text-dark">-{{activatedOffer.rate}}₺</span>
+            </p>
             <hr>
             <span class="float-start fw-bold" >Ara toplam </span> <span class="float-end fw-bold">{{total.toFixed(2)}} ₺</span>
         </div>

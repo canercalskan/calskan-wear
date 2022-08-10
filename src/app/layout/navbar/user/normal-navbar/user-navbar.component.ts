@@ -34,6 +34,8 @@ export class Navbar {
     cartTotal : number = this.UserService.cartTotal;
     cartItems : Array<Item> = this.UserService.cartItems || [];
     showOffer! : boolean;
+    rate! : number
+
     loginStatus () { 
         this.cartItems = this.UserService.cartItems;
         this.cartTotal = this.UserService.getCartTotal();
@@ -97,10 +99,13 @@ export class Navbar {
     setOffer(code : Offer) : void {
         this.UserService.setOffer(code).subscribe(response => {
             response.forEach(r => {
-                if(r.code == code.code) {
+                if(r.code === code.code) {
                     this.showOffer = true;
+                    this.rate = code.rate
+                    this.rate = r.rate;
                     this.UserService.cartTotal -= (this.cartTotal * r.rate) / 100;
-                    return
+                    sessionStorage.setItem('activeOffer' , JSON.stringify(r))
+                    return;
                 }
                 else {
                     this.showOffer = false;

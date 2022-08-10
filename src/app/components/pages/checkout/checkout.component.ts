@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { Router } from "@angular/router";
 import { ActivatedRoute } from "@angular/router";
 import { AngularFireDatabase } from "@angular/fire/compat/database";
+import { Offer } from "src/app/models/offer.model";
 
 @Component({
     styleUrls : ['./checkout.component.css'],
@@ -17,15 +18,17 @@ export class CheckoutComponent {
         this.db.list<Item>('/carts/' + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(response => {
             this.items = response;
             this.total = this.UserService.getCartTotal();
-        })
+        });
+        this.activatedOffer = JSON.parse(sessionStorage.getItem('activeOffer')!);
     }
     
     items! : Item[];
     total : number = 0;
-
+    activatedOffer! : Offer
     pay() : void {
         this.UserService.pay(this.items,this.total)
         Swal.fire('Sipariş Oluşturuldu', 'Ürünleriniz hazırlanmaya başladı, siparişiniz için teşekkür ederiz.' , 'success').then(() => {
+            sessionStorage.removeItem('activeOffer');
             this.router.navigate(['Home'])
         })
     }

@@ -18,7 +18,7 @@ export class UserService {
     cartTotal : number = 0;
     cartKey! : string;
     offerFound! : boolean;
-
+    activatedOffer! : Offer
     constructor(private http: HttpClient , private db : AngularFireDatabase , private fireAuth : AngularFireAuth){
         this.cartKey = localStorage.getItem('cartKey')!
         this.db.list<Item>("/carts/" + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(items => {
@@ -104,8 +104,19 @@ export class UserService {
         //         this.offerFound = false;
         //        }
         //     })
+        //
+        // this.db.list<Offer>('offers').valueChanges().subscribe(response=> {
+        //     response.forEach(r => {
+        //         if(code.code == r.code) {
+        //             sessionStorage.setItem('activeOffer' , JSON.stringify(r))
+        //         }
+        //     })
         // })
         return this.db.list<Offer>('offers').valueChanges();
+    }
+
+    getOffer() : Offer {
+        return this.activatedOffer
     }
 
     pay(items : Item[] , amount : number) : void {
@@ -123,6 +134,7 @@ export class UserService {
                 this.cartTotal = 0;
                 this.cartItems = [];
                 this.db.list('carts').remove(this.cartKey).then(() => {
+                    sessionStorage.removeItem('activeOffer')
                     localStorage.removeItem('cartKey')
                 })
             })
