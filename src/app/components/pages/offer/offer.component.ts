@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import Swal from "sweetalert2";
 import { AngularFireDatabase } from "@angular/fire/compat/database";
+import { Offer } from "src/app/models/offer.model";
 @Component({
     templateUrl : './offer.component.html',
     styleUrls : ['./offer.component.css'],
@@ -14,9 +15,9 @@ export class OfferComponent {
     buildClicked : boolean = false;
     chooseClicked : boolean = false;
     activeOffers : boolean = false;
-    makeOffer(code: string) : void {
+    makeOffer(code: Offer) : void {
         let offer = {
-            code : code,
+            code : code.code,
             rate : this.codeRate
         }
         if(!this.rateSelected) {

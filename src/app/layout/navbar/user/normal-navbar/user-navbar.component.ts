@@ -7,6 +7,8 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { ProductsComponent } from "src/app/components/pages/products/products.component";
 import { UserService } from "src/app/services/user/user.service";
 import Swal from "sweetalert2";
+import { Offer } from "src/app/models/offer.model";
+import { ThisReceiver } from "@angular/compiler";
 
 @Component({
     selector:'ng-navbar',
@@ -31,15 +33,19 @@ export class Navbar {
     f!  : File;
     cartTotal : number = this.UserService.cartTotal;
     cartItems : Array<Item> = this.UserService.cartItems || [];
-
+    showOffer! : boolean;
     loginStatus () { 
         this.cartItems = this.UserService.cartItems;
         this.cartTotal = this.UserService.getCartTotal();
-        if(this.cartItems == null) {this.cartItems = []}
+        if(this.cartItems == null) {
+            this.cartItems = []
+        }
         if(localStorage.getItem('isLoggedIn') == 'true') {
             return true
         }
-        else {return false};
+        else {
+            return false
+        };
     }
     
     logout() : void {
@@ -87,7 +93,19 @@ export class Navbar {
         this.UserService.pay(this.cartItems , this.cartTotal)
         Swal.fire('Sipariş Verildi!' , 'Ürünleriniz hazırlanmaya başladı, siparişiniz için teşekkürler.' , 'success')
     }
-    setOffer() : void {
 
+    setOffer(code : Offer) : void {
+        this.UserService.setOffer(code).subscribe(response => {
+            response.forEach(r => {
+                if(r.code == code.code) {
+                    this.showOffer = true;
+                    this.UserService.cartTotal -= (this.cartTotal * r.rate) / 100;
+                    return
+                }
+                else {
+                    this.showOffer = false;
+                }
+            })
+        })
     }
 }

@@ -7,6 +7,8 @@ import { Ticket } from "src/app/models/ticket.model";
 import { OrderModel } from "src/app/models/order.model";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import Swal from "sweetalert2";
+import { Offer } from "src/app/models/offer.model";
+import { Observable, Subscription } from "rxjs";
 
 @NgModule()
 @Injectable({providedIn:'root'})
@@ -14,7 +16,9 @@ import Swal from "sweetalert2";
 export class UserService {
     cartItems! : Item[];
     cartTotal : number = 0;
-    cartKey! : string
+    cartKey! : string;
+    offerFound! : boolean;
+
     constructor(private http: HttpClient , private db : AngularFireDatabase , private fireAuth : AngularFireAuth){
         this.cartKey = localStorage.getItem('cartKey')!
         this.db.list<Item>("/carts/" + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(items => {
@@ -53,9 +57,9 @@ export class UserService {
                 this.db.list('carts').update(cartKey! , this.cartItems)
                 done = true;
                 Swal.fire('Başarılı', 'Var olan ürün güncellendi' , 'success').then(() => {
-                    location.reload()
+                    location.reload();
                     return;
-                })
+                }) 
             }
           })
             if(!done) {
@@ -86,6 +90,24 @@ export class UserService {
         return this.cartTotal;
     }
 
+    setOffer(code : Offer) : Observable<Offer[]> {
+        // return this.db.list<Offer>('offers').valueChanges().subscribe(response => {
+        //     console.log(response)
+        //     response.forEach(r => {
+        //         console.log(r)
+        //        if(r.code === code.code) {
+        //         this.cartTotal -= (r.rate * this.cartTotal) / 100;
+        //         this.offerFound = true;
+        //         return
+        //        }
+        //        else {
+        //         this.offerFound = false;
+        //        }
+        //     })
+        // })
+        return this.db.list<Offer>('offers').valueChanges();
+    }
+
     pay(items : Item[] , amount : number) : void {
         let order = new OrderModel();
         order.items = items;
@@ -97,8 +119,6 @@ export class UserService {
             else {
                 order.user = 'Anonymous';
             }
-
-            console.log(order)
             this.db.list('orders').push(order).then(() => {
                 this.cartTotal = 0;
                 this.cartItems = [];
