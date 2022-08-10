@@ -13,20 +13,25 @@ import Swal from "sweetalert2";
 
 export class UserService {
     cartItems! : Item[];
-    cartTotal : number = +localStorage.getItem('cartTotal')!;
+    cartTotal : number = 0;
     cartKey! : string
     constructor(private http: HttpClient , private db : AngularFireDatabase , private fireAuth : AngularFireAuth){
         this.cartKey = localStorage.getItem('cartKey')!
         this.db.list<Item>("/carts/" + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(items => {
             this.cartItems = items;
+            items.forEach(i => {
+                this.cartTotal += i.price * i.quantity;
+            })
             if(this.cartItems == null ||this.cartItems == undefined) {
                 this.cartItems = []
             }
         })
     }
+
     registerUser(user : User): void {
         this.db.list('users').push(user);
     }
+
     contact(form : Ticket) {
         this.db.list('contacts').push(form)
     }
@@ -66,7 +71,7 @@ export class UserService {
     removeFromCart(item:Item) : void { 
         let cartKey = localStorage.getItem('cartKey')!;
         this.cartItems = this.cartItems.filter(items => items != item) 
-
+        this.cartTotal -= item.price * item.quantity;
         if(this.cartItems.length == 0) {
             localStorage.removeItem(cartKey);
         }
@@ -75,6 +80,10 @@ export class UserService {
 
     getCartItems() : Item[] {
         return this.cartItems
+    }
+
+    getCartTotal() : number {
+        return this.cartTotal;
     }
 
     pay(items : Item[] , amount : number) : void {
@@ -88,6 +97,7 @@ export class UserService {
             else {
                 order.user = 'Anonymous';
             }
+
             console.log(order)
             this.db.list('orders').push(order).then(() => {
                 this.cartTotal = 0;
@@ -98,6 +108,7 @@ export class UserService {
             })
         })
     }
+
     verifyEmail() : void {
         this.fireAuth.user.subscribe(currentUser => {
             if(!(currentUser?.emailVerified)) {

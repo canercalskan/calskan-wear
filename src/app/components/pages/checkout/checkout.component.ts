@@ -16,17 +16,15 @@ export class CheckoutComponent {
     constructor(private UserService : UserService , private router : Router , private route : ActivatedRoute , private db : AngularFireDatabase){
         this.db.list<Item>('/carts/' + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(response => {
             this.items = response;
-            console.log(response)
+            this.total = this.UserService.getCartTotal();
         })
     }
     
     items! : Item[];
-    total : number = +(+localStorage.getItem('cartTotal')!).toFixed(2);
+    total : number = 0;
 
     pay() : void {
         this.UserService.pay(this.items,this.total)
-        localStorage.removeItem('cartItems');
-        localStorage.removeItem('cartTotal');
         Swal.fire('Sipariş Oluşturuldu', 'Ürünleriniz hazırlanmaya başladı, siparişiniz için teşekkür ederiz.' , 'success').then(() => {
             this.router.navigate(['Home'])
         })
@@ -39,12 +37,10 @@ export class CheckoutComponent {
                 this.total += i.price;
                 if(this.items.length == 1) {
                     this.db.list<Item>('/carts/' + '0').update(item.key , item);
-                    console.log('tek item artırıldı');
                 }
                 else {
                     this.db.list<Item>('/carts/' + localStorage.getItem('cartKey')?.toString()).update(item.key, item);
                 }
-                localStorage.setItem('cartTotal' , this.total.toString())
                 return;
             }
         })
@@ -55,7 +51,6 @@ export class CheckoutComponent {
            this.items =  this.items.filter(i => i!= item);
            this.total -= item.price;
             this.db.list<Item>('/carts/' + localStorage.getItem('cartKey')?.toString()).remove(item.key);
-            localStorage.setItem('cartTotal' , this.total.toString());
         }
         else {
             item.quantity--;
@@ -63,12 +58,10 @@ export class CheckoutComponent {
             for(var i in this.items) {
                 if(this.items[i].quantity > 0 && this.items[i].key === item.key && this.items[i].selectedSize === item.selectedSize) {
                     this.items[i].quantity = item.quantity;
-                    localStorage.setItem('cartTotal' , this.total.toString());
                     break;
                 }
                 else if(this.items[i].quantity <= 0 && this.items[i].key === item.key) {
                     this.items = this.items.filter(j => j!= this.items[i]);
-                    localStorage.setItem('cartTotal' , this.total.toString());
                     break;
                 }
             }      

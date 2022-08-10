@@ -45,7 +45,7 @@
 
 .sizes .size {
     color: white;
-    background-color:rgba(140, 87, 87, 0.395);
+    background-color:black;
     border: 1px solid grey;
     border-radius: 20px;
     padding: 5px;
@@ -60,8 +60,8 @@
 
 .sizes .size:hover {
     cursor: pointer;
-    background-color: black;
-    color: #ffff;
+    background-color: grey;
+    color: white;
 }
 
 .card-actions i {

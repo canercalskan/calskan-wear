@@ -28,13 +28,14 @@ export class Navbar {
         })
     }
     productsComp! : ProductsComponent;
-    f!  : File
+    f!  : File;
     cartTotal : number = this.UserService.cartTotal;
     cartItems : Array<Item> = this.UserService.cartItems || [];
+
     loginStatus () { 
         this.cartItems = this.UserService.cartItems;
+        this.cartTotal = this.UserService.getCartTotal();
         if(this.cartItems == null) {this.cartItems = []}
-        this.cartTotal = +localStorage.getItem('cartTotal')!
         if(localStorage.getItem('isLoggedIn') == 'true') {
             return true
         }
@@ -83,9 +84,10 @@ export class Navbar {
     }
 
     checkout() : void {
-        this.UserService.pay(this.cartItems , this.cartTotal);
-        localStorage.removeItem('cartItems');
-        localStorage.removeItem('cartTotal');
+        this.UserService.pay(this.cartItems , this.cartTotal)
         Swal.fire('Sipariş Verildi!' , 'Ürünleriniz hazırlanmaya başladı, siparişiniz için teşekkürler.' , 'success')
+    }
+    setOffer() : void {
+
     }
 }
