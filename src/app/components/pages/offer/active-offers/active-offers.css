@@ -1,0 +1,14 @@
+.tablecontent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table {
+    width: 50%;
+}
+
+td button {
+    min-width: 80px;
+    margin-left: 3px;
+}

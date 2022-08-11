@@ -21,6 +21,7 @@ import { OrdersComponent } from './components/pages/orders/orders.component';
 import { CheckoutComponent } from './components/pages/checkout/checkout.component';
 import { UpdateProduct } from './components/admin/actions/update/update-product.component';
 import { OfferComponent } from './components/pages/offer/offer.component';
+import { ActiveOffers } from './components/pages/offer/active-offers/active-offers';
 const routes: Routes = [
   {path : '' , component : HomeComponent},
   {path : 'Administration' , component : AdminComponent , canActivate : [AdminAuthGuard]},
@@ -39,6 +40,7 @@ const routes: Routes = [
   {path : 'Administration/Orders' , component : OrdersComponent, canActivate : [AdminAuthGuard]},
   {path: 'Administration/Update' , component : ProductActions , canActivate : [AdminAuthGuard]},
   {path: 'Administration/Offer' , component : OfferComponent , canActivate : [AdminAuthGuard]},
+  {path:'Administration/ActiveOffers' , component: ActiveOffers , canActivate : [AdminAuthGuard]},
   {path : 'Administration/Update/:productKey' , component: UpdateProduct , canActivate : [AdminAuthGuard]},
   {path : 'Checkout' , component: CheckoutComponent , canActivate : [CheckoutGuard]},
   {path: '**' , component: NotFoundComponent},

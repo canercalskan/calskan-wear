@@ -1,13 +1,5 @@
 <admin-navbar></admin-navbar>
-
-<div class="sidebar">
-    <ul class="list-unstyled">
-        <li><i class="bi bi-qr-code me-2"></i><span>Kod Oluştur</span> </li>  
-        <li><i class="bi bi-check2-circle me-2"></i><span>Ürünleri Seç</span></li>
-        <li><i class="bi bi-broadcast-pin me-2"></i><span>Aktif Kampanyalar</span></li>
-    </ul>
-</div>
-
+<offer-sidebar></offer-sidebar>
 <form #offerForm = 'ngForm' (submit) = 'makeOffer(offerForm.value); offerForm.reset()' ngNativeValidate id="codeForm">
 <label for="code">Kampanya Kodu</label>
 <input type="text" id="code" name="code" class="mt-2" ngModel required>

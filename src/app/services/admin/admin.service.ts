@@ -2,6 +2,7 @@ import { Injectable, NgModule } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { AngularFireDatabase, AngularFireList} from '@angular/fire/compat/database';
 import { Admin } from "src/app/models/admin.model";
+import { Offer } from "src/app/models/offer.model";
 import { OrderModel } from "src/app/models/order.model";
 import { Ticket } from "src/app/models/ticket.model";
 @Injectable({providedIn:"root"})
@@ -24,4 +25,7 @@ export class AdminService {
     getOrders() : AngularFireList<OrderModel> {
       return this.db.list<OrderModel>('orders');
     }
+    getOffers() : AngularFireList<Offer> {
+      return this.db.list<Offer>('offers')
+    } 
 }

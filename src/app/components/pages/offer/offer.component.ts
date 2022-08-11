@@ -16,17 +16,18 @@ export class OfferComponent {
     chooseClicked : boolean = false;
     activeOffers : boolean = false;
     makeOffer(code: Offer) : void {
-        let offer = {
-            code : code.code,
-            rate : this.codeRate
-        }
+        let offer = new Offer();
+        offer.code = code.code
+        offer.rate = this.codeRate;
         if(!this.rateSelected) {
             Swal.fire('Hata' , 'Oran seçimi yapınız' , 'error').then(() => {
                 return;
             })
         }
         else {
-            this.db.list('offers').push(offer).then(() => {
+            this.db.list('offers').push(offer).then((r) => {
+                offer.key = r.key!;
+                this.db.list('offers').update(offer.key , offer); // Insert the key.
                 Swal.fire('Başarılı' , 'Kampanya oluşturuldu' , 'success')
             }).catch(err => Swal.fire(err , '' , 'error'))
         }

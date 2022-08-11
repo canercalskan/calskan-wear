@@ -1,4 +1,5 @@
 export class Offer {
     code! : string;
-    rate! : number
+    rate! : number;
+    key! : string;
 }

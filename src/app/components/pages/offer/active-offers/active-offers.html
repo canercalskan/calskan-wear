@@ -1,0 +1,30 @@
+<admin-navbar></admin-navbar>
+<offer-sidebar></offer-sidebar>
+<div class="tablecontent">
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Kampanya Kodu</th>
+        <th scope="col">İndirim</th>
+        <th scope="col" class="float-end me-5">İşlemler</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let offer of OfferList">
+        <th scope="row">1</th>
+        <td>
+            {{offer.code}}
+        </td>
+        <td>
+            {{offer.rate}}%
+        </td>
+        
+        <td class="float-end">
+            <button class="btn btn-secondary">Güncelle</button>
+            <button class="btn btn-danger" (click) = 'deleteOffer(offer)'>Sil</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
