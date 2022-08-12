@@ -8,26 +8,25 @@ import { OrderModel } from "src/app/models/order.model";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import Swal from "sweetalert2";
 import { Offer } from "src/app/models/offer.model";
-import { Observable, Subscription } from "rxjs";
+import { Observable } from "rxjs";
+import { Cart } from "src/app/models/cart.model";
 
 @NgModule()
 @Injectable({providedIn:'root'})
 
 export class UserService {
-    cartItems! : Item[];
+    cartItems! : Item[]
     cartTotal : number = 0;
     cartKey! : string;
+    cart : Cart = {items : [] , offerCode : '' , total : 0} 
     offerFound! : boolean;
     activatedOffer! : Offer
-    constructor(private http: HttpClient , private db : AngularFireDatabase , private fireAuth : AngularFireAuth){
+    constructor(private db : AngularFireDatabase , private fireAuth : AngularFireAuth){
         this.cartKey = localStorage.getItem('cartKey')!
-        this.db.list<Item>("/carts/" + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(items => {
-            this.cartItems = items;
-            items.forEach(i => {
-                this.cartTotal += i.price * i.quantity;
-            })
-            if(this.cartItems == null ||this.cartItems == undefined) {
-                this.cartItems = []
+        this.db.object<Cart>("carts/" + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(cart => {
+            this.cart = cart!;
+            if(this.cart == null || this.cart == undefined) {
+                this.cart = {items:[] , offerCode : '' , total : 0}
             }
         })
     }
@@ -44,17 +43,21 @@ export class UserService {
         let done = false;
         let cartKey = localStorage.getItem('cartKey');
         if(cartKey == null || cartKey == undefined) {
-            this.cartItems.push(item);
-            this.cartKey = this.db.list('carts').push(this.cartItems).key!;
-            localStorage.setItem('cartKey' , this.cartKey!);
-            location.reload()
-            return;
+            this.cart.items.push(item)
+            this.db.list('carts').push(this.cart).then(r => {
+                this.cartKey = r.key!
+                localStorage.setItem('cartKey' , this.cartKey!);
+                Swal.fire('Eklendi' , 'Ürün sepetinize eklendi' , 'success').then(() => {
+                    location.reload();
+                })
+                return;
+            })
         }
     
-        this.cartItems.forEach(i => {
+        this.cart.items.forEach(i => {
             if(i.key == item.key && i.selectedSize == item.selectedSize) {
                 i.quantity++;
-                this.db.list('carts').update(cartKey! , this.cartItems)
+                this.db.list('carts').update(cartKey! , this.cart)
                 done = true;
                 Swal.fire('Başarılı', 'Var olan ürün güncellendi' , 'success').then(() => {
                     location.reload();
@@ -63,8 +66,8 @@ export class UserService {
             }
           })
             if(!done) {
-                this.cartItems.push(item);
-                this.db.list('carts').update(cartKey! , this.cartItems);
+                this.cart.items.push(item);
+                this.db.list('carts').update(cartKey! , this.cart);
                 Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
                     location.reload();
                     return;
@@ -74,44 +77,23 @@ export class UserService {
 
     removeFromCart(item:Item) : void { 
         let cartKey = localStorage.getItem('cartKey')!;
-        this.cartItems = this.cartItems.filter(items => items != item) 
-        this.cartTotal -= item.price * item.quantity;
-        if(this.cartItems.length == 0) {
+        this.cart.items = this.cart.items.filter(items => items != item) 
+        this.cart.total -= item.price * item.quantity;
+        if(this.cart.items.length == 0) {
             localStorage.removeItem(cartKey);
         }
-        this.db.list('carts').set(cartKey , this.cartItems).then((r)=>console.log(r));
+        this.db.list('carts').set(cartKey , this.cart).then((r)=>console.log(r)); // testing the results
     }
 
     getCartItems() : Item[] {
-        return this.cartItems
+        return this.cart.items!
     }
 
     getCartTotal() : number {
-        return this.cartTotal;
+        return this.cart.total;
     }
 
     setOffer(code : Offer) : Observable<Offer[]> {
-        // return this.db.list<Offer>('offers').valueChanges().subscribe(response => {
-        //     console.log(response)
-        //     response.forEach(r => {
-        //         console.log(r)
-        //        if(r.code === code.code) {
-        //         this.cartTotal -= (r.rate * this.cartTotal) / 100;
-        //         this.offerFound = true;
-        //         return
-        //        }
-        //        else {
-        //         this.offerFound = false;
-        //        }
-        //     })
-        //
-        // this.db.list<Offer>('offers').valueChanges().subscribe(response=> {
-        //     response.forEach(r => {
-        //         if(code.code == r.code) {
-        //             sessionStorage.setItem('activeOffer' , JSON.stringify(r))
-        //         }
-        //     })
-        // })
         return this.db.list<Offer>('offers').valueChanges();
     }
 
@@ -131,8 +113,9 @@ export class UserService {
                 order.user = 'Anonymous';
             }
             this.db.list('orders').push(order).then(() => {
-                this.cartTotal = 0;
-                this.cartItems = [];
+                this.cart.total = 0;
+                this.cart.items = [];
+                this.cart.offerCode = '';
                 this.db.list('carts').remove(this.cartKey).then(() => {
                     sessionStorage.removeItem('activeOffer')
                     localStorage.removeItem('cartKey')

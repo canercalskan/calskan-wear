@@ -37,7 +37,7 @@ export class Navbar {
     rate! : number
 
     loginStatus () { 
-        this.cartItems = this.UserService.cartItems;
+        this.cartItems = this.UserService.cart.items;
         this.cartTotal = this.UserService.getCartTotal();
         if(this.cartItems == null) {
             this.cartItems = []
