@@ -18,7 +18,7 @@ export class UserService {
     cartItems! : Item[]
     cartTotal : number = 0;
     cartKey! : string;
-    cart : Cart = {items : [] , offerCode : '' , total : 0} 
+    cart : Cart = {items : [] , offer : new Offer , total : 0} 
     offerFound! : boolean;
     activatedOffer! : Offer
     constructor(private db : AngularFireDatabase , private fireAuth : AngularFireAuth){
@@ -26,7 +26,7 @@ export class UserService {
         this.db.object<Cart>("carts/" + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(cart => {
             this.cart = cart!;
             if(this.cart == null || this.cart == undefined) {
-                this.cart = {items:[] , offerCode : '' , total : 0}
+                this.cart = {items:[] , offer : {code : '' , rate : 0, key : ''} , total : 0}
             }
         })
     }
@@ -44,6 +44,7 @@ export class UserService {
         let cartKey = localStorage.getItem('cartKey');
         if(cartKey == null || cartKey == undefined) {
             this.cart.items.push(item)
+            this.cart.total += item.price;
             this.db.list('carts').push(this.cart).then(r => {
                 this.cartKey = r.key!
                 localStorage.setItem('cartKey' , this.cartKey!);
@@ -57,6 +58,7 @@ export class UserService {
         this.cart.items.forEach(i => {
             if(i.key == item.key && i.selectedSize == item.selectedSize) {
                 i.quantity++;
+                this.cart.total += item.price;
                 this.db.list('carts').update(cartKey! , this.cart)
                 done = true;
                 Swal.fire('Başarılı', 'Var olan ürün güncellendi' , 'success').then(() => {
@@ -66,6 +68,7 @@ export class UserService {
             }
           })
             if(!done) {
+                this.cart.total += item.price;
                 this.cart.items.push(item);
                 this.db.list('carts').update(cartKey! , this.cart);
                 Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
@@ -79,10 +82,18 @@ export class UserService {
         let cartKey = localStorage.getItem('cartKey')!;
         this.cart.items = this.cart.items.filter(items => items != item) 
         this.cart.total -= item.price * item.quantity;
-        if(this.cart.items.length == 0) {
-            localStorage.removeItem(cartKey);
+        if(this.cart.items.length == 0 || this.cart.items == undefined || this.cart.items == null) {
+            localStorage.removeItem('cartKey');
+            localStorage.removeItem('activeOffer');
+            this.db.list('carts').remove(cartKey);
         }
-        this.db.list('carts').set(cartKey , this.cart).then((r)=>console.log(r)); // testing the results
+        else {
+            this.db.list('carts').set(cartKey , this.cart).then((r)=>console.log(r));
+        }  
+    }
+
+    getCart() : Cart {
+        return this.cart;
     }
 
     getCartItems() : Item[] {
@@ -94,7 +105,7 @@ export class UserService {
     }
 
     setOffer(code : Offer) : Observable<Offer[]> {
-        return this.db.list<Offer>('offers').valueChanges();
+        return this.db.list<Offer>('offers').valueChanges()
     }
 
     getOffer() : Offer {
@@ -115,7 +126,7 @@ export class UserService {
             this.db.list('orders').push(order).then(() => {
                 this.cart.total = 0;
                 this.cart.items = [];
-                this.cart.offerCode = '';
+                this.cart.offer = {code : '' , rate : 0, key : ''};
                 this.db.list('carts').remove(this.cartKey).then(() => {
                     sessionStorage.removeItem('activeOffer')
                     localStorage.removeItem('cartKey')

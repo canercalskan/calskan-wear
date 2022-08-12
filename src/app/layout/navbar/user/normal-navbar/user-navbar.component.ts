@@ -8,8 +8,8 @@ import { ProductsComponent } from "src/app/components/pages/products/products.co
 import { UserService } from "src/app/services/user/user.service";
 import Swal from "sweetalert2";
 import { Offer } from "src/app/models/offer.model";
-import { ThisReceiver } from "@angular/compiler";
-
+import { AngularFireDatabase } from "@angular/fire/compat/database";
+import { Cart } from "src/app/models/cart.model";
 @Component({
     selector:'ng-navbar',
     styleUrls : ['./user-navbar.component.css'],
@@ -21,7 +21,7 @@ export class Navbar {
     itemQuantity : number = 1;
     loginComp = new LoginComponent(this.router, this.AuthService)
     noMobile = true;
-    constructor(private router : Router , private AuthService : AuthService , private fireAuth : AngularFireAuth , private UserService : UserService){
+    constructor(private router : Router , private AuthService : AuthService , private fireAuth : AngularFireAuth , private UserService : UserService , private db : AngularFireDatabase){
         if(window.screen.width < 900) {
             this.noMobile = false;
         }
@@ -97,20 +97,33 @@ export class Navbar {
     }
 
     setOffer(code : Offer) : void {
-        this.UserService.setOffer(code).subscribe(response => {
-            response.forEach(r => {
-                if(r.code === code.code) {
-                    this.showOffer = true;
-                    this.rate = code.rate
-                    this.rate = r.rate;
-                    this.UserService.cartTotal -= (this.cartTotal * r.rate) / 100;
-                    sessionStorage.setItem('activeOffer' , JSON.stringify(r))
-                    return;
-                }
-                else {
-                    this.showOffer = false;
-                }
+        if(localStorage.getItem('activeOffer')) {
+            Swal.fire('' , 'Zaten bir kupon kullandınız' , 'warning').then(() => {
+                return;
             })
-        })
+        }
+        else {
+            this.UserService.setOffer(code).subscribe(response => {
+                response.forEach(a => {
+                    if(a.code === code.code) {
+                        this.showOffer = true;
+                        this.rate = a.rate;
+                        this.UserService.cart.total -= (this.cartTotal * a.rate) / 100;
+                        this.UserService.cart.offer = a;
+                        // this.db.list('carts/' + this.UserService.cartKey + '/offer').valueChanges().subscribe(r => {
+                        //     r.push(a)
+                        // })
+                        this.db.list('carts/' ).set(this.UserService.cartKey, this.UserService.cart)
+                        // sessionStorage.setItem('activeOffer' , JSON.stringify(a))
+                        localStorage.setItem('activeOffer' , JSON.stringify(a))
+                        return;
+                    }
+                    else {
+                        this.showOffer = false;
+                    }
+                })
+            });
+        }
+        
     }
 }

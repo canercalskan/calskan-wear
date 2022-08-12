@@ -88,7 +88,7 @@
               <p *ngIf="cartItems.length == 0" class="text-center">Sepette ürün yok</p>
               <div class="cart-actions" *ngIf="cartItems.length > 0">
                 <p class="text-center">Toplam : {{cartTotal.toFixed(2)}} ₺
-                  <span *ngIf="showOffer === true" class="text-success">%{{rate}} indirim!</span>
+                  <span *ngIf="showOffer" class="text-success">%{{rate}} indirim!</span>
                 </p>
                 <form #setOfferForm = 'ngForm' (submit) = 'setOffer(setOfferForm.value)' class="d-block" ngNativeValidate>
                   <label for="offercode" class="d-block">Kupon</label>

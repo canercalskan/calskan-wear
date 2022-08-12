@@ -1,7 +1,7 @@
 import { Item } from "./item.model";
-
+import { Offer } from "./offer.model";
 export class Cart {
     items! : Item[];
-    offerCode! : string
-    total! : number
+    offer! : Offer;
+    total! : number;
 }
