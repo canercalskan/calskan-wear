@@ -23,35 +23,13 @@ export class CheckoutComponent{
     cart! : Cart
 
     constructor(private UserService : UserService , private router : Router , private route : ActivatedRoute , private db : AngularFireDatabase){
-        // this.db.list<Item>('/carts/' + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(response => {
-        //     this.items = response;
-        //     this.total = this.UserService.getCartTotal();
-        //     console.log(this.items)
-        // });
-        // this.activatedOffer = JSON.parse(sessionStorage.getItem('activeOffer')!);
         this.cart = this.UserService.getCart();
         this.activatedOffer = this.cart.offer;
         if(this.cart.items.length == 0){
             this.router.navigate(['../']);
         }
     }
-    // ngOnInit(): void {
-    //     // this.cartItems = this.UserService.getCartItems();
-    //     // this.total = this.UserService.getCartTotal();
-    //     // this.activatedOffer = this.UserService.getOffer();
-    //     // this.cart = this.UserService.getCart();
-    //     // this.activatedOffer = this.cart.offer;
-    //     // this.db.list<Cart>('/carts/' + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(response => {
-    //     //     this.cart = response
-    //     //     this.total = this.UserService.getCartTotal()
-    //     //     this.cart.forEach(crt => {
-    //     //         this.items = response[0].items;
-    //     //         this.activatedOffer = crt.offer
-    //     //         console.log(response)
-    //     //     })
-    //     // });
-    //     // this.activatedOffer = JSON.parse(sessionStorage.getItem('activeOffer')!);
-    // }
+
     pay() : void {
         this.UserService.pay(this.cart);
         Swal.fire('Sipariş Oluşturuldu', 'Ürünleriniz hazırlanmaya başladı, siparişiniz için teşekkür ederiz.' , 'success').then(() => {
@@ -64,41 +42,24 @@ export class CheckoutComponent{
     increase(item : Item) : void {
        this.cart.items.forEach(i => {
             if(i.key === item.key && i.selectedSize === item.selectedSize) {  
-                item.quantity++;
-                this.cart.total += i.price;
-                if(this.items.length == 1) {
-                    this.db.list<Item>('/carts/' + '0').update(item.key , item);
-                }
-                else {
-                    this.db.list<Item>('/carts/' + localStorage.getItem('cartKey')?.toString()).update(item.key, item);
-                }
-                return;
+                i.quantity++;
+                this.cart.total += i.price - (i.price * this.cart.offer.rate / 100);
+                this.db.list('/carts/').update(localStorage.getItem('cartKey')?.toString()! , this.cart);
+            
             }
-        //     i.items.forEach(itm => {
-        //         if(itm.key === item.key && itm.selectedSize === item.selectedSize) {
-        //             item.quantity++;
-        //             this.total += itm.price;
-        //             if(i.items.length == 1) {
-        //                 this.db.list<Item>('/carts/' + '0').update(itm.key , item)
-        //             }
-        //             else {
-        //                 this.db.list<Item>('/carts/' + localStorage.getItem('cartKey')?.toString()).update(itm.key , item);
-        //             }
-        //         }
-        //     })
-        // })
         })
     }
 
     decrease(item : Item) : void {
         if(item.quantity <= 1) {
            this.cart.items =  this.cart.items.filter(i => i!= item);
-           this.cart.total -= item.price;
-            this.db.list<Item>('/carts/' + localStorage.getItem('cartKey')?.toString()).remove(item.key);
+           this.cart.total -= item.price - (item.price * this.cart.offer.rate / 100);
+           this.db.list('/carts/').update(localStorage.getItem('cartKey')!, this.cart);
         }
+
         else {
             item.quantity--;
-            this.total -= item.price;
+            this.cart.total -= item.price - (item.price * this.cart.offer.rate / 100);
             for(var i in this.cart.items) {
                 if(this.cart.items[i].quantity > 0 && this.cart.items[i].key === item.key && this.cart.items[i].selectedSize === item.selectedSize) {
                     this.cart.items[i].quantity = item.quantity;
@@ -112,10 +73,11 @@ export class CheckoutComponent{
                 }
             }      
         }
-        if(this.cart.items.length === 0) {
+
+        if(this.cart.items.length === 0 || this.cart.total === 0) {
             this.db.list('/carts/' + localStorage.getItem('cartKey')?.toString()).remove(item.key);
+            localStorage.removeItem('cartKey')
             location.reload();
-            this.router.navigate(['Home']);
         }
     }
 }

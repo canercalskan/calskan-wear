@@ -94,22 +94,6 @@ export class UserService {
     }
 
     getCart() : Cart {
-
-        // this.cartKey = localStorage.getItem('cartKey')!
-        // this.db.object<Cart>("carts/" + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(cart => {
-        //     this.cart = cart!;
-        //     if(this.cart == null || this.cart == undefined) {
-        //         this.cart = {items:[] , offer : {code : '' , rate : 0, key : ''} , total : 0}
-        //     }
-        // })
-        // this.cartKey = localStorage.getItem('cartKey')!
-        // this.db.object<Cart>("carts/" + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(cart => {
-        //     this.cart = cart!;
-        //     if(this.cart == null || this.cart == undefined) {
-        //         this.cart = {items:[] , offer : {code : '' , rate : 0, key : ''} , total : 0}
-        //     }
-        // })
-        // console.log('getcart()')
         return this.cart;
     }
 
