@@ -4,7 +4,7 @@
         <div class="products mt-2">
             <p class="fs-5">Ürünlerim</p>
                 <ul class="list-unstyled">
-                    <li *ngFor="let item of items" class="mt-4 d-flex">
+                    <li *ngFor="let item of this.cart.items" class="mt-4 d-flex">
                         <img src={{item.url}} alt={{item.name}} style="width:200px ; height: 150px;">
                         <div style ="justify-content: center;">
                           <a [routerLink]="['/Products/item.key']" routerLinkActive="router-link-active" >{{item.title}}</a>
@@ -24,16 +24,16 @@
     <div class="ozet mt-2">
         <p class="fs-5">Sipariş Özeti</p>
         <div class="ozet-content">
-            <p *ngFor="let item of items">
+            <p *ngFor="let item of this.cart.items">
                <span *ngIf="item.quantity > 0">
                     <span>{{item.quantity}}</span>x <span>{{item.title}}</span><span class="float-end"> {{(item.price * item.quantity).toFixed(2)}}</span>
                 </span> 
             </p>
-            <p *ngIf="activatedOffer" class="text-info">{{activatedOffer.code}}
-                <span class="float-end text-dark">-{{activatedOffer.rate}}%</span>
+            <p *ngIf="this.cart.offer.code.length > 0" class="text-info">{{this.cart.offer.code}}
+                <span class="float-end text-dark">-{{this.cart.offer.rate}}%</span>
             </p>
             <hr>
-            <span class="float-start fw-bold" >Ara toplam </span> <span class="float-end fw-bold">{{total.toFixed(2)}} ₺</span>
+            <span class="float-start fw-bold" >Ara toplam </span> <span class="float-end fw-bold">{{this.cart.total.toFixed(2)}} ₺</span>
         </div>
         <button class="btn btn-info mt-1 w-100 fw-bold" (click) = 'pay()'>ÖDEME</button>
         <div class="ssl d-flex mt-2">

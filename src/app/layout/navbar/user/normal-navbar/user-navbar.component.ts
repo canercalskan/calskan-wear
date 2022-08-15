@@ -35,6 +35,7 @@ export class Navbar {
     cartItems : Array<Item> = this.UserService.cartItems || [];
     showOffer! : boolean;
     rate! : number
+    cart : Cart = this.UserService.cart || null
 
     loginStatus () { 
         this.cartItems = this.UserService.cart.items;
@@ -92,7 +93,7 @@ export class Navbar {
     }
 
     checkout() : void {
-        this.UserService.pay(this.cartItems , this.cartTotal)
+        this.UserService.pay(this.cart)
         Swal.fire('Sipariş Verildi!' , 'Ürünleriniz hazırlanmaya başladı, siparişiniz için teşekkürler.' , 'success')
     }
 

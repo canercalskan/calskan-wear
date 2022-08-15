@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable, NgModule } from "@angular/core";
+import { Injectable, NgModule, OnInit } from "@angular/core";
 import { User } from "src/app/models/user.model";
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Item } from "src/app/models/item.model";
@@ -19,18 +19,19 @@ export class UserService {
     cartTotal : number = 0;
     cartKey! : string;
     cart : Cart = {items : [] , offer : new Offer , total : 0} 
+
     offerFound! : boolean;
     activatedOffer! : Offer
     constructor(private db : AngularFireDatabase , private fireAuth : AngularFireAuth){
         this.cartKey = localStorage.getItem('cartKey')!
         this.db.object<Cart>("carts/" + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(cart => {
             this.cart = cart!;
+            console.log(cart)
             if(this.cart == null || this.cart == undefined) {
                 this.cart = {items:[] , offer : {code : '' , rate : 0, key : ''} , total : 0}
             }
-        })
+         })
     }
-
     registerUser(user : User): void {
         this.db.list('users').push(user);
     }
@@ -93,6 +94,22 @@ export class UserService {
     }
 
     getCart() : Cart {
+
+        // this.cartKey = localStorage.getItem('cartKey')!
+        // this.db.object<Cart>("carts/" + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(cart => {
+        //     this.cart = cart!;
+        //     if(this.cart == null || this.cart == undefined) {
+        //         this.cart = {items:[] , offer : {code : '' , rate : 0, key : ''} , total : 0}
+        //     }
+        // })
+        // this.cartKey = localStorage.getItem('cartKey')!
+        // this.db.object<Cart>("carts/" + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(cart => {
+        //     this.cart = cart!;
+        //     if(this.cart == null || this.cart == undefined) {
+        //         this.cart = {items:[] , offer : {code : '' , rate : 0, key : ''} , total : 0}
+        //     }
+        // })
+        // console.log('getcart()')
         return this.cart;
     }
 
@@ -112,10 +129,11 @@ export class UserService {
         return this.activatedOffer
     }
 
-    pay(items : Item[] , amount : number) : void {
+    pay(cart : Cart) : void {
         let order = new OrderModel();
-        order.items = items;
-        order.total = amount;
+        order.items = cart.items;
+        order.total = cart.total;
+        order.offer = cart.offer;
         this.fireAuth.user.subscribe(u => { 
             if(u?.displayName) {
                 order.user = u.displayName + ' : ' + u?.email;
@@ -128,7 +146,7 @@ export class UserService {
                 this.cart.items = [];
                 this.cart.offer = {code : '' , rate : 0, key : ''};
                 this.db.list('carts').remove(this.cartKey).then(() => {
-                    sessionStorage.removeItem('activeOffer')
+                    localStorage.removeItem('activeOffer')
                     localStorage.removeItem('cartKey')
                 })
             })
