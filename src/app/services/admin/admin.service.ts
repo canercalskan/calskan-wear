@@ -5,6 +5,7 @@ import { Admin } from "src/app/models/admin.model";
 import { Offer } from "src/app/models/offer.model";
 import { OrderModel } from "src/app/models/order.model";
 import { Ticket } from "src/app/models/ticket.model";
+import { User } from "@firebase/auth";
 @Injectable({providedIn:"root"})
 @NgModule()
 
@@ -28,4 +29,11 @@ export class AdminService {
     getOffers() : AngularFireList<Offer> {
       return this.db.list<Offer>('offers')
     } 
+    getAdmin() {
+      let user : any
+      this.fireAuth.currentUser?.then(u => {
+        user = u
+      })
+      return user;
+    }
 }

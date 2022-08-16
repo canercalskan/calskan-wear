@@ -19,7 +19,7 @@ export class ActiveOffers implements OnInit{
     }
     deleteOffer(offer : Offer) : void {
         this.db.list('offers').remove(offer.key).then(() => {
-            Swal.fire('Başarılı' , 'Kampanya kodu kullanımdan kaldırıldı').then(() => {
+            Swal.fire('Başarılı' , 'Kampanya kodu kullanımdan kaldırıldı' , 'success').then(() => {
                 location.reload();
             })
         })

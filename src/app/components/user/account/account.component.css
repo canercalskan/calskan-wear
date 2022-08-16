@@ -1,0 +1,27 @@
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.field {
+    display: block;
+}
+
+.field label {
+    min-width: 150px;
+    max-width: 200px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.field input {
+    margin-left: 2rem;
+    margin-bottom:2rem;
+    border: .5px solid grey;
+    padding: 1px;
+    border-radius: 5px;
+    width: 250px;
+}

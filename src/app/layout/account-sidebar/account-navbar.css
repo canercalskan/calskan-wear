@@ -1,0 +1,11 @@
+ul li {
+    margin: 2rem;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    
+}
+
+ul li a {
+    text-decoration: none;
+}

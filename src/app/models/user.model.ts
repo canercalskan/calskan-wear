@@ -1,5 +1,6 @@
 export interface User {
     uid : string,
+    key : string,
     name: string,
     surname:string,
     phone : string,

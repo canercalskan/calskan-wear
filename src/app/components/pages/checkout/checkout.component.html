@@ -32,6 +32,9 @@
             <p *ngIf="this.cart.offer.code.length > 0" class="text-info">{{this.cart.offer.code}}
                 <span class="float-end text-dark">-{{this.cart.offer.rate}}%</span>
             </p>
+            <p> Kargo :
+                <span class="float-end text-dark">{{this.cargo}}</span>
+            </p>
             <hr>
             <span class="float-start fw-bold" >Ara toplam </span> <span class="float-end fw-bold">{{this.cart.total.toFixed(2)}} ₺</span>
         </div>

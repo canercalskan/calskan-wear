@@ -21,7 +21,7 @@ export class CheckoutComponent{
     total : number = 0;
     activatedOffer! : Offer
     cart! : Cart
-
+    cargo : number = this.UserService.cargo;
     constructor(private UserService : UserService , private router : Router , private route : ActivatedRoute , private db : AngularFireDatabase){
         this.cart = this.UserService.getCart();
         this.activatedOffer = this.cart.offer;
@@ -77,6 +77,7 @@ export class CheckoutComponent{
         if(this.cart.items.length === 0 || this.cart.total === 0) {
             this.db.list('/carts/' + localStorage.getItem('cartKey')?.toString()).remove(item.key);
             localStorage.removeItem('cartKey')
+            localStorage.removeItem('activeOffer');
             location.reload();
         }
     }

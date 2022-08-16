@@ -19,21 +19,23 @@ export class UserService {
     cartTotal : number = 0;
     cartKey! : string;
     cart : Cart = {items : [] , offer : new Offer , total : 0} 
-
+    cargo : number = 12.99;
     offerFound! : boolean;
     activatedOffer! : Offer
     constructor(private db : AngularFireDatabase , private fireAuth : AngularFireAuth){
         this.cartKey = localStorage.getItem('cartKey')!
         this.db.object<Cart>("carts/" + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(cart => {
             this.cart = cart!;
-            console.log(cart)
             if(this.cart == null || this.cart == undefined) {
                 this.cart = {items:[] , offer : {code : '' , rate : 0, key : ''} , total : 0}
             }
          })
     }
     registerUser(user : User): void {
-        this.db.list('users').push(user);
+        this.db.list('users').push(user).then((r) => {
+            user.key = r.key!
+            this.db.list('users/').update(user.key , user);
+        });
     }
 
     contact(form : Ticket) {
@@ -89,7 +91,7 @@ export class UserService {
             this.db.list('carts').remove(cartKey);
         }
         else {
-            this.db.list('carts').set(cartKey , this.cart).then((r)=>console.log(r));
+            this.db.list('carts').set(cartKey , this.cart)
         }  
     }
 
@@ -102,7 +104,7 @@ export class UserService {
     }
 
     getCartTotal() : number {
-        return this.cart.total;
+        return this.cart.total + this.cargo;
     }
 
     setOffer(code : Offer) : Observable<Offer[]> {

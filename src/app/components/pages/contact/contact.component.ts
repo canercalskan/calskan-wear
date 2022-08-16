@@ -24,8 +24,6 @@ export class Contact implements OnInit{
             this.loggedIn = true;
             this.userMail = u?.email!;
             this.userName = u?.displayName!;
-            console.log(this.userName);
-            console.log(this.userMail);
         })
     }
 }

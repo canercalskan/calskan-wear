@@ -17,7 +17,7 @@ export class ItemsService {
     const filePath = `${this.basePath}/${fileUpload.file.name}`;
     const storageRef = this.storage.ref(filePath);
     const uploadTask = this.storage.upload(filePath, fileUpload.file);
-
+    let getWithRest! : Item
     uploadTask.snapshotChanges().pipe(
       finalize(() => {
         storageRef.getDownloadURL().subscribe(downloadURL => {
