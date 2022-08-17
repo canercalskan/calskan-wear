@@ -42,3 +42,15 @@ ul li a {
 ul li a:hover {
     cursor: pointer;
 }
+
+.currentInfos {
+    display: block;
+}
+
+.new-password-field {
+    flex-direction: column;
+    margin-left: 2rem;
+}
+form {
+    display: flex;
+}

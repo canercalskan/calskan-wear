@@ -1,7 +1,6 @@
 <ng-navbar></ng-navbar>
 <hr style="margin-top: -20px;">
 
-
 <div class="container">
     <ul class="list-unstyled d-flex justify-content-center">
         <li><a (click)= "showMyInfo()" [ngStyle]="{'borderBottom': myInfoClicked == true ? '2px solid grey' :  'none'}">Bilgilerim</a> </li>
@@ -11,26 +10,41 @@
     </ul>
 </div>
 
-<div style="height: 87vh ;">
+<div style="height:87vh ;">
 <div class="container" *ngIf="this.myInfoClicked">
     <form #updateInfoForm = 'ngForm' (submit) = 'handleInfoUpdate(updateInfoForm.value); updateInfoForm.reset()' ngNativeValidate>
-        <div class="field">
-            <label for="name">İsminiz</label>
-            <input type="text" name="name" id="name" ngModel placeholder={{currentUser.name}} required >
+        <div class="currentInfos">
+            <div class="field">
+                <label for="name">Adınız <span class="text-danger">*</span></label>
+                <input type="text" name="name" id="name" ngModel placeholder={{currentUser.name}} required >
+            </div>
+            <div class="field">
+                <label for="email" >E-Posta Adresiniz</label>
+                <input name = "mail" id = "mail" type="email" disabled  value={{currentUser.mail}}>
+            </div>
+            <div class="field">
+                <label for="gsm">Telefon Numaranız <span class="text-danger">*</span></label>
+                <input type="number" name="phone" id="gsm" ngModel placeholder={{currentUser.phone}} required>
+            </div>
         </div>
-        <div class="field">
-            <label for="email" >E-Posta Adresiniz</label>
-            <input name = "mail" id = "mmail" type="email" placeholder={{currentUser.mail}} ngModel required>
+        <div class="new-password-field d-flex">
+            <div class="field">
+                <label for="password">Eski Şifreniz <span class="text-danger">*</span></label>
+                <input type="password" name="password" id="password" ngModel required>
+            </div>
+            <div class="field">
+                <label for="newPassword">Yeni Şifreniz <span class="text-danger">*</span></label>
+                <input type="password" name="newPassword" id="newPassword" ngModel required>
+            </div>
+            <div class="field">
+                <label for="newPassword">Şifre Tekrar <span class="text-danger">*</span></label>
+                <input type="password" name="newPasswordAgain" id="newPaswordAgain" ngModel required>
+                <p *ngIf="newPasswordMatches == false" class="text-danger">Şifreler birbirinden farklı.</p>
+                <p class="text-center d-block text-secondary" style="font-size:smaller;" *ngIf="myInfoClicked"> <span class="text-danger" style="position: relative; top:3px;">*</span> : doldurulması zorunlu alan</p>
+            </div>
+            <button type="submit" class="btn btn-primary pt-2 pb-2 ">Güncelle</button>
+            <button type="button" (click) = "handleDeleteAccount()" class="btn btn-danger pt-2 pb-2 mt-1">Hesabı Sil</button>
         </div>
-        <div class="field">
-            <label for="gsm">Telefon Numaranız</label>
-            <input type="number" name="phone" id="gsm" ngModel placeholder={{currentUser.phone}} required>
-        </div>
-        <div class="field">
-            <label for="password">Şifre</label>
-            <input type="password" name="password" id="password" ngModel required>
-        </div>
-        <button type="submit" class="btn btn-primary pt-2 pb-2 ps-5 pe-5">Güncelle</button>
     </form>
 </div>
 

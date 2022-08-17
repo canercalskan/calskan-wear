@@ -18,9 +18,11 @@ export class AccountComponent implements OnInit {
     myAddressesClicked : boolean = false;
     myOffersClicked : boolean = false;
     myOrdersClicked : boolean = false;
-    offerList! : Offer[]
+    offerList! : Offer[];
+    newPasswordMatches! : boolean
     constructor(private fireAuth : AngularFireAuth, private UserService : UserService , private db : AngularFireDatabase, private router : Router){}
     ngOnInit(): void {
+        this.myInfoClicked = true;
         this.fireAuth.user.subscribe(u => {
         this.db.list<User>('users').valueChanges().subscribe(response => {
             response.forEach(user => {
@@ -69,25 +71,66 @@ export class AccountComponent implements OnInit {
     }
 
 
-  handleInfoUpdate(formData : User) : void {
+  handleInfoUpdate(formData : {name : string, oldPassword : string , newPassword : string , newPasswordAgain : string}) : void {
     this.db.list('users').update(this.currentUser.key , formData).then(() => {
         this.fireAuth.currentUser.then((updatable) => {
-            // updatable!.updateEmail(formData.mail).then(()=> {
-            // updatable!.updatePassword(formData.password);
-            // })
-            updatable!.updateProfile({
+            updatable?.updateProfile({
                 displayName : formData.name
             }).then(() => {
-                updatable!.updatePassword(formData.password).then(() => {console.log('password changed')});
-            }).then(()=> {
-                updatable!.updateEmail(formData.mail).then(()=>{console.log('email changed')});
+                if(formData.newPassword === formData.newPasswordAgain) {
+                    this.newPasswordMatches = true;
+                    updatable!.updatePassword(formData.newPassword)
+                }
+                else {
+                    this.newPasswordMatches = false;
+                    return;
+                   }
             })
         .finally(()=> {
-            Swal.fire('Başarılı' , 'Üyelik bilgileriniz güncellendi , lütfen yeniden giriş yapın' , "success")
-            // this.fireAuth.signOut();
-            // location.reload();
+            if(this.newPasswordMatches == true){
+                Swal.fire('Başarılı' , 'Üyelik bilgileriniz güncellendi' , "success")
+            }
         })
       })
     })
   }
+  handleDeleteAccount() : void {
+    Swal.fire('Uyarı' , 'Bu işlem geri alınamaz' , 'warning').then(() => {
+        this.fireAuth.user.subscribe((response) => {
+            this.router.navigate(['Home']).then(() => {
+                Swal.fire('Başarılı' , 'Hesabınız başarıyla silindi.' , 'success').then(() => {
+                    response?.delete().then(() => {
+                        localStorage.removeItem('isLoggedIn')
+                        return
+                    })
+                    .catch(error => {
+                        if(error.code === "auth/requires-recent-login") {
+                            Swal.fire('Giriş Yapın' ,' Bu işlem için yeniden giriş yapmanız gerekmektedir, yönlendiriliyorsunuz' , 'info').then(() => {
+                                this.router.navigate(['Home']).then(() => {
+                                    this.router.navigate(['Login']).then(() => {
+                                        this.fireAuth.signOut().then(() => {
+                                            localStorage.removeItem('isLoggedIn')
+                                            return;
+                                        })
+                                    })
+                                })
+                            })
+                        }})
+                })
+            })
+            // }).catch(error => {
+            //     if(error.code === "auth/requires-recent-login") {
+            //         Swal.fire('Giriş Yapın' ,' Bu işlem için yeniden giriş yapmanız gerekmektedir, yönlendiriliyorsunuz' , 'info').then(() => {
+            //             this.router.navigate(['Home']).then(() => {
+            //                 this.router.navigate(['Login']).then(() => {
+            //                     this.fireAuth.signOut().then(() => {
+            //                         localStorage.removeItem('IsLoggedIn')
+            //                     })
+            //                 })
+            //             })
+            //         })
+            //     }})
+            })
+        })
+     }
 } 
