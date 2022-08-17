@@ -25,3 +25,20 @@
     border-radius: 5px;
     width: 250px;
 }
+
+.container ul li {
+    margin: 2rem;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    
+}
+
+ul li a {
+    text-decoration: none;
+    color: rgb(17, 17, 113);
+}
+
+ul li a:hover {
+    cursor: pointer;
+}

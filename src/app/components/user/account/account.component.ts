@@ -2,10 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { UserService } from "src/app/services/user/user.service";
 import Swal from "sweetalert2";
-import { AccountNavbar } from "src/app/layout/account-sidebar/account-navbar";
 import { User } from "src/app/models/user.model";
 import { AngularFireDatabase } from "@angular/fire/compat/database";
 import { Router } from "@angular/router";
+import { Offer } from "src/app/models/offer.model";
 @Component({
     templateUrl : './account.component.html',
     styleUrls : ['./account.component.css'],
@@ -14,9 +14,13 @@ import { Router } from "@angular/router";
 
 export class AccountComponent implements OnInit {
     currentUser! : User
-    constructor(private fireAuth : AngularFireAuth, private UserService : UserService , public accountNavbar : AccountNavbar , private db : AngularFireDatabase, private router : Router){}
+    myInfoClicked : boolean = false;
+    myAddressesClicked : boolean = false;
+    myOffersClicked : boolean = false;
+    myOrdersClicked : boolean = false;
+    offerList! : Offer[]
+    constructor(private fireAuth : AngularFireAuth, private UserService : UserService , private db : AngularFireDatabase, private router : Router){}
     ngOnInit(): void {
-        this.accountNavbar.showMyInfo()
         this.fireAuth.user.subscribe(u => {
         this.db.list<User>('users').valueChanges().subscribe(response => {
             response.forEach(user => {
@@ -32,7 +36,39 @@ export class AccountComponent implements OnInit {
             })
         })
     })
+    this.db.list<Offer>('/offers/').valueChanges().subscribe(response => {
+        response = response.filter(offer => offer.hidden != true)
+        this.offerList = response;
+        
+    })
   }
+
+    showMyInfo() : void {
+        this.myInfoClicked = true;
+        this.myAddressesClicked = false;
+        this.myOffersClicked = false;
+        this.myOrdersClicked = false;
+    }
+    showMyAddresses() : void {
+        this.myAddressesClicked = true;
+        this.myInfoClicked = false;
+        this.myOffersClicked = false;
+        this.myOrdersClicked = false;
+    }
+    showMyOffers() : void {
+        this.myOffersClicked = true;
+        this.myOrdersClicked = false;
+        this.myInfoClicked = false;
+        this.myAddressesClicked = false;
+    }
+    showMyOrders() : void {
+        this.myOrdersClicked = true;
+        this.myOffersClicked = false;
+        this.myInfoClicked = false;
+        this.myAddressesClicked = false;
+    }
+
+
   handleInfoUpdate(formData : User) : void {
     this.db.list('users').update(this.currentUser.key , formData).then(() => {
         this.fireAuth.currentUser.then((updatable) => {

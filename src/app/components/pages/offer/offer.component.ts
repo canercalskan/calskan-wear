@@ -19,6 +19,7 @@ export class OfferComponent {
         let offer = new Offer();
         offer.code = code.code
         offer.rate = this.codeRate;
+        offer.hidden = false;
         if(!this.rateSelected) {
             Swal.fire('Hata' , 'Oran seçimi yapınız' , 'error').then(() => {
                 return;

@@ -1,8 +1,18 @@
 <ng-navbar></ng-navbar>
 <hr style="margin-top: -20px;">
-<account-navbar></account-navbar>
+
+
+<div class="container">
+    <ul class="list-unstyled d-flex justify-content-center">
+        <li><a (click)= "showMyInfo()" [ngStyle]="{'borderBottom': myInfoClicked == true ? '2px solid grey' :  'none'}">Bilgilerim</a> </li>
+        <li><a (click) = 'showMyAddresses()' [ngStyle]="{'borderBottom': myAddressesClicked == true ? '2px solid grey' :  'none'}">Adreslerim</a> </li>
+        <li><a (click) = 'showMyOffers()' [ngStyle]="{'borderBottom': myOffersClicked == true ? '2px solid grey' :  'none'}">Kampanyalar</a> </li>
+        <li><a (click) = 'showMyOrders()' [ngStyle]="{'borderBottom': myOrdersClicked == true ? '2px solid grey' :  'none'}">Siparişlerim</a> </li>
+    </ul>
+</div>
+
 <div style="height: 87vh ;">
-<div class="container" *ngIf="this.accountNavbar.myInfoClicked">
+<div class="container" *ngIf="this.myInfoClicked">
     <form #updateInfoForm = 'ngForm' (submit) = 'handleInfoUpdate(updateInfoForm.value); updateInfoForm.reset()' ngNativeValidate>
         <div class="field">
             <label for="name">İsminiz</label>
@@ -23,5 +33,33 @@
         <button type="submit" class="btn btn-primary pt-2 pb-2 ps-5 pe-5">Güncelle</button>
     </form>
 </div>
+
+<table class="table justify-content-center" *ngIf="myOffersClicked && offerList.length > 0 ">
+    <thead>
+      <tr>
+        <th scope="col" class="text-center">#</th>
+        <th scope="col" class="text-center">Kampanya Kodu</th>
+        <th scope="col" class="">Sağlayıcı</th>
+        <th scope="col" class="">İndirim</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let offer of offerList">
+        <th scope="row" class="text-center"><i class="bi bi-qr-code text-success"></i></th>
+        <td class="text-info text-center">
+            {{offer.code}}
+        </td>
+        <td style="letter-spacing:3px ;">
+            CALSKAN
+        </td>
+        <td class="">
+            {{offer.rate}}%
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="myOffersClicked && offerList.length == 0" class=" text-center mt-5 fw-bold">Size özel bir kampanyamız bulunmamaktadır :(</p>
+
 </div>
 <footer></footer>

@@ -95,7 +95,8 @@
                   <input type="text" id="offercode" class="mb-2" name="code" ngModel required>
                   <button type="submit" id="setOfferButton">Uygula</button>
                 </form>
-                <span *ngIf="showOffer === false" class="text-danger mb-1">Böyle bir kod bulunmamaktadır.</span>
+                <span *ngIf="showOffer === false && mazigxng !== true" class="text-danger mb-1">Böyle bir kod bulunmamaktadır.</span>
+                <span *ngIf="mazigxng === true" class="text-success mb-3">Sayın CVN3R Sadakatinizi takdir ediyor</span>
                 <button class="btn w-100 text-white p-2" style="background-color: #353535 ; font-size: small;" [routerLink]="['/Checkout']" routerLinkActive="router-link-active" >SEPETİ GÖRÜNTÜLE</button>
                 <button class="btn w-100 text-dark p-2 mt-2" style="background-color: #F0CB00; font-size: small;" (click) = 'checkout()'>ALIŞVERİŞİ TAMAMLA</button>
               </div>

@@ -36,7 +36,7 @@ export class Navbar {
     showOffer! : boolean;
     rate! : number
     cart : Cart = this.UserService.cart || null
-
+    mazigxng : boolean = false;
     loginStatus () { 
         this.cartItems = this.UserService.cart.items;
         this.cartTotal = this.UserService.getCartTotal();
@@ -98,6 +98,7 @@ export class Navbar {
     }
 
     setOffer(code : Offer) : void {
+        //cart entrysinin offer attribute'u dolu ise uyarı alerti verip return et, localstorage dan kurtar burayı.
         if(localStorage.getItem('activeOffer')) {
             Swal.fire('' , 'Zaten bir kupon kullandınız' , 'warning').then(() => {
                 return;
@@ -106,16 +107,22 @@ export class Navbar {
         else {
             this.UserService.setOffer(code).subscribe(response => {
                 response.forEach(a => {
-                    if(a.code === code.code) {
+                    if(a.code === code.code && a.code != "MAZIGXNG50") {
                         this.showOffer = true;
                         this.rate = a.rate;
                         this.UserService.cart.total -= (this.cartTotal * a.rate) / 100;
                         this.UserService.cart.offer = a;
-                        // this.db.list('carts/' + this.UserService.cartKey + '/offer').valueChanges().subscribe(r => {
-                        //     r.push(a)
-                        // })
                         this.db.list('carts/' ).set(this.UserService.cartKey, this.UserService.cart)
-                        // sessionStorage.setItem('activeOffer' , JSON.stringify(a))
+                        localStorage.setItem('activeOffer' , JSON.stringify(a))
+                        return;
+                    }
+                    else if(code.code === a.code && code.code === "MAZIGXNG50") {
+                        this.showOffer = true;
+                        this.mazigxng = true;
+                        this.rate = a.rate;
+                        this.UserService.cart.total -= (this.cartTotal * a.rate) / 100;
+                        this.UserService.cart.offer = a;
+                        this.db.list('carts/' ).set(this.UserService.cartKey, this.UserService.cart)
                         localStorage.setItem('activeOffer' , JSON.stringify(a))
                         return;
                     }

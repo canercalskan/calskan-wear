@@ -1,4 +1,3 @@
-import { HttpClient } from "@angular/common/http";
 import { Injectable, NgModule, OnInit } from "@angular/core";
 import { User } from "src/app/models/user.model";
 import { AngularFireDatabase } from '@angular/fire/compat/database';
@@ -27,7 +26,7 @@ export class UserService {
         this.db.object<Cart>("carts/" + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(cart => {
             this.cart = cart!;
             if(this.cart == null || this.cart == undefined) {
-                this.cart = {items:[] , offer : {code : '' , rate : 0, key : ''} , total : 0}
+                this.cart = {items:[] , offer : {code : '' , rate : 0, key : '' , hidden : false} , total : 0}
             }
          })
     }
@@ -130,7 +129,7 @@ export class UserService {
             this.db.list('orders').push(order).then(() => {
                 this.cart.total = 0;
                 this.cart.items = [];
-                this.cart.offer = {code : '' , rate : 0, key : ''};
+                this.cart.offer = {code : '' , rate : 0, key : '' , hidden : false};
                 this.db.list('carts').remove(this.cartKey).then(() => {
                     localStorage.removeItem('activeOffer')
                     localStorage.removeItem('cartKey')

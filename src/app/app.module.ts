@@ -37,7 +37,6 @@ import { UpdateProduct } from './components/admin/actions/update/update-product.
 import { OfferComponent } from './components/pages/offer/offer.component';
 import { ActiveOffers } from './components/pages/offer/active-offers/active-offers';
 import { OfferSidebar } from './layout/offer-sidebar/offer-sidebar';
-import { AccountNavbar } from './layout/account-sidebar/account-navbar';
 const firebaseConfig = {
   apiKey: "AIzaSyBb5rDZjYMI5mtA9YJqt4fVfqhU8LC-7aA",
   authDomain: "test-b03cd.firebaseapp.com",
@@ -61,7 +60,7 @@ const firebaseConfig = {
     LoginComponent,
     AccountComponent ,
     AdminComponent , AdminLogin , AdminNavbar  , ProductActions, ProductsComponent, UpdateProduct, OfferComponent, ActiveOffers,
-    OfferSidebar, AccountNavbar,
+    OfferSidebar,
     Contact , ProductDetails , TicketsComponent , MailComponent , OrdersComponent, CheckoutComponent , CheckoutNavbar
   ],
   imports: [
