@@ -42,8 +42,12 @@
                 <p *ngIf="newPasswordMatches == false" class="text-danger">Şifreler birbirinden farklı.</p>
                 <p class="text-center d-block text-secondary" style="font-size:smaller;" *ngIf="myInfoClicked"> <span class="text-danger" style="position: relative; top:3px;">*</span> : doldurulması zorunlu alan</p>
             </div>
-            <button type="submit" class="btn btn-primary pt-2 pb-2 ">Güncelle</button>
-            <button type="button" (click) = "handleDeleteAccount()" class="btn btn-danger pt-2 pb-2 mt-1">Hesabı Sil</button>
+            <div class="d-flex justify-content-center ">
+                <button type="submit" class="btn btn-primary pt-2 pb-2 ">Güncelle</button>
+                <button type="button" (click) = "handleDeleteAccount()" class="btn btn-danger pt-2 pb-2 ms-3">Hesabı Sil</button>
+            </div>
+            <!-- <button type="submit" class="btn btn-primary pt-2 pb-2 ">Güncelle</button>
+            <button type="button" (click) = "handleDeleteAccount()" class="btn btn-danger pt-2 pb-2 mt-1">Hesabı Sil</button> -->
         </div>
     </form>
 </div>
@@ -78,20 +82,27 @@
 
   <div *ngIf="myOrdersClicked">
     <div class="order" *ngFor="let order of orderList">
+        <!-- <span class="text-success"><i class="bi bi-box-seam"></i> Siparişiniz Hazırlanıyor</span> -->
         <div class="order-header">
             <p>Sipariş Tarihi <span class="d-block text-center">{{order.date}}</span></p>
             <p>Sipariş Özeti <span class="d-block text-center">{{order.items.length}} ürün </span></p>
             <p>Alıcı <span class="d-block text-center">{{currentUserName}}</span></p>
-            <p>Tutar <span class="d-block text-center">{{order.total}}₺</span></p>
+            <p>Tutar <span class="d-block text-center">{{order.total.toFixed(2)}}₺</span></p>
             <button type="button" class="btn btn-secondary">Sipariş Detayı</button>
         </div>
-        <ul class="order-list">
+        <ul class="order-list list-unstyled">
             <li *ngFor="let item of order.items">
-    
+               <img src={{item.url}} alt={{item.name}} style="width: 80px; height:80px">
+               <span>{{item.title}}</span>
+               <span>{{item.description}}</span>
+               <span>{{item.price}}₺</span>
+               <span>{{item.selectedSize}}</span>
+               <span><button class="btn">İade Talebi</button></span>
             </li>
         </ul>
     </div>
   </div>
 
 </div>
-<footer></footer>
+
+<!-- <footer></footer> -->

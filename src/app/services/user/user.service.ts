@@ -15,7 +15,6 @@ import { Cart } from "src/app/models/cart.model";
 
 export class UserService {
     months : string[] = ["Ocak" , "Şubat" , "Mart" , "Nisan" , "Mayıs" , "Haziran" , "Temmuz" , "Ağustos" , "Eylül" , "Ekim", "Kasım" , "Aralık"]
-    currentMonth! : string;
     cartItems! : Item[]
     cartTotal : number = 0;
     cartKey! : string;
@@ -124,11 +123,7 @@ export class UserService {
         order.total = cart.total;
         order.offer = cart.offer;
         order.date = 
-        date.getUTCDate().toString() + ' '
-            this.months[date.getUTCMonth()]+ 
-            ' '+ date.getUTCFullYear().toString()+ 
-            ' - ' + date.getUTCHours().toString() +
-            ':' + date.getUTCMinutes().toString()
+        date.getUTCDate().toString() + ' ' + this.months[date.getUTCMonth()]+ ' '+ date.getUTCFullYear().toString()+ ' - ' + date.getHours().toString() +':' + date.getUTCMinutes().toString()
 
         this.fireAuth.user.subscribe(u => { 
             if(u?.displayName) {
