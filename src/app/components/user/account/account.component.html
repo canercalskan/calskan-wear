@@ -75,5 +75,23 @@
 
   <p *ngIf="myOffersClicked && offerList.length == 0" class=" text-center mt-5 fw-bold">Size özel bir kampanyamız bulunmamaktadır :(</p>
 
+
+  <div *ngIf="myOrdersClicked">
+    <div class="order" *ngFor="let order of orderList">
+        <div class="order-header">
+            <p>Sipariş Tarihi <span class="d-block text-center">{{order.date}}</span></p>
+            <p>Sipariş Özeti <span class="d-block text-center">{{order.items.length}} ürün </span></p>
+            <p>Alıcı <span class="d-block text-center">{{currentUserName}}</span></p>
+            <p>Tutar <span class="d-block text-center">{{order.total}}₺</span></p>
+            <button type="button" class="btn btn-secondary">Sipariş Detayı</button>
+        </div>
+        <ul class="order-list">
+            <li *ngFor="let item of order.items">
+    
+            </li>
+        </ul>
+    </div>
+  </div>
+
 </div>
 <footer></footer>

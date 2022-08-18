@@ -14,6 +14,8 @@ import { Cart } from "src/app/models/cart.model";
 @Injectable({providedIn:'root'})
 
 export class UserService {
+    months : string[] = ["Ocak" , "Şubat" , "Mart" , "Nisan" , "Mayıs" , "Haziran" , "Temmuz" , "Ağustos" , "Eylül" , "Ekim", "Kasım" , "Aralık"]
+    currentMonth! : string;
     cartItems! : Item[]
     cartTotal : number = 0;
     cartKey! : string;
@@ -115,13 +117,22 @@ export class UserService {
     }
 
     pay(cart : Cart) : void {
+        let date = new Date();
+        
         let order = new OrderModel();
         order.items = cart.items;
         order.total = cart.total;
         order.offer = cart.offer;
+        order.date = 
+        date.getUTCDate().toString() + ' '
+            this.months[date.getUTCMonth()]+ 
+            ' '+ date.getUTCFullYear().toString()+ 
+            ' - ' + date.getUTCHours().toString() +
+            ':' + date.getUTCMinutes().toString()
+
         this.fireAuth.user.subscribe(u => { 
             if(u?.displayName) {
-                order.user = u.displayName + ' : ' + u?.email;
+                order.user = u.uid;
             }
             else {
                 order.user = 'Anonymous';

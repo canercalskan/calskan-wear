@@ -5,4 +5,5 @@ export class OrderModel {
     total! : number;
     user! : string;
     offer! : Offer;
+    date! : string;
 }

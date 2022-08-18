@@ -54,3 +54,26 @@ ul li a:hover {
 form {
     display: flex;
 }
+
+.order {
+    border: 1px solid black;
+    margin: 5px;
+}
+
+.order button {
+    max-height: 35px;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-evenly;
+    border: 1px solid grey;
+    padding: 1rem;
+    margin:1rem;
+    max-height: 80px;
+}
+
+.order-header p span {
+    font-weight: 400;
+    font-size: smaller;
+}

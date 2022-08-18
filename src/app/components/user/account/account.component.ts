@@ -6,31 +6,31 @@ import { User } from "src/app/models/user.model";
 import { AngularFireDatabase } from "@angular/fire/compat/database";
 import { Router } from "@angular/router";
 import { Offer } from "src/app/models/offer.model";
+import { OrderModel } from "src/app/models/order.model";
 @Component({
     templateUrl : './account.component.html',
     styleUrls : ['./account.component.css'],
     selector : 'account'
 })
-
 export class AccountComponent implements OnInit {
     currentUser! : User
+    currentUserName! : string
     myInfoClicked : boolean = false;
     myAddressesClicked : boolean = false;
     myOffersClicked : boolean = false;
     myOrdersClicked : boolean = false;
     offerList! : Offer[];
+    orderList! : OrderModel[];
     newPasswordMatches! : boolean
     constructor(private fireAuth : AngularFireAuth, private UserService : UserService , private db : AngularFireDatabase, private router : Router){}
     ngOnInit(): void {
         this.myInfoClicked = true;
         this.fireAuth.user.subscribe(u => {
+            this.currentUserName = u?.displayName!;
         this.db.list<User>('users').valueChanges().subscribe(response => {
             response.forEach(user => {
                 if(u?.uid === user.uid) {
                     this.currentUser = user;
-                    // if(this.currentUser == null || this.currentUser == undefined) {
-                    //     this.router.navigate(['Home'])
-                    // }
                 }
                 else if(u?.providerId == 'firebase') {
                     //register as a new user.
@@ -40,7 +40,14 @@ export class AccountComponent implements OnInit {
     })
     this.db.list<Offer>('/offers/').valueChanges().subscribe(response => {
         response = response.filter(offer => offer.hidden != true)
-        this.offerList = response;
+        this.offerList = response;  
+    });
+
+    this.db.list<OrderModel>('/orders/').valueChanges().subscribe(response => {
+        this.fireAuth.user.subscribe(u => {
+            response = response.filter(order => order.user == u?.uid)
+            this.orderList = response
+        })
         
     })
   }
@@ -116,20 +123,8 @@ export class AccountComponent implements OnInit {
                                 })
                             })
                         }})
+                    })
                 })
-            })
-            // }).catch(error => {
-            //     if(error.code === "auth/requires-recent-login") {
-            //         Swal.fire('Giriş Yapın' ,' Bu işlem için yeniden giriş yapmanız gerekmektedir, yönlendiriliyorsunuz' , 'info').then(() => {
-            //             this.router.navigate(['Home']).then(() => {
-            //                 this.router.navigate(['Login']).then(() => {
-            //                     this.fireAuth.signOut().then(() => {
-            //                         localStorage.removeItem('IsLoggedIn')
-            //                     })
-            //                 })
-            //             })
-            //         })
-            //     }})
             })
         })
      }
