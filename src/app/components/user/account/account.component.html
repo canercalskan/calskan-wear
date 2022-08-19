@@ -46,8 +46,6 @@
                 <button type="submit" class="btn btn-primary pt-2 pb-2 ">Güncelle</button>
                 <button type="button" (click) = "handleDeleteAccount()" class="btn btn-danger pt-2 pb-2 ms-3">Hesabı Sil</button>
             </div>
-            <!-- <button type="submit" class="btn btn-primary pt-2 pb-2 ">Güncelle</button>
-            <button type="button" (click) = "handleDeleteAccount()" class="btn btn-danger pt-2 pb-2 mt-1">Hesabı Sil</button> -->
         </div>
     </form>
 </div>
@@ -82,12 +80,12 @@
 
   <div *ngIf="myOrdersClicked">
     <div class="order" *ngFor="let order of orderList">
-        <!-- <span class="text-success"><i class="bi bi-box-seam"></i> Siparişiniz Hazırlanıyor</span> -->
         <div class="order-header">
             <p>Sipariş Tarihi <span class="d-block text-center">{{order.date}}</span></p>
             <p>Sipariş Özeti <span class="d-block text-center">{{order.items.length}} ürün </span></p>
             <p>Alıcı <span class="d-block text-center">{{currentUserName}}</span></p>
-            <p>Tutar <span class="d-block text-center">{{order.total.toFixed(2)}}₺</span></p>
+            <p>Kupon <span class="d-block text-center text-info">{{order.offer.code}}</span></p>
+            <p>Tutar <span class="d-block text-center">{{order.total.toFixed(2)}}₺ <span class="text-danger">(-%{{order.offer.rate}})</span></span></p>
             <button type="button" class="btn btn-secondary">Sipariş Detayı</button>
         </div>
         <ul class="order-list list-unstyled">
@@ -107,5 +105,3 @@
   </div>
 
 </div>
-
-<!-- <footer></footer> -->

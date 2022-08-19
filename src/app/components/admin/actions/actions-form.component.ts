@@ -57,6 +57,7 @@ export class ProductActions {
         this.currentFileUpload.title = item.title;
         this.currentFileUpload.price = item.price;
         this.currentFileUpload.sizes = this.sizes;
+        this.currentFileUpload.category = item.category;
         this.UploadService.pushFileToStorage(this.currentFileUpload).subscribe(
           (percentage) => {
             this.percentage = Math.round(percentage ? percentage : 0);

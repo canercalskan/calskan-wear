@@ -11,7 +11,7 @@ import { Item } from '../../models/item.model';
   providedIn: 'root'
 })
 export class ItemsService {
-  private basePath = '/uploads';
+  private basePath = '/uploads/';
 
   constructor(private db: AngularFireDatabase, private storage: AngularFireStorage , private fireAuth : AngularFireAuth) { }
 
@@ -22,7 +22,6 @@ export class ItemsService {
     let getWithRest! : Item
     uploadTask.snapshotChanges().pipe(
       finalize(() => {
-        //Alttaki fonksiyon, storageRef adresine erişemeyip authorize hatası throwluyor.
         storageRef.getDownloadURL().subscribe(downloadURL => {
           fileUpload.url = downloadURL;
           fileUpload.name = fileUpload.file.name;
@@ -30,12 +29,13 @@ export class ItemsService {
         });
       })
     ).subscribe(u => {console.warn(u?.state)});
-      console.log(fileUpload)
     return uploadTask.percentageChanges();
   }
 
   private saveFileData(fileUpload: Item): void {
-    this.db.list(this.basePath).push(fileUpload).catch(err => Swal.fire('' , err , 'error')); 
+    this.db.list(this.basePath).push(fileUpload).then(() => {
+      this.db.list(this.basePath + '/' + fileUpload.category).push(fileUpload).catch(error => {Swal.fire('' , error.code)});
+    })
   }
 
   getFiles(numberItems: number): AngularFireList<Item> {
@@ -45,6 +45,7 @@ export class ItemsService {
 
 
   getProduct(productKey : string) : Observable<any> {
+    //item modele key ekle, yüklenince key ataması yap ki kategori sistemiyle getproduct senkron çalışabilsin
     return this.db.object(this.basePath + '/' + productKey).valueChanges();
   }
 

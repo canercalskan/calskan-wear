@@ -9,6 +9,7 @@ export class Item {
     sizes! : string[];
     selectedSize! : string;
     file: File;
+    category! : string
     constructor(file: File) {
       this.file = file;
     }

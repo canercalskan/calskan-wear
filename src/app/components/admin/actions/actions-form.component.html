@@ -2,6 +2,25 @@
 
 <div class="form" *ngIf="!showUpdate">
   <form #uploadForm = 'ngForm' (ngSubmit) = 'upload(uploadForm.value); uploadForm.reset()'  ngNativeValidate>
+  <label for="category">Ürün Kategorisi</label>
+  <select name="category" id="category" ngModel>
+    <option value="Hoodie">Hoodie</option>
+    <option value="Sweatshirt">Sweatshirt</option>
+    <option value="Tshirt">Tişört</option>
+    <option value="Esofman">Eşofman</option>
+    <option value="Pantolon">Pantolon</option>
+    <option value="Gomlek">Gömlek</option>
+    <option value="Sort">Şort</option>
+    <option value="Ceket">Ceket</option>
+    <option value="Mont">Mont</option>
+    <option value="Corap">Çorap</option>
+    <option value="Sapka">Şapka</option>
+    <option value="Elbise">Elbise</option>
+    <option value="Etek">Etek</option>
+    <option value="Crop">Crop</option>
+    <option value="Tayt">Tayt</option>
+    <option value="Bluz">Bluz</option>
+  </select>
   <label for="title">Ürün Başlığı</label>
   <input type="text" name="title" id="title" ngModel required>
   <label for="description">Ürün Açıklaması</label>
