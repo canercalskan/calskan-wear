@@ -1,8 +1,10 @@
 import { Injectable, NgModule } from '@angular/core';
 import { AngularFireDatabase, AngularFireList} from '@angular/fire/compat/database';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 import { Item } from '../../models/item.model';
 @NgModule()
 @Injectable({
@@ -11,7 +13,7 @@ import { Item } from '../../models/item.model';
 export class ItemsService {
   private basePath = '/uploads';
 
-  constructor(private db: AngularFireDatabase, private storage: AngularFireStorage) { }
+  constructor(private db: AngularFireDatabase, private storage: AngularFireStorage , private fireAuth : AngularFireAuth) { }
 
   pushFileToStorage(fileUpload: Item): Observable<number | undefined> {
     const filePath = `${this.basePath}/${fileUpload.file.name}`;
@@ -20,19 +22,20 @@ export class ItemsService {
     let getWithRest! : Item
     uploadTask.snapshotChanges().pipe(
       finalize(() => {
+        //Alttaki fonksiyon, storageRef adresine erişemeyip authorize hatası throwluyor.
         storageRef.getDownloadURL().subscribe(downloadURL => {
           fileUpload.url = downloadURL;
           fileUpload.name = fileUpload.file.name;
           this.saveFileData(fileUpload);
         });
       })
-    ).subscribe();
+    ).subscribe(u => {console.warn(u?.state)});
       console.log(fileUpload)
     return uploadTask.percentageChanges();
   }
 
   private saveFileData(fileUpload: Item): void {
-    this.db.list(this.basePath).push(fileUpload);
+    this.db.list(this.basePath).push(fileUpload).catch(err => Swal.fire('' , err , 'error')); 
   }
 
   getFiles(numberItems: number): AngularFireList<Item> {

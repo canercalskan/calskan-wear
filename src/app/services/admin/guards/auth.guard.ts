@@ -59,7 +59,6 @@ export class AdminAuthGuard implements CanActivate {
     // }
     this.fireAuth.currentUser.then(u=> {
         if(u?.uid === "rVVKy4U8jfgjJl8iFxdJmVqsP982") {
-            alert(u.uid)
             returnVal = true;
         }
         else {

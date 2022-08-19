@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Router } from '@angular/router';
-
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 @Injectable({ providedIn: 'root' })
 @Component({
   templateUrl : './actions-form.component.html',
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 
 export class ProductActions {
-  constructor(private UploadService: ItemsService , private ItemService : ItemsService , private db : AngularFireDatabase , private router : Router) {}
+  constructor(private UploadService: ItemsService , private ItemService : ItemsService , private db : AngularFireDatabase , private router : Router , private fireAuth : AngularFireAuth) {}
   selectedFiles?: FileList;
   currentFileUpload?: Item;
   percentage = 0;
@@ -26,7 +26,7 @@ export class ProductActions {
     if(this.router.url === '/Administration/Update') {
       this.showUpdate = true;
     }
-    this.ItemService.getFiles(6)
+    this.ItemService.getFiles(20)
       .snapshotChanges()
       .pipe(
         map((changes) =>
@@ -61,9 +61,7 @@ export class ProductActions {
           (percentage) => {
             this.percentage = Math.round(percentage ? percentage : 0);
             if(this.percentage === 100) {
-              Swal.fire('Tamamlandı' , 'Ürün veritabanına yüklendi ve sitede listelendi' , 'success').then(() => {
-                location.reload();
-              })
+
           }
         }
       )}

@@ -5,7 +5,6 @@ import { Admin } from "src/app/models/admin.model";
 import { Offer } from "src/app/models/offer.model";
 import { OrderModel } from "src/app/models/order.model";
 import { Ticket } from "src/app/models/ticket.model";
-import { User } from "@firebase/auth";
 @Injectable({providedIn:"root"})
 @NgModule()
 
@@ -20,7 +19,7 @@ export class AdminService {
     deleteTicket(key: string) : Promise<void> {
         return this.db.list('contacts').remove(key);
       }
-      getMailList() : AngularFireList<string> {
+    getMailList() : AngularFireList<string> {
         return this.db.list('subscribers')
       }
     getOrders() : AngularFireList<OrderModel> {

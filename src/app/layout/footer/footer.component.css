@@ -63,6 +63,10 @@ a i:hover {
     text-align: center;
 }
 
+#footer-cart:hover {
+    cursor: pointer;
+}
+
 @media (max-width : 767px) {
     .list {
         visibility: visible;
