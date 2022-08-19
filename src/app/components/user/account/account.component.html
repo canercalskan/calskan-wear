@@ -101,6 +101,9 @@
             </li>
         </ul>
     </div>
+    <p *ngIf="myOrdersClicked && orderList.length == 0" class="text-center text-warning mt-5">
+       <span style="font-size: 30px;">Henüz sipariş oluşturmadınız</span>
+        <i class="bi bi-emoji-frown d-block " style="font-size:100px ;"></i>
   </div>
 
 </div>

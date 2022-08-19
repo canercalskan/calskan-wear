@@ -13,8 +13,9 @@
         <span *ngIf="passwordError" style="color:red;">Şifreniz hatalıdır</span>
     </div>
     <div class="form-group">
-        <label for="remember">Beni Hatırla</label>
-        <input type="checkbox" style="width:auto;" class="ms-2" name="remember" ngModel>
+        <!-- <label for="remember">Beni Hatırla</label>
+        <input type="checkbox" style="width:auto;" class="ms-2" name="remember" ngModel> -->
+        <a href="" [routerLink]="['/ResetPassword']" routerLinkActive="router-link-active"  style="position:relative; top: -10px; text-decoration: none;">Şifremi Unuttum</a>
     </div>
     <button type="submit" class="btn">Giriş Yap</button>
     <span (click) = 'handleGoogleLogin()' class="btn" id="google-login"><i class="bi bi-google" ></i> ile giriş</span>
