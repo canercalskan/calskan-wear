@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import { Offer } from "src/app/models/offer.model";
 import { AngularFireDatabase } from "@angular/fire/compat/database";
 import { Cart } from "src/app/models/cart.model";
+import { AccountComponent } from "src/app/components/user/account/account.component";
 @Component({
     selector:'ng-navbar',
     styleUrls : ['./user-navbar.component.css'],

@@ -7,6 +7,8 @@ import { AngularFireDatabase } from "@angular/fire/compat/database";
 import { Router } from "@angular/router";
 import { Offer } from "src/app/models/offer.model";
 import { OrderModel } from "src/app/models/order.model";
+import { HttpClient } from "@angular/common/http";
+
 @Component({
     templateUrl : './account.component.html',
     styleUrls : ['./account.component.css'],
@@ -21,8 +23,8 @@ export class AccountComponent implements OnInit {
     myOrdersClicked : boolean = false;
     offerList! : Offer[];
     orderList! : OrderModel[];
-    newPasswordMatches! : boolean
-    constructor(private fireAuth : AngularFireAuth, private UserService : UserService , private db : AngularFireDatabase, private router : Router){}
+    newPasswordMatches! : boolean;
+    constructor(private fireAuth : AngularFireAuth, private UserService : UserService , private db : AngularFireDatabase, private router : Router , private http : HttpClient){}
     ngOnInit(): void {
         this.myInfoClicked = true;
         this.fireAuth.user.subscribe(u => {

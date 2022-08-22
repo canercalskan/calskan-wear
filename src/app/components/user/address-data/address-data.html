@@ -1,0 +1,33 @@
+<form #addressForm = 'ngForm' (submit) = 'handleAddressSubmission(addressForm.value); addressForm.reset' id="addressForm">
+    <div class="row">
+        <div class="col-2">
+            <label for="ad">Ad*</label>
+            <input type="text" name="ad" id="ad" ngModel required>
+        </div>
+        <div class="col-2">
+            <label for="soyad">Soyad*</label>
+            <input type="text" name="soyad" id="soyad" ngModel required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <label for="il">İl*</label>
+            <select name="il" id="il" (change) = 'handleIlSelection($any($event.target).value)' ngModel>
+                <option *ngFor="let il of iller" value={{il}}>{{il}}</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <label for="ilce">İlçe*</label>
+                <select name="ilce" id="ilce" ngModel>
+                    <option *ngFor="let ilce of ilceler" value={{ilce}}>{{ilce}}</option>
+            </select>
+        </div>
+    </div>
+    <label for="adres-detay">Adres</label>
+    <textarea name="adres-detay" id="adres-detay" cols="30" rows="5"></textarea>
+    <label for="telefon">Telefon*</label>
+    <input type="tel" name="telefon" id="telefon" ngModel required>
+    <label for="baslik">Adres Başlığı*</label>
+    <input type="text" name="baslik" ngModel>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+</form>

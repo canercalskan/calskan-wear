@@ -104,4 +104,12 @@
         <i class="bi bi-emoji-frown d-block " style="font-size:100px ;"></i>
   </div>
 
+  <!-- <address-data *ngIf="myAddressesClicked"></address-data> -->
+  <div *ngIf="myAddressesClicked">
+    <span class="d-flex justify-content-center" id="newAddressField">
+        <i class="bi bi-plus-lg" style="color:rgb(11, 176, 11); font-size: 1.5rem;" *ngIf="this.currentUser.address == null || this.currentUser.address == undefined"></i> 
+        <span class="ms-2" style="position: relative; top: 5px;">Yeni Adres Ekle</span>
+    </span>
+  </div>
+  
 </div>
