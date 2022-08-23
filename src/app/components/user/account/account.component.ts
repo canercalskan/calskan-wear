@@ -39,6 +39,7 @@ export class AccountComponent implements OnInit {
                 }
             })
         })
+
     })
     this.db.list<Offer>('/offers/').valueChanges().subscribe(response => {
         response = response.filter(offer => offer.hidden != true)
@@ -62,6 +63,7 @@ export class AccountComponent implements OnInit {
     }
     showMyAddresses() : void {
         this.myAddressesClicked = true;
+        this.UserService.showMyAddresses(this.myAddressesClicked)
         this.myInfoClicked = false;
         this.myOffersClicked = false;
         this.myOrdersClicked = false;

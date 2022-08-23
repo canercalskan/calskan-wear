@@ -1,4 +1,45 @@
+#newAddressButton {
+    display: flex;
+    justify-content: center;
+}
+
+#saveAddressBtn {
+    margin-left: 6px;
+}
+
+#addressForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+    line-height: 1.4rem;
+    position: relative;
+    top: -15rem;
+    border-radius: 10px;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
 
 input , select , textarea{
     display: block;
+    border: .1px solid grey;
+    border-radius: 9px;
+    margin: 5px;
+    padding: 3px;
+}
+
+label {
+    margin-top: 5px;
+    margin-left: 7px;
+}
+
+select {
+    min-width: 180px;
+}
+
+.ilceDisabled {
+    background-color: rgba(104, 103, 103, 0.349);
 }

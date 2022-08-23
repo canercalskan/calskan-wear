@@ -22,6 +22,8 @@ export class UserService {
     cargo : number = 12.99;
     offerFound! : boolean;
     activatedOffer! : Offer
+    myAddressesClicked : boolean = false;
+    currentUser! : User
     constructor(private db : AngularFireDatabase , private fireAuth : AngularFireAuth){
         this.cartKey = localStorage.getItem('cartKey')!
         this.db.object<Cart>("carts/" + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(cart => {
@@ -30,6 +32,7 @@ export class UserService {
                 this.cart = {items:[] , offer : {code : '' , rate : 0, key : '' , hidden : false} , total : 0}
             }
          })
+         this.getCurrentUser()
     }
     registerUser(user : User): void {
         this.db.list('users').push(user).then((r) => {
@@ -115,6 +118,18 @@ export class UserService {
         return this.activatedOffer
     }
 
+    getCurrentUser() : void {
+        this.fireAuth.user.subscribe(r => {
+            this.db.list<User>('users').valueChanges().subscribe(response => {
+                response.forEach(user => {
+                    if(r?.uid === user.uid) {
+                        this.currentUser = user
+                    }
+                })
+            })
+        })
+    }
+
     pay(cart : Cart) : void {
         let date = new Date();
         
@@ -153,5 +168,13 @@ export class UserService {
             else 
                 return;
         })
+    }
+
+    showMyAddresses(value : boolean) : void {
+        this.myAddressesClicked = value;
+    }
+
+    getMyAddresses() : boolean {
+        return this.myAddressesClicked;
     }
 }
