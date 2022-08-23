@@ -3,8 +3,8 @@
     <button class="btn btn-success" *ngIf="!newAddressClicked" (click) = 'handleNewAddressButton()'>Yeni Adres Ekle</button>
 </span>
 <div id="addressForm">
-    <form #addressForm = 'ngForm' *ngIf="newAddressClicked === true" (submit) = 'handleAddressSubmission(addressForm.value); addressForm.reset'>
-        <div class="w-100">Adres ekle <span class="float-end"><i class="bi bi-x-lg" (click) = 'closeNewAddressForm()'></i></span></div>
+    <form #addressForm = 'ngForm' *ngIf="newAddressClicked === true" (submit) = 'handleAddressSubmission(addressForm.value); addressForm.reset()' ngNativeValidate>
+        <div class="w-100">Adres ekle <span class="float-end"><i class="bi bi-x-lg" (click) = 'closeNewAddressForm()' id="closeFormBtn"></i></span></div>
         <hr>
         <div class="row">
             <div class="col-6">
@@ -47,4 +47,6 @@
         <button type="submit" class="btn btn-primary" id="saveAddressBtn">Kaydet</button>
     </form>
 </div>
+
+<div class="" *ngIf="currentUser.address">TEST</div>
 

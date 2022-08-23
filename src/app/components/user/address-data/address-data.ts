@@ -4,6 +4,7 @@ import { UserService } from "src/app/services/user/user.service";
 import { User } from "src/app/models/user.model";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { AngularFireDatabase } from "@angular/fire/compat/database";
+import Swal from "sweetalert2";
 @Component({
     selector: 'address-data',
     templateUrl : './address-data.html',
@@ -55,7 +56,29 @@ export class AddressDataComponent implements OnInit {
         form!.style.backgroundColor = 'transparent'
     }
 
-    handleAddressSubmission(addressData : any) : void {}
+    handleAddressSubmission
+    (addressData : {
+        ad : string,soyad : string,
+        il : string,
+        ilce : string,
+        adres : string,
+        telefon : string,
+        baslik : string
+      }
+    ) : void {
+        let user = this.currentUser;
+        user.address = addressData;
+        this.db.list<User>('users').update(user.key , user).then(() => {
+            Swal.fire('Başarılı' , 'Adresiniz başarıyla kaydedildi' , 'success').then(() => {
+                this.newAddressClicked = false;
+                let form = document.getElementById('addressForm');
+                let body = document.getElementById('body');
+                body!.style.backgroundColor = 'white';
+                form!.style.backgroundColor = 'transparent'
+            })
+
+        }).catch(err => Swal.fire(err , '' , 'warning'))
+    }
 }
 
 

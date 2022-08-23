@@ -43,3 +43,7 @@ select {
 .ilceDisabled {
     background-color: rgba(104, 103, 103, 0.349);
 }
+
+#closeFormBtn:hover {
+    cursor: pointer;
+}
