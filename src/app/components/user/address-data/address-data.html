@@ -31,7 +31,7 @@
             </div>
         </div>
         <label for="adres-detay">Adres</label>
-        <textarea name="adres-detay" id="adres-detay" cols="30" rows="5" style="width: 100%;"></textarea>
+        <textarea name="adres" id="adres-detay" cols="30" rows="5" style="width: 100%;" ngModel></textarea>
         <div class="row">
             <div class="col-6">
                 <label for="telefon">Telefon*</label>
@@ -48,5 +48,9 @@
     </form>
 </div>
 
-<div class="" *ngIf="currentUser.address">TEST</div>
+<div class="container">
+    <div class="row">
+        <div class="" *ngFor="let address of "></div>
+    </div>
+</div>
 

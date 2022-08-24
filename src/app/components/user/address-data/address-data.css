@@ -44,6 +44,16 @@ select {
     background-color: rgba(104, 103, 103, 0.349);
 }
 
+#closeFormBtn {
+    transition: all .5s;
+}
+
 #closeFormBtn:hover {
     cursor: pointer;
+    color: rgb(245, 71, 71);
+}
+
+.address-grid {
+    border: 1px solid gainsboro;
+    padding: 1.3rem;
 }

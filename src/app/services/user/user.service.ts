@@ -107,7 +107,7 @@ export class UserService {
     }
 
     getCartTotal() : number {
-        return this.cart.total + this.cargo;
+        return this.cart.total;
     }
 
     setOffer(code : Offer) : Observable<Offer[]> {

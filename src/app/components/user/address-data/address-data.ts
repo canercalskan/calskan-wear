@@ -67,7 +67,14 @@ export class AddressDataComponent implements OnInit {
       }
     ) : void {
         let user = this.currentUser;
-        user.address = addressData;
+        if(user.address == undefined || user.address == null) {
+            user.address = []
+            user.address.push(addressData);
+        }
+        else {
+            user.address.push(addressData);
+        }
+        
         this.db.list<User>('users').update(user.key , user).then(() => {
             Swal.fire('Başarılı' , 'Adresiniz başarıyla kaydedildi' , 'success').then(() => {
                 this.newAddressClicked = false;

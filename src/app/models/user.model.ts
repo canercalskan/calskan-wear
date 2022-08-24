@@ -1,3 +1,5 @@
+import { AddressModel } from "./address.model"
+
 export interface User {
     uid : string,
     key : string,
@@ -7,13 +9,5 @@ export interface User {
     mail : string,
     password : string,
     gender : string,
-    address : {
-        ad : string,
-        soyad : string,
-        il : string,
-        ilce : string,
-        adres : string,
-        telefon : string,
-        baslik : string
-    },
+    address : AddressModel[]
 }
