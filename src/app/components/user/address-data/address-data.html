@@ -48,9 +48,21 @@
     </form>
 </div>
 
-<div class="container">
+<!-- <div class="container">
     <div class="row">
-        <div class="" *ngFor="let address of "></div>
+        <div class="col-6" *ngFor="let address of currentUser.address">
+            <p>{{address.baslik}}</p>
+        </div>
+    </div>
+</div> -->
+<div class="container" id="grid-container">
+    <div class="address-grid" *ngFor="let adress of currentUser.address">
+        <span class="justify-content-center">{{adress.baslik}}</span>
+        <hr>
+        <p>{{adress.ad + ' ' + adress.soyad}} </p>
+        <p>{{adress.adres}}</p>
+        <p>{{adress.il + ' / ' + adress.ilce}}</p>
+        <p>{{adress.telefon}}</p>
     </div>
 </div>
 

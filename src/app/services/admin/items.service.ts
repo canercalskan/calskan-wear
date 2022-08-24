@@ -6,15 +6,16 @@ import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { Item } from '../../models/item.model';
+
 @NgModule()
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class ItemsService {
   private basePath = '/uploads/';
-
-  constructor(private db: AngularFireDatabase, private storage: AngularFireStorage , private fireAuth : AngularFireAuth) { }
-
+  constructor(private db: AngularFireDatabase, private storage: AngularFireStorage , private fireAuth : AngularFireAuth) {}
   pushFileToStorage(fileUpload: Item): Observable<number | undefined> {
     const filePath = `${this.basePath}/${fileUpload.file.name}`;
     const storageRef = this.storage.ref(filePath);
@@ -33,9 +34,7 @@ export class ItemsService {
   }
 
   private saveFileData(fileUpload: Item): void {
-    this.db.list(this.basePath).push(fileUpload).then(() => {
       this.db.list(this.basePath + '/' + fileUpload.category).push(fileUpload).catch(error => {Swal.fire('' , error.code)});
-    })
   }
 
   getFiles(numberItems: number): AngularFireList<Item> {

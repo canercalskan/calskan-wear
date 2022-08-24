@@ -8,7 +8,6 @@ import { Router } from "@angular/router";
 import { Offer } from "src/app/models/offer.model";
 import { OrderModel } from "src/app/models/order.model";
 import { HttpClient } from "@angular/common/http";
-
 @Component({
     templateUrl : './account.component.html',
     styleUrls : ['./account.component.css'],
@@ -106,11 +105,20 @@ export class AccountComponent implements OnInit {
     })
   }
   handleDeleteAccount() : void {
+    let currentUser : User
     Swal.fire('Uyarı' , 'Bu işlem geri alınamaz' , 'warning').then(() => {
         this.fireAuth.user.subscribe((response) => {
+            this.db.list<User>('users').valueChanges().subscribe(users => {
+                users.forEach(user => {
+                    if(user.uid === response?.uid) {
+                        currentUser = user;
+                    }
+                })
+            })
             this.router.navigate(['Home']).then(() => {
                 Swal.fire('Başarılı' , 'Hesabınız başarıyla silindi.' , 'success').then(() => {
                     response?.delete().then(() => {
+                        this.db.list('users').remove(currentUser.key)
                         localStorage.removeItem('isLoggedIn')
                         return
                     })

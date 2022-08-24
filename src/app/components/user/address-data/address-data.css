@@ -53,7 +53,22 @@ select {
     color: rgb(245, 71, 71);
 }
 
+#grid-container {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    align-items: center;
+    margin-top: -5rem;
+}
+
 .address-grid {
-    border: 1px solid gainsboro;
+    border: 1px solid rgb(133, 161, 111);
     padding: 1.3rem;
+    text-align: center;
+    border-radius: 10px;
+    width: 500px;
+    min-height: 330px;
+    max-height: 330px;
+    height: max-content;
+    margin: 10px;
 }
