@@ -32,18 +32,17 @@ export class ProductDetails implements OnInit {
 
     constructor(private route : ActivatedRoute , private ItemService : ItemsService , private UserService : UserService){}
     ngOnInit() {
-        // console.log(this.xxs +  ' ' + this.xs + ' ' + this.s + ' ' + this.m + ' ' + this.l + ' ' + this.xl + ' ' + this.xxl)
         this.route.params.subscribe(params => { 
             this.ItemService.getProduct(params["productKey"]).subscribe( product => {
                this.product = product;
                this.product.key = params['productKey'];
-            //    this.xxs = document.getElementById('XXS')!;
-            //    this.xs = document.getElementById('XS')!
-            //    this.s = document.getElementById('S')!
-            //    this.m = document.getElementById('M')!
-            //    this.l = document.getElementById('L')!
-            //    this.xl = document.getElementById('XL')!
-            //    this.xxl = document.getElementById('XXL')!
+               this.xxs = document.getElementById('XXS')!;
+               this.xs = document.getElementById('XS')!
+               this.s = document.getElementById('S')!
+               this.m = document.getElementById('M')!
+               this.l = document.getElementById('L')!
+               this.xl = document.getElementById('XL')!
+               this.xxl = document.getElementById('XXL')!
             })
         })
     }
@@ -116,17 +115,16 @@ export class ProductDetails implements OnInit {
     }
 
     sizeHandler(beden : string) : void {
-    
+        console.log(beden)
         if(beden == 'XXS') {
             this.xxsClicked = true;
-            // this.xxs?.classList.add('clicked')
-
-            // this.xs?.classList.remove('clicked')
-            // this.s?.classList.remove('clicked')
-            // this.m?.classList.remove('clicked')
-            // this.l?.classList.remove('clicked')
-            // this.xl?.classList.remove('clicked')
-            // this.xxl?.classList.remove('clicked')
+            this.xxs!.classList.add('clicked')
+            this.xs!.classList.remove('clicked')
+            this.s!.classList.remove('clicked')
+            this.m!.classList.remove('clicked')
+            this.l!.classList.remove('clicked')
+            this.xl!.classList.remove('clicked')
+            this.xxl.classList.remove('clicked')
 
             this.xsClicked = false
             this.sClicked = false;
@@ -138,14 +136,14 @@ export class ProductDetails implements OnInit {
         }
         else if(beden == 'XS') {
             this.xsClicked = true;
-            // this.xs!.classList.add('clicked')
+            this.xs.classList.add('clicked')
 
-            // this.xxs!.classList.remove('clicked')
-            // this.s!.classList.remove('clicked')
-            // this.m!.classList.remove('clicked')
-            // this.l!.classList.remove('clicked')
-            // this.xl!.classList.remove('clicked')
-            // this.xxl!.classList.remove('clicked')
+            this.xxs.classList.remove('clicked')
+            this.s.classList.remove('clicked')
+            this.m.classList.remove('clicked')
+            this.l.classList.remove('clicked')
+            this.xl.classList.remove('clicked')
+            this.xxl.classList.remove('clicked')
 
             this.xxsClicked = false
             this.sClicked = false;
@@ -157,14 +155,14 @@ export class ProductDetails implements OnInit {
         }
         else if(beden == 'S') {
             this.sClicked = true;
-            // this.s?.classList.add('clicked')
+            this.s?.classList.add('clicked')
 
-            // this.xxs?.classList.remove('clicked');
-            // this.xs?.classList.remove('clicked')
-            // this.m?.classList.remove('clicked')
-            // this.l?.classList.remove('clicked')
-            // this.xl?.classList.remove('clicked')
-            // this.xxl?.classList.remove('clicked')
+            this.xxs?.classList.remove('clicked');
+            this.xs?.classList.remove('clicked')
+            this.m?.classList.remove('clicked')
+            this.l?.classList.remove('clicked')
+            this.xl?.classList.remove('clicked')
+            this.xxl?.classList.remove('clicked')
 
             this.xxsClicked = false;
             this.xsClicked = false;
@@ -176,14 +174,14 @@ export class ProductDetails implements OnInit {
         }
         else if(beden == 'M') {
             this.mClicked = true;
-            // this.m?.classList.add('clicked')
+            this.m?.classList.add('clicked')
 
-            // this.xxs?.classList.remove('clicked')
-            // this.xs?.classList.remove('clicked')
-            // this.s?.classList.remove('clicked')
-            // this.l?.classList.remove('clicked')
-            // this.xl?.classList.remove('clicked')
-            // this.xxl?.classList.remove('clicked')
+            this.xxs?.classList.remove('clicked')
+            this.xs?.classList.remove('clicked')
+            this.s?.classList.remove('clicked')
+            this.l?.classList.remove('clicked')
+            this.xl?.classList.remove('clicked')
+            this.xxl?.classList.remove('clicked')
 
             this.xxsClicked = false;
             this.xsClicked = false;
@@ -195,14 +193,14 @@ export class ProductDetails implements OnInit {
         }
         else if(beden == 'L') {
             this.lClicked = true;
-            // this.l?.classList.add('clicked')
+            this.l?.classList.add('clicked')
 
-            // this.xxs?.classList.remove('clicked')
-            // this.xs?.classList.remove('clicked')
-            // this.s?.classList.remove('clicked')
-            // this.m?.classList.remove('clicked')
-            // this.xl?.classList.remove('clicked')
-            // this.xxl?.classList.remove('clicked')
+            this.xxs?.classList.remove('clicked')
+            this.xs?.classList.remove('clicked')
+            this.s?.classList.remove('clicked')
+            this.m?.classList.remove('clicked')
+            this.xl?.classList.remove('clicked')
+            this.xxl?.classList.remove('clicked')
 
             this.xxsClicked = false;
             this.xsClicked = false;
@@ -214,14 +212,14 @@ export class ProductDetails implements OnInit {
         }
         else if(beden == 'XL') {
             this.xlClicked = true;
-            // this.xl?.classList.add('clicked')
+            this.xl?.classList.add('clicked')
 
-            // this.xxs?.classList.remove('clicked')
-            // this.xs?.classList.remove('clicked')
-            // this.s?.classList.remove('clicked')
-            // this.m?.classList.remove('clicked')
-            // this.l?.classList.remove('clicked')
-            // this.xxl?.classList.remove('clicked')
+            this.xxs?.classList.remove('clicked')
+            this.xs?.classList.remove('clicked')
+            this.s?.classList.remove('clicked')
+            this.m?.classList.remove('clicked')
+            this.l?.classList.remove('clicked')
+            this.xxl?.classList.remove('clicked')
 
             this.xxsClicked = false;
             this.xsClicked = false;
@@ -233,14 +231,7 @@ export class ProductDetails implements OnInit {
         }
         else if(beden == 'XXL') {
             this.xxlClicked = true;
-            // this.xxl?.classList.add('clicked')
-
-            // this.xxs?.classList.remove('clicked')
-            // this.xs?.classList.remove('clicked')
-            // this.s?.classList.remove('clicked')
-            // this.m?.classList.remove('clicked')
-            // this.l?.classList.remove('clicked')
-            // this.xl?.classList.remove('clicked')
+            
 
             this.xxsClicked = false;
             this.xsClicked = false;
@@ -251,4 +242,30 @@ export class ProductDetails implements OnInit {
             return
         }
     }
+    getClassName() : string {
+        if(this.xxsClicked) {
+            return 'XXS'
+        }
+        else if(this.xsClicked) {
+            return 'XS'
+        }
+        else if(this.sClicked) {
+            return 'S'
+        }
+        else if(this.mClicked) {
+            return 'M'
+        }
+        else if(this.lClicked) {
+            return 'L'
+        }
+        else if(this.xlClicked) {
+            return 'XL'
+        }
+        else if(this.xxlClicked) {
+            return 'XXL'
+        }
+        else {
+            return 'null'
+        }
+     }
 }

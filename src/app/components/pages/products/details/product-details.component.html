@@ -14,7 +14,7 @@
                 <p class="fw-light"><span class="text-danger">*</span> Beden Seçiniz</p>
                 <ul class="list-unstyled">
                     <li *ngFor="let size of product.sizes" (click) = "sizeHandler(size)" id={{size}}
-                    [ngClass]="{clicked: xsClicked}"
+                    [ngClass]="getClassName() == size ? 'clicked' : 'none'"
                     >{{size}}
                 </li>
                 </ul>

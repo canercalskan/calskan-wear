@@ -20,7 +20,7 @@ export class ProductsComponent implements OnInit {
   navbar? : Navbar;
   constructor(private ItemService: ItemsService , private route : ActivatedRoute , private UserService : UserService, private router : Router) {}
   ngOnInit(): void {
-    this.ItemService.getFiles(6)
+    this.ItemService.getFiles(100)
       .snapshotChanges()
       .pipe(
         map((changes) =>

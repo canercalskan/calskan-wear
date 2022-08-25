@@ -15,6 +15,7 @@ import { Item } from '../../models/item.model';
 
 export class ItemsService {
   private basePath = '/uploads/';
+  private categoryPath = '/categories/';
   constructor(private db: AngularFireDatabase, private storage: AngularFireStorage , private fireAuth : AngularFireAuth) {}
   pushFileToStorage(fileUpload: Item): Observable<number | undefined> {
     const filePath = `${this.basePath}/${fileUpload.file.name}`;
@@ -34,7 +35,11 @@ export class ItemsService {
   }
 
   private saveFileData(fileUpload: Item): void {
-      this.db.list(this.basePath + '/' + fileUpload.category).push(fileUpload).catch(error => {Swal.fire('' , error.code)});
+      this.db.list(this.basePath).push(fileUpload).then(() => {
+        this.db.list(this.categoryPath + '/' + fileUpload.category).push(fileUpload);
+      }).catch(error => {
+        Swal.fire('' , error.code)
+      });
   }
 
   getFiles(numberItems: number): AngularFireList<Item> {
