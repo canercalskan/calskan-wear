@@ -11,6 +11,7 @@ import { Offer } from "src/app/models/offer.model";
 import { AngularFireDatabase } from "@angular/fire/compat/database";
 import { Cart } from "src/app/models/cart.model";
 import { AccountComponent } from "src/app/components/user/account/account.component";
+import { HttpClient } from "@angular/common/http";
 @Component({
     selector:'ng-navbar',
     styleUrls : ['./user-navbar.component.css'],
@@ -22,7 +23,7 @@ export class Navbar {
     itemQuantity : number = 1;
     loginComp = new LoginComponent(this.router, this.AuthService)
     noMobile = true;
-    constructor(private router : Router , private AuthService : AuthService , private fireAuth : AngularFireAuth , private UserService : UserService , private db : AngularFireDatabase){
+    constructor(private router : Router , private AuthService : AuthService , private fireAuth : AngularFireAuth , private UserService : UserService , private db : AngularFireDatabase , private http : HttpClient){
         if(window.screen.width < 900) {
             this.noMobile = false;
         }
@@ -132,7 +133,10 @@ export class Navbar {
                     }
                 })
             });
-        }
-        
+        }   
+    }
+    navigateToOrders() : void {
+        let account = new AccountComponent(this.fireAuth, this.UserService, this.db , this.router , this.http)
+        account.myOrdersClicked;
     }
 }
