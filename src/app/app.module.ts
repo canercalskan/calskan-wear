@@ -39,6 +39,7 @@ import { ActiveOffers } from './components/pages/offer/active-offers/active-offe
 import { OfferSidebar } from './layout/offer-sidebar/offer-sidebar';
 import { ForgotPassword } from './components/user/forgot-password/forgot-password';
 import { AddressDataComponent } from './components/user/address-data/address-data';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBb5rDZjYMI5mtA9YJqt4fVfqhU8LC-7aA",
@@ -80,6 +81,7 @@ const firebaseConfig = {
     CheckoutNavbar , 
     ForgotPassword,
     AddressDataComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -97,6 +99,7 @@ const firebaseConfig = {
     CheckoutGuard,
     AngularFireModule.initializeApp(firebaseConfig),
     SweetAlert2Module.forRoot(),
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

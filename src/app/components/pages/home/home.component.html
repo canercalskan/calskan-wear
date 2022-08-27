@@ -1,23 +1,20 @@
 <ng-navbar></ng-navbar>
-<!-- Slider main container -->
-<div class="swiper">
-  <!-- Additional required wrapper -->
-  <div class="swiper-wrapper">
-    <!-- Slides -->
-    <div class="swiper-slide">Slide 1</div>
-    <div class="swiper-slide">Slide 2</div>
-    <div class="swiper-slide">Slide 3</div>
-    ...
-  </div>
-  <!-- If we need pagination -->
-  <div class="swiper-pagination"></div>
+<div class="centerit">
+  <ngb-carousel #carousel [interval]="1000" [pauseOnHover]="pauseOnHover" [pauseOnFocus]="pauseOnFocus" (slide)="onSlide($event)">
+    <ng-template ngbSlide *ngFor="let img of images; index as i">
+      <div class="carousel-caption">
+        <h3>My slide {{i + 1}} title</h3>
+      </div>
+      
+        <div class="picsum-img-wrapper">
+          <img [src]="img" alt="My image {{i + 1}} description">
+        </div>
+  
+    </ng-template>
+  </ngb-carousel>
 
-  <!-- If we need navigation buttons -->
-  <div class="swiper-button-prev"></div>
-  <div class="swiper-button-next"></div>
-
-  <!-- If we need scrollbar -->
-  <div class="swiper-scrollbar"></div>
 </div>
+
+
 <br><br><br><br><br><br><br><br>
 <footer></footer>
