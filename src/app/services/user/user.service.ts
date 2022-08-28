@@ -14,6 +14,8 @@ import { Cart } from "src/app/models/cart.model";
 @Injectable({providedIn:'root'})
 
 export class UserService {
+    lastSeenProducts : string[] = JSON.parse(localStorage.getItem('visitedProducts')!)
+    lastSeenProductsDetails : Item[] = []
     months : string[] = ["Ocak" , "Şubat" , "Mart" , "Nisan" , "Mayıs" , "Haziran" , "Temmuz" , "Ağustos" , "Eylül" , "Ekim", "Kasım" , "Aralık"]
     cartItems! : Item[]
     cartTotal : number = 0;
@@ -32,6 +34,13 @@ export class UserService {
                 this.cart = {items:[] , offer : {code : '' , rate : 0, key : '' , hidden : false} , total : 0}
             }
          })
+         this.db.list<Item>('uploads').valueChanges().subscribe(response => {
+            this.lastSeenProducts.forEach(key => {
+                response = response.filter(product => product.key !== key)
+            })
+            this.lastSeenProductsDetails = response
+            // console.log(this.lastSeenProductsDetails)
+        })
          this.getCurrentUser()
     }
     registerUser(user : User): void {
@@ -176,5 +185,9 @@ export class UserService {
 
     getMyAddresses() : boolean {
         return this.myAddressesClicked;
+    }
+
+    getLastSeenProducts() : Item[] {
+        return this.lastSeenProductsDetails;
     }
 }

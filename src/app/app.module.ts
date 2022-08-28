@@ -40,6 +40,7 @@ import { OfferSidebar } from './layout/offer-sidebar/offer-sidebar';
 import { ForgotPassword } from './components/user/forgot-password/forgot-password';
 import { AddressDataComponent } from './components/user/address-data/address-data';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LastSeenProductsComponent } from './components/pages/products/last-seen-products/last-seen-products.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBb5rDZjYMI5mtA9YJqt4fVfqhU8LC-7aA",
@@ -81,7 +82,7 @@ const firebaseConfig = {
     CheckoutNavbar , 
     ForgotPassword,
     AddressDataComponent,
-
+    LastSeenProductsComponent,
   ],
   imports: [
     BrowserModule,

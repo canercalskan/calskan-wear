@@ -11,7 +11,8 @@ import Swal from "sweetalert2";
     templateUrl : './product-details.component.html',
     styleUrls : ['./product-details.component.css'],
 })
-export class ProductDetails implements OnInit {
+export class ProductDetails implements OnInit { 
+    visitedProducts : string[] = []
     product! : Item;
     deliveryShown : boolean = false;
     descriptionShown : boolean = false;
@@ -32,9 +33,21 @@ export class ProductDetails implements OnInit {
 
     constructor(private route : ActivatedRoute , private ItemService : ItemsService , private UserService : UserService){}
     ngOnInit() {
+        this.visitedProducts = JSON.parse(localStorage.getItem('visitedProducts')!) || []
         this.route.params.subscribe(params => { 
             this.ItemService.getProduct(params["productKey"]).subscribe( product => {
                this.product = product;
+               
+               if(this.visitedProducts.length === 0) {
+                this.visitedProducts.push(params["productKey"])
+               }
+               else if(this.visitedProducts.length >= 0) {
+                if(!(this.visitedProducts.find(key => key === params["productKey"]))) {
+                    this.visitedProducts.push(params["productKey"])
+                }
+               }
+               
+               localStorage.setItem('visitedProducts' , JSON.stringify(this.visitedProducts))
                this.product.key = params['productKey'];
                this.xxs = document.getElementById('XXS')!;
                this.xs = document.getElementById('XS')!
