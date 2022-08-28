@@ -9,18 +9,10 @@ import { UserService } from "src/app/services/user/user.service";
 })
 
 export class LastSeenProductsComponent implements OnInit{
-    // lastSeenProducts : string[] = JSON.parse(localStorage.getItem('visitedProducts')!)
-    // lastSeenProductsDetails : Item[] = []
+   
     constructor(private db : AngularFireDatabase , private UserService : UserService){}
     ngOnInit(): void {
-        // this.db.list<Item>('uploads').valueChanges().subscribe(response => {
-        //     this.lastSeenProducts.forEach(key => {
-        //         response = response.filter(product => product.key !== key)
-        //     })
-        //     this.lastSeenProductsDetails = response
-        //     console.log(this.lastSeenProductsDetails)
-        //     //UserService i kullan ve lastseenproductdetails'i oraya pushla
-        // })
+       
         console.log(this.UserService.getLastSeenProducts())
     }
 }

@@ -14,7 +14,7 @@ import { Cart } from "src/app/models/cart.model";
 @Injectable({providedIn:'root'})
 
 export class UserService {
-    lastSeenProducts : string[] = JSON.parse(localStorage.getItem('visitedProducts')!)
+    lastSeenProducts : Item[]
     lastSeenProductsDetails : Item[] = []
     months : string[] = ["Ocak" , "Şubat" , "Mart" , "Nisan" , "Mayıs" , "Haziran" , "Temmuz" , "Ağustos" , "Eylül" , "Ekim", "Kasım" , "Aralık"]
     cartItems! : Item[]
@@ -34,15 +34,13 @@ export class UserService {
                 this.cart = {items:[] , offer : {code : '' , rate : 0, key : '' , hidden : false} , total : 0}
             }
          })
-         this.db.list<Item>('uploads').valueChanges().subscribe(response => {
-            this.lastSeenProducts.forEach(key => {
-                response = response.filter(product => product.key !== key)
-            })
-            this.lastSeenProductsDetails = response
-            // console.log(this.lastSeenProductsDetails)
-        })
+         this.lastSeenProducts = JSON.parse(localStorage.getItem('lastSeenProducts')!)
+         if(this.lastSeenProducts == null || this.lastSeenProducts == undefined) {
+            this.lastSeenProducts = []
+         }
          this.getCurrentUser()
     }
+
     registerUser(user : User): void {
         this.db.list('users').push(user).then((r) => {
             user.key = r.key!
@@ -187,7 +185,25 @@ export class UserService {
         return this.myAddressesClicked;
     }
 
+    pushLastSeenProducts(product : Item) : void {
+        if(this.lastSeenProducts.length === 0) {
+            this.lastSeenProducts.push(product)
+            localStorage.setItem('lastSeenProducts' , JSON.stringify(this.lastSeenProducts))
+            console.log(this.lastSeenProducts)
+        }
+        else {
+            if(this.lastSeenProducts.find(i => product == i) == undefined) {
+                this.lastSeenProducts.push(product)
+                localStorage.setItem('lastSeenProducts' , JSON.stringify(this.lastSeenProducts))
+                console.log(this.lastSeenProducts)
+            }
+            else {
+                return;
+            }
+        }
+    }
+
     getLastSeenProducts() : Item[] {
-        return this.lastSeenProductsDetails;
+        return this.lastSeenProducts;
     }
 }

@@ -37,17 +37,7 @@ export class ProductDetails implements OnInit {
         this.route.params.subscribe(params => { 
             this.ItemService.getProduct(params["productKey"]).subscribe( product => {
                this.product = product;
-               
-               if(this.visitedProducts.length === 0) {
-                this.visitedProducts.push(params["productKey"])
-               }
-               else if(this.visitedProducts.length >= 0) {
-                if(!(this.visitedProducts.find(key => key === params["productKey"]))) {
-                    this.visitedProducts.push(params["productKey"])
-                }
-               }
-               
-               localStorage.setItem('visitedProducts' , JSON.stringify(this.visitedProducts))
+               this.UserService.pushLastSeenProducts(this.product)
                this.product.key = params['productKey'];
                this.xxs = document.getElementById('XXS')!;
                this.xs = document.getElementById('XS')!
