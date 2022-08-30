@@ -133,21 +133,6 @@ i:hover {
     text-decoration: underline;
 }
 
-/* #cart-image {
-     position: absolute;
-    right: 0; 
-} */
-
- @media (max-width : 1000px) {
-    .navbar-brand {
-        display: none;
-    }
-    #brand-md {
-        display: block;
-        height: 120px;
-    }
- }
-
  .badge {
     background-color: #6394F8;
     border-radius: 10px;
@@ -208,12 +193,15 @@ i:hover {
 
  @media (max-width : 500px) {
     #brand-md {
-        margin-left: 23.0%;
+        margin-left: 27.0%;
     }
 
     #cart-image {
         margin-left: 2rem;
-       
+    }
+
+    #nav-username {
+        display: none;
     }
 
     #accountDropdown {
@@ -227,3 +215,13 @@ i:hover {
         margin-left: 20%;
     }
   }
+
+  @media (max-width : 1000px) {
+    .navbar-brand {
+        display: none;
+    }
+    #brand-md {
+        display: block;
+        height: 120px;
+    }
+ }

@@ -1,4 +1,4 @@
-import { Component, Injectable, NgModule, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { ItemsService } from 'src/app/services/admin/items.service';
 import { Item } from 'src/app/models/item.model';
 import { map } from 'rxjs/operators';
@@ -42,12 +42,15 @@ export class ProductActions {
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
     if (this.selectedFiles) {
-      Swal.fire('Görseller upload etmeye hazır' , '' , 'info');
+      Swal.fire('Görseller upload etmeye hazır' , '' , 'info').then(() => {
+        console.log(this.selectedFiles)
+      })
     }
   }
 
   upload(item:Item): void {
     if (this.selectedFiles) {
+      //multiple file upload mevzusu aşağıda dönecek.
       const file: File | null = this.selectedFiles.item(0);
       this.selectedFiles = undefined;
 
@@ -68,6 +71,8 @@ export class ProductActions {
       )}
     }
   }
+
+
 
   delete(): void {
     if(this.selectedFiles) {

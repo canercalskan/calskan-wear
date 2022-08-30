@@ -26,7 +26,7 @@
   <label for="description">Ürün Açıklaması</label>
   <textarea name="description" id="description" cols="20" rows="5" ngModel></textarea>
   <label for="fileupload">Ürün Görseli</label>
-  <input id="fileupload" type="file" (change)="selectFile($event)" />
+  <input id="fileupload" type="file" (change)="selectFile($event)" multiple = "multiple" />
   <label for="price">Ürün Fiyatı</label>
   <input type="number" step="0.01" id="price" name="price" ngModel>
   <label for="sizes">Bedenler</label>

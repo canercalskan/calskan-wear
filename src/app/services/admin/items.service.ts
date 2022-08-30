@@ -26,6 +26,7 @@ export class ItemsService {
       finalize(() => {
         storageRef.getDownloadURL().subscribe(downloadURL => {
           fileUpload.url = downloadURL;
+          // fileUpload.url.push(downloadURL)
           fileUpload.name = fileUpload.file.name;
           this.saveFileData(fileUpload);
         });

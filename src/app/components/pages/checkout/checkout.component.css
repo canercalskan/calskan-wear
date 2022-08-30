@@ -18,6 +18,7 @@
     margin-top: -1rem;
 }
 
+
 .ozet-content {
     background-color: #F2F2F2;
     height: 200px;
@@ -41,12 +42,13 @@
 }
 
 .ozet {
-    margin-left: -17rem;
+    margin-left: -10rem;
     width: auto;
 }
 
 .ozet-content {
     overflow: scroll;
+    min-width: 25rem;
 }
 
 .ssl {
@@ -85,6 +87,12 @@
     #iyzico-pay {
         width: 200px;
         height: 50px;
+    }
+    .container {
+        display: block;
+    }
+    .ozet {
+        margin-left: 0;
     }
 }
 
