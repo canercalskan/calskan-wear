@@ -42,7 +42,7 @@ export class ProductActions {
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
     if (this.selectedFiles) {
-      Swal.fire('Görseller upload etmeye hazır' , '' , 'info').then(() => {
+      Swal.fire('Görseller upload edilmeye hazır' , '' , 'info').then(() => {
         console.log(this.selectedFiles)
       })
     }
@@ -50,33 +50,41 @@ export class ProductActions {
 
   upload(item:Item): void {
     if (this.selectedFiles) {
-      //multiple file upload mevzusu aşağıda dönecek.
-      const file: File | null = this.selectedFiles.item(0);
+      const file: FileList | null = this.selectedFiles
       this.selectedFiles = undefined;
 
-      if (file) {
-        this.currentFileUpload = new Item(file);
-        this.currentFileUpload.description = item.description;
-        this.currentFileUpload.title = item.title;
-        this.currentFileUpload.price = item.price;
-        this.currentFileUpload.sizes = this.sizes;
-        this.currentFileUpload.category = item.category;
-        this.UploadService.pushFileToStorage(this.currentFileUpload).subscribe(
-          (percentage) => {
-            this.percentage = Math.round(percentage ? percentage : 0);
-            if(this.percentage === 100) {
+      if (file.length > 0) {
+          this.currentFileUpload = new Item(file);
+          this.currentFileUpload.description = item.description;
+          this.currentFileUpload.title = item.title;
+          this.currentFileUpload.price = item.price;
+          this.currentFileUpload.sizes = this.sizes;
+          this.currentFileUpload.category = item.category;
+          this.UploadService.pushFileToStorage(this.currentFileUpload)
+          
+      //   this.currentFileUpload = new Item(file);
+      //   this.currentFileUpload.description = item.description;
+      //   this.currentFileUpload.title = item.title;
+      //   this.currentFileUpload.price = item.price;
+      //   this.currentFileUpload.sizes = this.sizes;
+      //   this.currentFileUpload.category = item.category;
+      //   this.UploadService.pushFileToStorage(this.currentFileUpload).subscribe(
+      //     (percentage) => {
+      //       this.percentage = Math.round(percentage ? percentage : 0);
+      //       if(this.percentage === 100) {
 
-          }
-        }
-      )}
+      //     }
+      //   }
+      // )}
     }
   }
+}
 
 
 
   delete(): void {
     if(this.selectedFiles) {
-      const file:File | null = this.selectedFiles.item(0);
+      const file: FileList | null = this.selectedFiles
       this.selectedFiles = undefined
       if(file) {
         const itemToBeDeleted = new Item(file);

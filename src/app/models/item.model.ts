@@ -1,16 +1,17 @@
 export class Item {
     key!: string;
     name!: string;
-    url!: string;
+    url!: string[];
     title!: string;
     description!: string;
     price!:number;
     quantity : number = 1;
     sizes! : string[];
     selectedSize! : string;
-    file: File;
+    file: FileList;
     category! : string
-    constructor(file: File) {
-      this.file = file;
+    constructor(files: FileList) {
+      this.url = []
+      this.file = files;
     }
   }

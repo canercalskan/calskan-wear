@@ -37,7 +37,7 @@ export class UpdateProduct implements OnInit {
 
     updateProduct(data : Item) : void {
         if (this.selectedImage) {
-            const file: File = this.selectedImage.item(0)!;
+            const file: FileList = this.selectedImage
             if (file) {
               console.log(this.product)
               this.currentFileUpload = new Item(file);
@@ -45,21 +45,18 @@ export class UpdateProduct implements OnInit {
               this.currentFileUpload.title = data.title;
               this.currentFileUpload.price = data.price;
               this.currentFileUpload.sizes = this.product.sizes;
-              this.ItemService.pushFileToStorage(this.currentFileUpload).subscribe(
-                (percentage) => {
-                  this.percentage = Math.round(percentage ? percentage : 0);
-                  if(percentage === 100) {
-                    Swal.fire('Başarılı' , 'Ürün başarıyla güncellendi, ürünler sayfasına yönlendiriliyorsunuz' , "success").then(() => {
-                        this.router.navigate(['Products'])
-                    })
-                  }
-              }
-            )}
-            // this.ItemService.updateProduct(data).then(() => {
-            //     Swal.fire('Başarılı' , 'Ürün başarıyla güncellendi, Ürünler sayfasına yönlendiriliyorsunuz' , 'success').then(() => {
-            //         this.router.navigate(['Products']);
-            //     })
-            // }).catch(err => {Swal.fire(err , '' , 'error')})
+              this.ItemService.pushFileToStorage(this.currentFileUpload)
+            //   .subscribe(
+            //     (percentage) => {
+            //       this.percentage = Math.round(percentage ? percentage : 0);
+            //       if(percentage === 100) {
+            //         Swal.fire('Başarılı' , 'Ürün başarıyla güncellendi, ürünler sayfasına yönlendiriliyorsunuz' , "success").then(() => {
+            //             this.router.navigate(['Products'])
+            //         })
+            //       }
+            //   }
+            // )}
+            }
         }
     }
 
