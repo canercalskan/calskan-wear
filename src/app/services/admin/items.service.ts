@@ -16,10 +16,12 @@ import { Item } from '../../models/item.model';
 export class ItemsService {
   private basePath = '/uploads/';
   private categoryPath = '/categories/';
+  urls: string[] = []
   constructor(private db: AngularFireDatabase, private storage: AngularFireStorage , private fireAuth : AngularFireAuth) {}
 
   pushFileToStorage(fileUpload: Item): void {
-    
+    //alttaki for loop'unun while versiyonunu yaz, bir de öyle deneyelim
+    let finalURLs : string[] = []
     for(let i = 0 ; i < fileUpload.file.length ; i++){
       let filePath = `${this.basePath}/${fileUpload.file.item(i)?.name}`;
       let storageRef = this.storage.ref(filePath);
@@ -27,37 +29,36 @@ export class ItemsService {
       uploadTask.snapshotChanges().pipe(
         finalize(() => {
           storageRef.getDownloadURL().subscribe(downloadURL => {
-            fileUpload.url.push(downloadURL)
-            if(i == (fileUpload.file.length)) {
-              fileUpload.name = fileUpload.file.item(0)?.name!;
-              this.saveFileData(fileUpload)
+            // if(i < fileUpload.file.length - 1) {
+            //   console.log('evet şu an : ' + i )
+            //   fileUpload.url.push(downloadURL)
+
+            // }
+            // else {
+            //   fileUpload.name = fileUpload.file.item(0)?.name!;
+            //   this.saveFileData(fileUpload)
+            // }
+            this.urls.push(downloadURL)
+            if(i == fileUpload.file.length - 1) {
+              this.urls.forEach(url => {
+                console.log(url)
+              })
+              this.saveFileData(fileUpload , this.urls)
             }
           });
         })
-      ).subscribe(u => {
-        // if(i == (fileUpload.file.length)-1) {
-        //   fileUpload.name = fileUpload.file.item(0)?.name!;
-        //   this.saveFileData(fileUpload)
-        // }
-      });
+      ).subscribe()
+       // uploadTask.snapshotChanges().pipe(
+      //     storageRef.getDownloadURL().subscribe(downloadURL => {
+      //       fileUpload.url.push(downloadURL)
+      //       if(i == (fileUpload.file.length - 1)) {
+      //         fileUpload.name = fileUpload.file.item(0)?.name!;
+      //         this.saveFileData(fileUpload);
+      //       }
+      //     }
+      //     )
+      // ).subscribe()
     }
-
-    // return uploadTask.percentageChanges();
-    // const filePath = `${this.basePath}/${fileUpload.file.item(0)?.name}`;
-    // const storageRef = this.storage.ref(filePath);
-    // const uploadTask = this.storage.upload(filePath, fileUpload.file);
-    // uploadTask.snapshotChanges().pipe(
-    //   finalize(() => {
-    //     storageRef.getDownloadURL().subscribe(downloadURL => {
-    //       // fileUpload.url = downloadURL ;
-    //       fileUpload.url.push(downloadURL)
-    //       fileUpload.name = fileUpload.file.item(0)?.name!;
-    //       this.saveFileData(fileUpload);
-    //     });
-    //   })
-    // ).subscribe(u => {console.warn(u?.state)});
-    // return uploadTask.percentageChanges();
-
   }
 
   private setProductUrls(product : Item , urls : string[]) : Item {
@@ -65,7 +66,8 @@ export class ItemsService {
     return product;
   }
 
-  private saveFileData(fileUpload: Item): void {
+  private saveFileData(fileUpload: Item , urls : string[]): void {
+    fileUpload.url = urls;
       this.db.list(this.basePath).push(fileUpload).then(() => {
         this.db.list(this.categoryPath + '/' + fileUpload.category).push(fileUpload);
       }).catch(error => {

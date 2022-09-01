@@ -61,26 +61,9 @@ export class ProductActions {
           this.currentFileUpload.sizes = this.sizes;
           this.currentFileUpload.category = item.category;
           this.UploadService.pushFileToStorage(this.currentFileUpload)
-          
-      //   this.currentFileUpload = new Item(file);
-      //   this.currentFileUpload.description = item.description;
-      //   this.currentFileUpload.title = item.title;
-      //   this.currentFileUpload.price = item.price;
-      //   this.currentFileUpload.sizes = this.sizes;
-      //   this.currentFileUpload.category = item.category;
-      //   this.UploadService.pushFileToStorage(this.currentFileUpload).subscribe(
-      //     (percentage) => {
-      //       this.percentage = Math.round(percentage ? percentage : 0);
-      //       if(this.percentage === 100) {
-
-      //     }
-      //   }
-      // )}
     }
   }
 }
-
-
 
   delete(): void {
     if(this.selectedFiles) {
