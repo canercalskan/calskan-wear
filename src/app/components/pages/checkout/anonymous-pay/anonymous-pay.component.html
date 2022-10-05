@@ -1,4 +1,47 @@
-<div>
-    
-    <!-- AD SOYAD GSM MAİL VE ADRES BİLGİLERİ AL-->
+<checkout-navbar></checkout-navbar>
+<h1 class="text-center fw-bolder">Bilgileriniz</h1>
+<div class="anonymous-pay-form">
+    <form #anonymousPayForm = 'ngForm' (ngSubmit) = 'handleAnonymousInfoFormSubmission(anonymousPayForm.value)' ngNativeValidate>
+        <div class="row">
+            <div class="col">
+                <label for="ad">Ad</label>
+                <input type="text" name="ad" ngModel required>
+            </div>
+            <div class="col">
+                <label for="ad">Soyad</label>
+                <input type="text" name="soyad" ngModel required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="ad">Telefon</label>
+                <input type="number" name="telefon" ngModel required>
+            </div>
+            <div class="col">
+                <label for="ad">E-Posta</label>
+                <input type="email" name="mail" ngModel required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="il">İl</label>
+                <select name="il" id="il" (change) = 'handleIlSelection($any($event.target).value)' ngModel required>
+                    <option *ngFor="let il of iller">
+                        {{il}}
+                    </option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="ilce">İlçe</label>
+                <select name="ilce" id="ilce" ngModel>
+                    <option *ngFor="let ilce of ilceler">
+                        {{ilce}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-4 w-100">Ödemeye Geç</button>
+    </form>
 </div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<footer></footer>

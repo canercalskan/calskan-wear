@@ -6,4 +6,5 @@ export interface AddressModel {
         adres : string
         telefon : string
         baslik : string
+        mail : string
 }

@@ -1,0 +1,19 @@
+.anonymous-pay-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.anonymous-pay-form label {
+    font-weight: 600;
+    display: block;
+    margin-top: 3rem;
+}
+
+.anonymous-pay-form input {
+    border-radius: 5px;
+    border: .5px solid black;
+    padding-left: 4px;
+    font-weight: 300;
+}

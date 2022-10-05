@@ -64,6 +64,7 @@ export class AddressDataComponent implements OnInit {
         adres : string,
         telefon : string,
         baslik : string
+        mail : string
       }
     ) : void {
         let user = this.currentUser;
