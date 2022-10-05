@@ -23,6 +23,7 @@ import { UpdateProduct } from './components/admin/actions/update/update-product.
 import { OfferComponent } from './components/pages/offer/offer.component';
 import { ActiveOffers } from './components/pages/offer/active-offers/active-offers';
 import { ForgotPassword } from './components/user/forgot-password/forgot-password';
+import { AnonymousPay } from './components/pages/checkout/anonymous-pay/anonymous-pay.component';
 const routes: Routes = [
   {path : '' , component : HomeComponent},
   {path : 'Administration' , component : AdminComponent , canActivate : [AdminAuthGuard]},
@@ -45,6 +46,7 @@ const routes: Routes = [
   {path : 'Administration/Update/:productKey' , component: UpdateProduct , canActivate : [AdminAuthGuard]},
   {path : 'ResetPassword' , component: ForgotPassword},
   {path : 'Checkout' , component: CheckoutComponent , canActivate : [CheckoutGuard]},
+  {path : 'Checkout/AnonymousPay' , component : AnonymousPay},
   {path: '**' , component: NotFoundComponent},
 ];
 

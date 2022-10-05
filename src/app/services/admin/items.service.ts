@@ -28,10 +28,6 @@ export class ItemsService {
         finalize(() => {
           storageRef.getDownloadURL().subscribe(downloadURL => {
             this.productUrls.push(downloadURL)
-            // if(i == fileUpload.file.length - 1) {
-            //   console.log(this.productUrls)
-            //   this.saveFileData(fileUpload , this.productUrls)
-            // }
             if(this.productUrls.length === fileUpload.file.length) {
               console.log(this.productUrls);
               this.saveFileData(fileUpload , this.productUrls)
@@ -42,10 +38,10 @@ export class ItemsService {
     }
   }
 
-  private setProductUrls(product : Item , urls : string[]) : Item {
-    product.url = urls
-    return product;
-  }
+  // private setProductUrls(product : Item , urls : string[]) : Item {
+  //   product.url = urls
+  //   return product;
+  // }
 
   private saveFileData(fileUpload: Item , urls : string[]): void {
     fileUpload.url = urls;

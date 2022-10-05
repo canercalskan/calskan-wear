@@ -139,17 +139,15 @@ export class UserService {
 
     pay(cart : Cart) : void {
         let date = new Date();
-        
         let order = new OrderModel();
         order.items = cart.items;
         order.total = cart.total;
         order.offer = cart.offer;
-        order.date = 
-        date.getUTCDate().toString() + ' ' + this.months[date.getUTCMonth()]+ ' '+ date.getUTCFullYear().toString()+ ' - ' + date.getHours().toString() +':' + date.getUTCMinutes().toString()
+        order.date = date.getUTCDate().toString() + ' ' + this.months[date.getUTCMonth()]+ ' '+ date.getUTCFullYear().toString()+ ' - ' + date.getHours().toString() +':' + date.getUTCMinutes().toString()
 
-        this.fireAuth.user.subscribe(u => { 
-            if(u?.displayName) {
-                order.user = u.uid;
+        this.fireAuth.currentUser.then(u => { 
+            if(u!.displayName) {
+                order.user = u!.displayName;
             }
             else {
                 order.user = 'Anonymous';

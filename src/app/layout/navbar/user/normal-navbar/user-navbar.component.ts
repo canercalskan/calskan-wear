@@ -95,8 +95,17 @@ export class Navbar {
     }
 
     checkout() : void {
-        this.UserService.pay(this.cart)
-        Swal.fire('Sipariş Verildi!' , 'Ürünleriniz hazırlanmaya başladı, siparişiniz için teşekkürler.' , 'success')
+        let noUser : boolean;
+        this.fireAuth.currentUser.then(user => {
+            if(!user) {
+                this.router.navigate(['Checkout/AnonymousPay'])
+
+            }
+            else {
+                this.UserService.pay(this.cart)
+                Swal.fire('Sipariş Verildi!' , 'Ürünleriniz hazırlanmaya başladı, siparişiniz için teşekkürler.' , 'success')   
+            }
+        })
     }
 
     setOffer(code : Offer) : void {
