@@ -147,7 +147,7 @@ export class UserService {
 
         this.fireAuth.currentUser.then(u => { 
             if(u!.displayName) {
-                order.user = u!.displayName;
+                order.user = u!.uid;
             }
             else {
                 order.user = 'Anonymous';

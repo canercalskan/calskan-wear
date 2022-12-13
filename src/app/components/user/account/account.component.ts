@@ -21,7 +21,7 @@ export class AccountComponent implements OnInit {
     myOffersClicked : boolean = false;
     myOrdersClicked : boolean = false;
     offerList! : Offer[];
-    orderList! : OrderModel[];
+    orderList! : OrderModel[];  
     newPasswordMatches! : boolean;
     constructor(private fireAuth : AngularFireAuth, private UserService : UserService , private db : AngularFireDatabase, private router : Router , private http : HttpClient){}
     ngOnInit(): void {
@@ -46,10 +46,17 @@ export class AccountComponent implements OnInit {
     });
 
     this.db.list<OrderModel>('/orders/').valueChanges().subscribe(response => {
+        console.log(response)
         this.fireAuth.user.subscribe(u => {
-            response = response.filter(order => order.user == u?.uid)
+            response = response.filter(order => order.user == u!.uid)
             this.orderList = response
+
         })
+        // for(let i = 0; i < response.length; i++ ){
+        //     if(response[i].user === this.currentUser.uid) {
+        //         this.orderList.push(response[i]);
+        //     }
+        // }
         
     })
   }
