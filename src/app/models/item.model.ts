@@ -1,5 +1,6 @@
 export class Item {
     key!: string;
+    slug! : string;
     name!: string;
     url!: string[];
     title!: string;

@@ -29,6 +29,7 @@
     "jquery": "^3.6.0",
     "popper.js": "^1.16.1",
     "rxjs": "~7.5.0",
+    "slugify": "^1.6.5",
     "sweetalert2": "^11.4.24",
     "tether": "^2.0.0",
     "tslib": "^2.3.0",

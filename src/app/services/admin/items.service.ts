@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { Item } from '../../models/item.model';
+import slugify from 'slugify';
 
 @NgModule()
 
@@ -38,13 +39,9 @@ export class ItemsService {
     }
   }
 
-  // private setProductUrls(product : Item , urls : string[]) : Item {
-  //   product.url = urls
-  //   return product;
-  // }
-
   private saveFileData(fileUpload: Item , urls : string[]): void {
     fileUpload.url = urls;
+    fileUpload.slug = slugify(fileUpload.title , {lower : true, strict : true});
       this.db.list(this.basePath).push(fileUpload).then(() => {
         this.db.list(this.categoryPath + '/' + fileUpload.category).push(fileUpload);
       }).catch(error => {

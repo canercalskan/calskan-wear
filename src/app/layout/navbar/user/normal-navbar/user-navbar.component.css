@@ -10,7 +10,7 @@ nav li {
 }
 
 nav li:hover {
-    border-top: 3px solid black;
+    border-top-color: #000;
 
 }
 
