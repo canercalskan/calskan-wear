@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4" *ngFor="let item of fileUploads">
             <div class="product-item">
-                <div class="image"><img src={{item.url}} alt={{item.name}} routerLink={{item.key}} routerLinkActive="router-link-active" >
+                <div class="image"><img src={{item.url}} alt={{item.name}} routerLink={{item.slug}} routerLinkActive="router-link-active" >
                     <div class="sizes">
                         <div *ngFor="let size of item.sizes" class="size" (click) = 'selectSize(item,size)'>{{size}}</div>
                     </div>
@@ -15,7 +15,7 @@
                     </span>
                 </div>
                 <div class="detail">
-                    <a routerLink={{item.key}} routerLinkActive="router-link-active" >{{item.title}}</a>
+                    <a routerLink={{item.slug}} routerLinkActive="router-link-active" >{{item.title}}</a>
                     <div class="price">{{item.price}} ₺</div>
                 </div>
             </div>

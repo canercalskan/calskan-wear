@@ -2,11 +2,12 @@ import { Injectable, NgModule } from '@angular/core';
 import { AngularFireDatabase, AngularFireList} from '@angular/fire/compat/database';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { Observable , map} from 'rxjs';
+import { finalize, switchMap } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { Item } from '../../models/item.model';
 import slugify from 'slugify';
+
 
 @NgModule()
 
@@ -15,7 +16,7 @@ import slugify from 'slugify';
 })
 
 export class ItemsService {
-  private basePath = '/uploads/';
+  private basePath = 'uploads/';
   private categoryPath = '/categories/';
   urls: string[] = []
   productUrls: string[] = [];
@@ -42,8 +43,11 @@ export class ItemsService {
   private saveFileData(fileUpload: Item , urls : string[]): void {
     fileUpload.url = urls;
     fileUpload.slug = slugify(fileUpload.title , {lower : true, strict : true});
-      this.db.list(this.basePath).push(fileUpload).then(() => {
-        this.db.list(this.categoryPath + '/' + fileUpload.category).push(fileUpload);
+      this.db.list(this.basePath).push(fileUpload).then((res) => {
+        fileUpload.key = res.key!;
+        this.db.object(this.basePath + fileUpload.key).update(fileUpload).then(() => {
+          this.db.list(this.categoryPath + '/' + fileUpload.category).push(fileUpload);
+        })
       }).catch(error => {
         Swal.fire('' , error.code)
       });
@@ -54,8 +58,17 @@ export class ItemsService {
       ref.limitToLast(numberItems));
   }
 
-  getProduct(productKey : string) : Observable<any> {
-    return this.db.object(this.basePath + '/' + productKey).valueChanges();
+  getProduct(slug: string): Observable<Item | null> {
+    return this.findKey(slug).pipe(
+      switchMap(key => this.db.object<Item>(this.basePath + key).valueChanges())
+    );
+  }
+  
+  findKey(slug: string): Observable<string> {
+    return this.db.list<Item>('uploads').valueChanges().pipe(
+      map(res => res.find(item => item.slug === slug)!),
+      map(item => item.key)
+    );
   }
 
   deleteFile(fileUpload: Item): Promise<void> {

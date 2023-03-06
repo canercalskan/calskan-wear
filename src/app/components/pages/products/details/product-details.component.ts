@@ -35,10 +35,9 @@ export class ProductDetails implements OnInit {
     ngOnInit() {
         this.visitedProducts = JSON.parse(localStorage.getItem('visitedProducts')!) || []
         this.route.params.subscribe(params => { 
-            this.ItemService.getProduct(params["productKey"]).subscribe( product => {
-               this.product = product;
-               this.UserService.pushLastSeenProducts(this.product)
-               this.product.key = params['productKey'];
+            this.ItemService.getProduct(params["slug"]).subscribe(product => {
+               this.product = product!
+               this.UserService.pushLastSeenProducts(this.product!)
                this.xxs = document.getElementById('XXS')!;
                this.xs = document.getElementById('XS')!
                this.s = document.getElementById('S')!

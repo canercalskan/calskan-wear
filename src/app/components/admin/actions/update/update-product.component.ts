@@ -21,9 +21,8 @@ export class UpdateProduct implements OnInit {
     ngOnInit(): void {
         this.route.params.subscribe(params => {
             this.ItemService.getProduct(params["productKey"]).subscribe(response => {
-                this.product = response;
+                this.product = response!;
                 this.product.key = params["productKey"];
-
             })
         })
     };
@@ -46,16 +45,6 @@ export class UpdateProduct implements OnInit {
               this.currentFileUpload.price = data.price;
               this.currentFileUpload.sizes = this.product.sizes;
               this.ItemService.pushFileToStorage(this.currentFileUpload)
-            //   .subscribe(
-            //     (percentage) => {
-            //       this.percentage = Math.round(percentage ? percentage : 0);
-            //       if(percentage === 100) {
-            //         Swal.fire('Başarılı' , 'Ürün başarıyla güncellendi, ürünler sayfasına yönlendiriliyorsunuz' , "success").then(() => {
-            //             this.router.navigate(['Products'])
-            //         })
-            //       }
-            //   }
-            // )}
             }
         }
     }
