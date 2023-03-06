@@ -35,7 +35,7 @@ export class ProductsComponent implements OnInit {
   addToCard(item:Item) : void {
     if(item.selectedSize == null || item.selectedSize.length == 0) {
       Swal.fire('' , 'Beden seçmediğiniz için ürünün detay sayfasına yönlendiriliyorsunuz' , 'warning').then(() => {
-        this.router.navigate(['/Products/'+item.key])
+        this.router.navigate(['urunler/' + item.slug])
         return;
       })
     }

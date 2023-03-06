@@ -52,12 +52,6 @@ export class AccountComponent implements OnInit {
             this.orderList = response
 
         })
-        // for(let i = 0; i < response.length; i++ ){
-        //     if(response[i].user === this.currentUser.uid) {
-        //         this.orderList.push(response[i]);
-        //     }
-        // }
-        
     })
   }
 
@@ -111,40 +105,4 @@ export class AccountComponent implements OnInit {
       })
     })
   }
-  handleDeleteAccount() : void {
-    let currentUser : User
-    Swal.fire('Uyarı' , 'Bu işlem geri alınamaz' , 'warning').then(() => {
-        this.fireAuth.user.subscribe((response) => {
-            this.db.list<User>('users').valueChanges().subscribe(users => {
-                users.forEach(user => {
-                    if(user.uid === response?.uid) {
-                        currentUser = user;
-                    }
-                })
-            })
-            this.router.navigate(['Home']).then(() => {
-                Swal.fire('Başarılı' , 'Hesabınız başarıyla silindi.' , 'success').then(() => {
-                    response?.delete().then(() => {
-                        this.db.list('users').remove(currentUser.key)
-                        localStorage.removeItem('isLoggedIn')
-                        return
-                    })
-                    .catch(error => {
-                        if(error.code === "auth/requires-recent-login") {
-                            Swal.fire('Giriş Yapın' ,' Bu işlem için yeniden giriş yapmanız gerekmektedir, yönlendiriliyorsunuz' , 'info').then(() => {
-                                this.router.navigate(['Home']).then(() => {
-                                    this.router.navigate(['Login']).then(() => {
-                                        this.fireAuth.signOut().then(() => {
-                                            localStorage.removeItem('isLoggedIn')
-                                            return;
-                                        })
-                                    })
-                                })
-                            })
-                        }})
-                    })
-                })
-            })
-        })
-     }
 } 

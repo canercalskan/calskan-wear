@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Route, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './components/pages/404/404.component';
 import { HomeComponent } from './components/pages/home/home.component';
 import { About } from './components/pages/about/about.component';
@@ -32,8 +32,8 @@ const routes: Routes = [
   {path: 'AdminPaneLogin' , component : AdminLogin , canActivate : [AdminLoginGuard]},
   {path : 'urunler/:slug' , component : ProductDetails},
   {path:'anasayfa' , component: HomeComponent},
-  {path : 'About' , component : About},
-  {path : 'Contact' , component: Contact},
+  {path : 'hakkimizda' , component : About},
+  {path : 'iletisim' , component: Contact},
   {path: 'uyeol' , component: RegisterComponent , canActivate : [UserLoginGuard]},
   {path: 'giris' , component: LoginComponent , canActivate : [UserLoginGuard]},
   {path : 'hesabim' , component: AccountComponent , canActivate : [UserAuthGuard]},
@@ -44,9 +44,9 @@ const routes: Routes = [
   {path: 'Administration/Offer' , component : OfferComponent , canActivate : [AdminAuthGuard]},
   {path:'Administration/ActiveOffers' , component: ActiveOffers , canActivate : [AdminAuthGuard]},
   {path : 'Administration/Update/:slug' , component: UpdateProduct , canActivate : [AdminAuthGuard]},
-  {path : 'ResetPassword' , component: ForgotPassword},
-  {path : 'Checkout' , component: CheckoutComponent , canActivate : [CheckoutGuard]},
-  {path : 'Checkout/AnonymousPay' , component : AnonymousPay},
+  {path : 'sifremi-sifirla' , component: ForgotPassword},
+  {path : 'sepet' , component: CheckoutComponent , canActivate : [CheckoutGuard]},
+  {path : 'sepet/misafir' , component : AnonymousPay},
   {path: '**' , component: NotFoundComponent},
 ];
 

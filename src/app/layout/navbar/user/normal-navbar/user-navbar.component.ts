@@ -18,7 +18,8 @@ import { HttpClient } from "@angular/common/http";
     templateUrl : './user-navbar.component.html'
 })
 export class Navbar {
-    userName! : string
+    userName! : string;
+    user! : firebase.default.User;
     collapseShown : boolean = false;
     itemQuantity : number = 1;
     loginComp = new LoginComponent(this.router, this.AuthService)
@@ -28,7 +29,8 @@ export class Navbar {
             this.noMobile = false;
         }
         this.fireAuth.user.subscribe(u => {
-            this.userName = u?.displayName!
+            this.userName = u!.displayName!
+            this.user = u!;
         })
     }
     productsComp! : ProductsComponent;
@@ -54,12 +56,12 @@ export class Navbar {
     }
     
     logout() : void {
-        localStorage.removeItem('isLoggedIn')
-        this.fireAuth.signOut()
-        this.router.navigate([this.router.url]);
+        this.fireAuth.signOut().then(() => {
+            location.reload();
+        })
     }
     googleLogin() : void{
-        this.loginComp.handleGoogleLogin()
+        this.loginComp.handleGoogleLogin();
     }
 
     showCart() : void {
@@ -95,7 +97,6 @@ export class Navbar {
     }
 
     checkout() : void {
-        let noUser : boolean;
         this.fireAuth.currentUser.then(user => {
             if(!user) {
                 this.router.navigate(['Checkout/AnonymousPay'])
@@ -109,6 +110,8 @@ export class Navbar {
     }
 
     setOffer(code : Offer) : void {
+        //todo get current card
+        let currentCard : Cart;
         //cart entrysinin offer attribute'u dolu ise uyarı alerti verip return et, localstorage dan kurtar burayı.
         if(localStorage.getItem('activeOffer')) {
             Swal.fire('' , 'Zaten bir kupon kullandınız' , 'warning').then(() => {

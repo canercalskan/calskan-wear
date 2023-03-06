@@ -11,8 +11,9 @@ export class AdminNavbar {
     constructor(private fireAuth : AngularFireAuth , private router : Router){}
     navbarVisible : boolean = false;
     signOut():void {
-        this.fireAuth.signOut();
-        this.router.navigate(['AdminPaneLogin'])
+        this.fireAuth.signOut().then(() => {
+            this.router.navigate(['AdminPaneLogin'])
+        })
     }
 
     showNavbar(): void  {

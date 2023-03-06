@@ -25,8 +25,6 @@ export class Footer implements OnInit{
         }
     }
     handleSubscribe(mail : string) : void {
-        let mailList : string[]
-        let done : boolean = false;
         this.db.list<any>('subscribers').valueChanges().subscribe(r => {
             r.forEach(subscriber => {
                 if(subscriber.email === mail) {

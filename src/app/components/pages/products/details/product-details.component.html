@@ -27,18 +27,16 @@
             </div>
             <div class="info mt-5">
                 <h6 class="fw-bold">Ürün Özellikleri
-                    <i *ngIf="!descriptionShown" class="bi bi-body-text float-end" style="font-size:20px ;" (click) = 'showDescription()'></i>
-                    <i *ngIf="descriptionShown" class="bi bi-dash float-end" style="font-size:20px;" (click) = 'hideDescription()'></i>
+                    <i class="bi bi-body-text float-end" style="font-size:20px ;"></i>
                 </h6>
-                <p id="description-hidden" style="font-size: 13px; word-spacing:2.5px; display: none;">
+                <p id="description-hidden" style="font-size: 13px; word-spacing:2.5px;">
                     {{product.description}}
                 </p>
                 <hr>
                 <h6 class="fw-bold">Teslimat ve İade 
-                    <i *ngIf="!deliveryShown" class="bi bi-plus float-end" (click) = 'showDelivery()' style="font-size:20px ;"></i>
-                    <i *ngIf="deliveryShown" class="bi bi-dash float-end" (click) = 'hideDelivery()' style="font-size:20px ;"></i>
+                    <i class="bi bi-plus float-end" style="font-size:20px ;"></i>
                 </h6>
-                    <p id="delivery-hidden" style="font-size: 13px; word-spacing: 2.5px; display: none;">
+                    <p id="delivery-hidden" style="font-size: 13px; word-spacing: 2.5px;">
                         Teslimat: Siparişleriniz, belirtilen teslimat tarihinde kargo firması tarafından size ulaştırılır. Maximum 2-3 iş günü içinde kargoya teslim edilir. İade Değişim: Satın aldığınız herhangi bir ürünü, iade şartlarına uygun olması koşuluyla, siparişinizin size ulaştığı günü takip eden 15 gün içinde iade edebilirsiniz. (Hijyen gerektiren boxer, külotlu çorap vs ürünler hariç) İstediğiniz beden veya numara stoklarımızda mevcut ise ürün değişimi yapabilirsiniz.İade etmek istediğiniz ürünün ambalajının hasar görmemiş, kullanılmamış; barkodunun zedelenmemiş, kopmamış olması gerekir. İade etmek istediğiniz ürün/ürünleri orijinal kutusu ve tüm aksesuarları ile göndermelisiniz. Tek kullanımlık, hızlı bozulan, son kullanma tarihi geçme olasılığı taşıyan ürünlerde yasa gereği cayma hakkı kullanılamaz.Hijyen kuralları gereği boxer, çorap, külot, string, slip ve benzeri alt grup hijyenik ürünler; külotlu korseler, tayt çeşitleri, alt içliklerin iadesi/değişimi Mevcut değildir.
                     </p>
                 <hr>
@@ -47,3 +45,5 @@
     </div>
 </div>
 <last-seen-products></last-seen-products>
+
+<footer></footer>

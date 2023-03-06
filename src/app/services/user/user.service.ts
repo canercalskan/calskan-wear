@@ -1,4 +1,4 @@
-import { Injectable, NgModule, OnInit } from "@angular/core";
+import { Injectable, NgModule } from "@angular/core";
 import { User } from "src/app/models/user.model";
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Item } from "src/app/models/item.model";
@@ -62,33 +62,56 @@ export class UserService {
                 this.cartKey = r.key!
                 localStorage.setItem('cartKey' , this.cartKey!);
                 Swal.fire('Eklendi' , 'Ürün sepetinize eklendi' , 'success').then(() => {
-                    location.reload();
+                    // location.reload();
+                    return;
                 })
-                return;
             })
         }
+        else {
+            this.cart.items.forEach(i => {
+                if(i.key == item.key && i.selectedSize == item.selectedSize) {
+                    i.quantity++;
+                    this.cart.total += item.price;
+                    this.db.list('carts').update(cartKey! , this.cart)
+                    done = true;
+                    Swal.fire('Başarılı', 'Var olan ürün güncellendi' , 'success').then(() => {
+                        // location.reload();
+                        return;
+                    }) 
+                }
+              })
+                if(!done) {
+                    this.cart.total += item.price;
+                    this.cart.items.push(item);
+                    this.db.list('carts').update(cartKey! , this.cart);
+                    Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
+                        // location.reload();
+                        return;
+                    })
+                }
+        }
     
-        this.cart.items.forEach(i => {
-            if(i.key == item.key && i.selectedSize == item.selectedSize) {
-                i.quantity++;
-                this.cart.total += item.price;
-                this.db.list('carts').update(cartKey! , this.cart)
-                done = true;
-                Swal.fire('Başarılı', 'Var olan ürün güncellendi' , 'success').then(() => {
-                    location.reload();
-                    return;
-                }) 
-            }
-          })
-            if(!done) {
-                this.cart.total += item.price;
-                this.cart.items.push(item);
-                this.db.list('carts').update(cartKey! , this.cart);
-                Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
-                    location.reload();
-                    return;
-                })
-            }
+        // this.cart.items.forEach(i => {
+        //     if(i.key == item.key && i.selectedSize == item.selectedSize) {
+        //         i.quantity++;
+        //         this.cart.total += item.price;
+        //         this.db.list('carts').update(cartKey! , this.cart)
+        //         done = true;
+        //         Swal.fire('Başarılı', 'Var olan ürün güncellendi' , 'success').then(() => {
+        //             // location.reload();
+        //             return;
+        //         }) 
+        //     }
+        //   })
+        //     if(!done) {
+        //         this.cart.total += item.price;
+        //         this.cart.items.push(item);
+        //         this.db.list('carts').update(cartKey! , this.cart);
+        //         Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
+        //             // location.reload();
+        //             return;
+        //         })
+        //     }
         } 
 
     removeFromCart(item:Item) : void { 

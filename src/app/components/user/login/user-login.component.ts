@@ -16,10 +16,7 @@ export class LoginComponent {
   handleLogin(user: User) {
     this.userError=false;
     this.passwordError = false;
-    this.authservice.login(user).then(() => {
-        localStorage.setItem('isLoggedIn','true')
-        this.router.navigate(['Account'])
-    }).catch(error => {
+    this.authservice.login(user).then(() => {this.router.navigate([''])}).catch(error => {
         if(error.code == 'auth/user-not-found') {this.userError = true; Swal.fire('Hata' , 'Böyle bir kullanıcı bulunmamaktadır' , 'error')}
         else if(error.code == 'auth/wrong-password') {this.passwordError = true;}
     })
@@ -27,18 +24,13 @@ export class LoginComponent {
 
   handleGoogleLogin() : void {
     this.authservice.googleLogin().then((result) => {
-      localStorage.setItem('isLoggedIn' , 'true')
     }).catch(error => {
       alert(error.message);
     })
   }
   
-  handleLogOut() {
-    this.authservice.logOut().then(()=> {
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('uid');
-        alert('Başarıyla çıkış yapıldı.')
-    })
+  handleLogOut() : void {
+    this.authservice.logOut();
   }
 
 
