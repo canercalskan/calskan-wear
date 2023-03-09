@@ -14,7 +14,6 @@ import { Router } from '@angular/router';
 })
 
 export class ProductsComponent implements OnInit {
-  cardItems : Item[] = [];
   fileUploads?: any[];
   productId? : number;
   navbar? : Navbar;

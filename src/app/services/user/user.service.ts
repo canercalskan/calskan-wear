@@ -1,4 +1,4 @@
-import { Injectable, NgModule } from "@angular/core";
+import { Injectable, NgModule, OnInit } from "@angular/core";
 import { User } from "src/app/models/user.model";
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Item } from "src/app/models/item.model";
@@ -13,32 +13,40 @@ import { Cart } from "src/app/models/cart.model";
 @NgModule()
 @Injectable({providedIn:'root'})
 
-export class UserService {
-    lastSeenProducts : Item[]
+export class UserService implements OnInit {
     lastSeenProductsDetails : Item[] = []
     months : string[] = ["Ocak" , "Şubat" , "Mart" , "Nisan" , "Mayıs" , "Haziran" , "Temmuz" , "Ağustos" , "Eylül" , "Ekim", "Kasım" , "Aralık"]
-    cartItems! : Item[]
     cartTotal : number = 0;
     cartKey! : string;
-    cart : Cart = {items : [] , offer : new Offer , total : 0} 
+    cart : Cart = {items : [] , offer : new Offer , total : 0}
     cargo : number = 12.99;
     offerFound! : boolean;
     activatedOffer! : Offer
     myAddressesClicked : boolean = false;
-    currentUser! : User
+    currentUser! : User;
+
     constructor(private db : AngularFireDatabase , private fireAuth : AngularFireAuth){
-        this.cartKey = localStorage.getItem('cartKey')!
         this.db.object<Cart>("carts/" + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(cart => {
             this.cart = cart!;
             if(this.cart == null || this.cart == undefined) {
                 this.cart = {items:[] , offer : {code : '' , rate : 0, key : '' , hidden : false} , total : 0}
             }
          })
-         this.lastSeenProducts = JSON.parse(localStorage.getItem('lastSeenProducts')!)
-         if(this.lastSeenProducts == null || this.lastSeenProducts == undefined) {
-            this.lastSeenProducts = []
-         }
-         this.getCurrentUser()
+    }
+    
+    ngOnInit(): void {
+        alert(1)
+        this.getCurrentUser()
+        this.cartKey = localStorage.getItem('cartKey')!;
+        this.db.object<Cart>('carts/' + localStorage.getItem('cartKey')!).valueChanges().subscribe(cart => {
+            if(cart === null || cart === undefined) {
+                this.cart = {items:[] , offer : {code : '' , rate : 0, key : '' , hidden : false} , total : 0};
+            }
+            else {
+                this.cart = cart;
+            }
+        })
+        console.log(this.cart);
     }
 
     registerUser(user : User): void {
@@ -52,7 +60,42 @@ export class UserService {
         this.db.list('contacts').push(form)
     }
 
-    addToCart(item:Item) {
+    addToCart(item: Item) {
+        // let cartKey = localStorage.getItem('cartKey')!;
+        // let done : boolean = false;
+        // if(!cartKey) {
+        //     this.cart.items.push(item);
+        //     this.cart.total += item.price;
+        //     this.db.list('carts').push(this.cart).then(r => {
+        //         this.cartKey = r.key!;
+        //         localStorage.setItem('cartKey' , this.cartKey);
+        //     })
+        // }
+
+        // else {
+        //     this.cart.items.forEach(i => {
+        //         if(i.key === item.key) {
+        //             alreadyIn = true;
+        //             if(i.selectedSize === item.selectedSize) {
+        //                 i.quantity++;
+        //                 this.cart.total = i.price * i.quantity;
+        //                 this.db.object<Cart>('carts/' + cartKey!).update(this.cart);
+        //             }
+        //             else {
+        //                 this.cart.items.push(item);
+        //                 this.cart.total += item.price;
+        //                 this.db.object<Cart>('carts/' + cartKey).update(this.cart)
+        //             }
+        //         }
+        //     })
+
+        //     if(alreadyIn === false) {
+        //         this.cart.items.push(item);
+        //         this.cart.total += item.price;
+        //         this.db.object<Cart>('carts/' + cartKey).update(this.cart);
+        //     }
+        // }
+
         let done = false;
         let cartKey = localStorage.getItem('cartKey');
         if(cartKey == null || cartKey == undefined) {
@@ -62,7 +105,6 @@ export class UserService {
                 this.cartKey = r.key!
                 localStorage.setItem('cartKey' , this.cartKey!);
                 Swal.fire('Eklendi' , 'Ürün sepetinize eklendi' , 'success').then(() => {
-                    // location.reload();
                     return;
                 })
             })
@@ -72,10 +114,10 @@ export class UserService {
                 if(i.key == item.key && i.selectedSize == item.selectedSize) {
                     i.quantity++;
                     this.cart.total += item.price;
+                    console.log(this.cart.items)
                     this.db.list('carts').update(cartKey! , this.cart)
                     done = true;
                     Swal.fire('Başarılı', 'Var olan ürün güncellendi' , 'success').then(() => {
-                        // location.reload();
                         return;
                     }) 
                 }
@@ -85,34 +127,11 @@ export class UserService {
                     this.cart.items.push(item);
                     this.db.list('carts').update(cartKey! , this.cart);
                     Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
-                        // location.reload();
                         return;
                     })
                 }
         }
-    
-        // this.cart.items.forEach(i => {
-        //     if(i.key == item.key && i.selectedSize == item.selectedSize) {
-        //         i.quantity++;
-        //         this.cart.total += item.price;
-        //         this.db.list('carts').update(cartKey! , this.cart)
-        //         done = true;
-        //         Swal.fire('Başarılı', 'Var olan ürün güncellendi' , 'success').then(() => {
-        //             // location.reload();
-        //             return;
-        //         }) 
-        //     }
-        //   })
-        //     if(!done) {
-        //         this.cart.total += item.price;
-        //         this.cart.items.push(item);
-        //         this.db.list('carts').update(cartKey! , this.cart);
-        //         Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
-        //             // location.reload();
-        //             return;
-        //         })
-        //     }
-        } 
+    } 
 
     removeFromCart(item:Item) : void { 
         let cartKey = localStorage.getItem('cartKey')!;
@@ -129,11 +148,19 @@ export class UserService {
     }
 
     getCart() : Cart {
+        this.db.object<Cart>('carts/' + localStorage.getItem('cartKey')!).valueChanges().subscribe(cart => {
+            if(cart === null || cart === undefined) {
+                this.cart = {items:[] , offer : {code : '' , rate : 0, key : '' , hidden : false} , total : 0};
+            }
+            else {
+                this.cart = cart;
+            }
+        })
         return this.cart;
     }
 
     getCartItems() : Item[] {
-        return this.cart.items!
+        return this.cart.items!;
     }
 
     getCartTotal() : number {
@@ -204,27 +231,5 @@ export class UserService {
 
     getMyAddresses() : boolean {
         return this.myAddressesClicked;
-    }
-
-    pushLastSeenProducts(product : Item) : void {
-        if(this.lastSeenProducts.length === 0) {
-            this.lastSeenProducts.push(product)
-            localStorage.setItem('lastSeenProducts' , JSON.stringify(this.lastSeenProducts))
-            console.log(this.lastSeenProducts)
-        }
-        else {
-            if(this.lastSeenProducts.find(i => product == i) == undefined) {
-                this.lastSeenProducts.push(product)
-                localStorage.setItem('lastSeenProducts' , JSON.stringify(this.lastSeenProducts))
-                console.log(this.lastSeenProducts)
-            }
-            else {
-                return;
-            }
-        }
-    }
-
-    getLastSeenProducts() : Item[] {
-        return this.lastSeenProducts;
     }
 }

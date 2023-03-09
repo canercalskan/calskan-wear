@@ -13,6 +13,6 @@ export class LastSeenProductsComponent implements OnInit{
     constructor(private db : AngularFireDatabase , private UserService : UserService){}
     ngOnInit(): void {
        
-        console.log(this.UserService.getLastSeenProducts())
+        // console.log(this.UserService.getLastSeenProducts())
     }
 }

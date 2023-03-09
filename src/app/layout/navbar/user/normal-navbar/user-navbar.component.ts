@@ -36,7 +36,7 @@ export class Navbar {
     productsComp! : ProductsComponent;
     f!  : File;
     cartTotal : number = this.UserService.cartTotal;
-    cartItems : Array<Item> = this.UserService.cartItems || [];
+    cartItems : Array<Item> = this.UserService.cart.items || [];
     showOffer! : boolean;
     rate! : number
     cart : Cart = this.UserService.cart || null

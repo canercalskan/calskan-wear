@@ -35,7 +35,7 @@ export class ProductDetails implements OnInit {
         this.route.params.subscribe(params => { 
             this.ItemService.getProduct(params["slug"]).subscribe(product => {
                this.product = product!
-               this.UserService.pushLastSeenProducts(this.product!)
+            //    this.UserService.pushLastSeenProducts(this.product!)
                this.xxs = document.getElementById('XXS')!;
                this.xs = document.getElementById('XS')!
                this.s = document.getElementById('S')!
@@ -115,7 +115,6 @@ export class ProductDetails implements OnInit {
         else if(beden == 'XS') {
             this.xsClicked = true;
             this.xs.classList.add('clicked')
-
             this.xxs.classList.remove('clicked')
             this.s.classList.remove('clicked')
             this.m.classList.remove('clicked')
