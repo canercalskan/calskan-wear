@@ -91,7 +91,7 @@
               </ul>
               <p *ngIf="this.cart.items.length == 0" class="text-center">Sepette ürün yok</p>
               <div class="cart-actions" *ngIf="this.cart.items.length > 0">
-                <p class="text-center">Toplam : {{cartTotal.toFixed(2)}} ₺
+                <p class="text-center">Toplam : {{cart.total.toFixed(2)}} ₺
                   <span *ngIf="showOffer" class="text-success">%{{rate}} indirim!</span>
                 </p>
                 <form #setOfferForm = 'ngForm' (submit) = 'setOffer(setOfferForm.value)' class="d-block" ngNativeValidate>

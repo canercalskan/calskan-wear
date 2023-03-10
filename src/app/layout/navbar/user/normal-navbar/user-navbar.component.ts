@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/user/auth/auth.service";
 import { LoginComponent } from 'src/app/components/user/login/user-login.component'
@@ -17,42 +17,38 @@ import { HttpClient } from "@angular/common/http";
     styleUrls : ['./user-navbar.component.css'],
     templateUrl : './user-navbar.component.html'
 })
-export class Navbar {
+export class Navbar implements OnInit{
     userName! : string;
     user! : firebase.default.User;
     collapseShown : boolean = false;
     itemQuantity : number = 1;
     loginComp = new LoginComponent(this.router, this.AuthService)
     noMobile = true;
+    productsComp! : ProductsComponent;
+    f!  : File;
+    cartTotal : number = this.UserService.cartTotal;
+    showOffer! : boolean;
+    rate! : number
+    cart! : Cart; 
+    mazigxng : boolean = false;
     constructor(private router : Router , private AuthService : AuthService , private fireAuth : AngularFireAuth , private UserService : UserService , private db : AngularFireDatabase , private http : HttpClient){
         if(window.screen.width < 900) {
             this.noMobile = false;
         }
         this.fireAuth.user.subscribe(u => {
-            this.userName = u!.displayName!
-            this.user = u!;
+            if(u) {
+             this.userName = u!.displayName!
+             this.user = u!;
+            }
+        })
+        this.UserService.getCart().then(response => {
+            this.cart = response
         })
     }
-    productsComp! : ProductsComponent;
-    f!  : File;
-    cartTotal : number = this.UserService.cartTotal;
-    cartItems : Array<Item> = this.UserService.cart.items || [];
-    showOffer! : boolean;
-    rate! : number
-    cart : Cart = this.UserService.cart || null
-    mazigxng : boolean = false;
-    loginStatus () { 
-        this.cartItems = this.UserService.cart.items;
-        this.cartTotal = this.UserService.getCartTotal();
-        if(this.cartItems == null) {
-            this.cartItems = []
-        }
-        if(localStorage.getItem('isLoggedIn') == 'true') {
-            return true
-        }
-        else {
-            return false
-        };
+    ngOnInit(): void {
+        this.UserService.getCart().then(response => {
+            this.cart = response
+        })
     }
     
     logout() : void {
@@ -110,9 +106,7 @@ export class Navbar {
     }
 
     setOffer(code : Offer) : void {
-        //todo get current card
-        let currentCard : Cart;
-        //cart entrysinin offer attribute'u dolu ise uyarı alerti verip return et, localstorage dan kurtar burayı.
+        // cart model'e offer attribute ekle, localstorage yapısından çıkart.
         if(localStorage.getItem('activeOffer')) {
             Swal.fire('' , 'Zaten bir kupon kullandınız' , 'warning').then(() => {
                 return;
@@ -124,8 +118,8 @@ export class Navbar {
                     if(a.code === code.code && a.code != "MAZIGXNG50") {
                         this.showOffer = true;
                         this.rate = a.rate;
-                        this.UserService.cart.total -= (this.cartTotal * a.rate) / 100;
-                        this.UserService.cart.offer = a;
+                        this.UserService.cart!.total -= (this.cartTotal * a.rate) / 100;
+                        this.UserService.cart!.offer = a;
                         this.db.list('carts/' ).set(this.UserService.cartKey, this.UserService.cart)
                         localStorage.setItem('activeOffer' , JSON.stringify(a))
                         return;
@@ -134,8 +128,8 @@ export class Navbar {
                         this.showOffer = true;
                         this.mazigxng = true;
                         this.rate = a.rate;
-                        this.UserService.cart.total -= (this.cartTotal * a.rate) / 100;
-                        this.UserService.cart.offer = a;
+                        this.UserService.cart!.total -= (this.cartTotal * a.rate) / 100;
+                        this.UserService.cart!.offer = a;
                         this.db.list('carts/' ).set(this.UserService.cartKey, this.UserService.cart)
                         localStorage.setItem('activeOffer' , JSON.stringify(a))
                         return;

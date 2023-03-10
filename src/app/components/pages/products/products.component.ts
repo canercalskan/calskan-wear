@@ -45,7 +45,7 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  selectSize(product : Item,size:string) : void {
+  selectSize(product : Item , size:string) : void {
     product.selectedSize = size
   }
   

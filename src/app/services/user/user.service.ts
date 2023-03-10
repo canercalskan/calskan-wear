@@ -7,47 +7,26 @@ import { OrderModel } from "src/app/models/order.model";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import Swal from "sweetalert2";
 import { Offer } from "src/app/models/offer.model";
-import { Observable } from "rxjs";
+import { firstValueFrom, Observable } from "rxjs";
 import { Cart } from "src/app/models/cart.model";
+import { ThisReceiver } from "@angular/compiler";
 
 @NgModule()
 @Injectable({providedIn:'root'})
 
-export class UserService implements OnInit {
+export class UserService {
     lastSeenProductsDetails : Item[] = []
     months : string[] = ["Ocak" , "Şubat" , "Mart" , "Nisan" , "Mayıs" , "Haziran" , "Temmuz" , "Ağustos" , "Eylül" , "Ekim", "Kasım" , "Aralık"]
     cartTotal : number = 0;
     cartKey! : string;
-    cart : Cart = {items : [] , offer : new Offer , total : 0}
+    cart! : Cart;
     cargo : number = 12.99;
     offerFound! : boolean;
     activatedOffer! : Offer
     myAddressesClicked : boolean = false;
     currentUser! : User;
 
-    constructor(private db : AngularFireDatabase , private fireAuth : AngularFireAuth){
-        this.db.object<Cart>("carts/" + localStorage.getItem('cartKey')?.toString()).valueChanges().subscribe(cart => {
-            this.cart = cart!;
-            if(this.cart == null || this.cart == undefined) {
-                this.cart = {items:[] , offer : {code : '' , rate : 0, key : '' , hidden : false} , total : 0}
-            }
-         })
-    }
-    
-    ngOnInit(): void {
-        alert(1)
-        this.getCurrentUser()
-        this.cartKey = localStorage.getItem('cartKey')!;
-        this.db.object<Cart>('carts/' + localStorage.getItem('cartKey')!).valueChanges().subscribe(cart => {
-            if(cart === null || cart === undefined) {
-                this.cart = {items:[] , offer : {code : '' , rate : 0, key : '' , hidden : false} , total : 0};
-            }
-            else {
-                this.cart = cart;
-            }
-        })
-        console.log(this.cart);
-    }
+    constructor(private db : AngularFireDatabase , private fireAuth : AngularFireAuth){}
 
     registerUser(user : User): void {
         this.db.list('users').push(user).then((r) => {
@@ -61,83 +40,57 @@ export class UserService implements OnInit {
     }
 
     addToCart(item: Item) {
-        // let cartKey = localStorage.getItem('cartKey')!;
-        // let done : boolean = false;
-        // if(!cartKey) {
-        //     this.cart.items.push(item);
-        //     this.cart.total += item.price;
-        //     this.db.list('carts').push(this.cart).then(r => {
-        //         this.cartKey = r.key!;
-        //         localStorage.setItem('cartKey' , this.cartKey);
-        //     })
-        // }
-
-        // else {
-        //     this.cart.items.forEach(i => {
-        //         if(i.key === item.key) {
-        //             alreadyIn = true;
-        //             if(i.selectedSize === item.selectedSize) {
-        //                 i.quantity++;
-        //                 this.cart.total = i.price * i.quantity;
-        //                 this.db.object<Cart>('carts/' + cartKey!).update(this.cart);
-        //             }
-        //             else {
-        //                 this.cart.items.push(item);
-        //                 this.cart.total += item.price;
-        //                 this.db.object<Cart>('carts/' + cartKey).update(this.cart)
-        //             }
-        //         }
-        //     })
-
-        //     if(alreadyIn === false) {
-        //         this.cart.items.push(item);
-        //         this.cart.total += item.price;
-        //         this.db.object<Cart>('carts/' + cartKey).update(this.cart);
-        //     }
-        // }
-
-        let done = false;
-        let cartKey = localStorage.getItem('cartKey');
-        if(cartKey == null || cartKey == undefined) {
-            this.cart.items.push(item)
-            this.cart.total += item.price;
-            this.db.list('carts').push(this.cart).then(r => {
-                this.cartKey = r.key!
-                localStorage.setItem('cartKey' , this.cartKey!);
-                Swal.fire('Eklendi' , 'Ürün sepetinize eklendi' , 'success').then(() => {
-                    return;
+        let found = false;
+        console.log(item.selectedSize)
+        if(localStorage.getItem('cartKey')) {
+            if(this.cart.items.length > 0) {
+                this.cart.items.forEach(i => {
+                    if(i.key === item.key) {
+                        found = true;
+                        if(i.selectedSize === item.selectedSize) {
+                            i.quantity++;
+                            this.cart.total += i.price;
+                            this.db.object<Cart>('carts/' + localStorage.getItem('cartKey')).update(this.cart);
+                            location.reload()
+                        }
+                        else {
+                            this.cart.items.push(item);
+                            this.cart.total += item.price;
+                            this.db.object<Cart>('carts/' + localStorage.getItem('cartKey')).update(this.cart);
+                            location.reload()
+                        }
+                    }
                 })
-            })
+                if(!found) {
+                    this.cart.items.push(item);
+                    this.cart.total += item.price;
+                    this.db.object<Cart>('carts/' + localStorage.getItem('cartKey')).update(this.cart);
+                    location.reload()
+                }
+            }
+            else {
+                this.cart.items.push(item);
+                this.cart.total += item.price;
+                this.db.object<Cart>('carts/' + localStorage.getItem('cartKey')).update(this.cart);
+                location.reload();
+            }
         }
         else {
-            this.cart.items.forEach(i => {
-                if(i.key == item.key && i.selectedSize == item.selectedSize) {
-                    i.quantity++;
-                    this.cart.total += item.price;
-                    console.log(this.cart.items)
-                    this.db.list('carts').update(cartKey! , this.cart)
-                    done = true;
-                    Swal.fire('Başarılı', 'Var olan ürün güncellendi' , 'success').then(() => {
-                        return;
-                    }) 
-                }
-              })
-                if(!done) {
-                    this.cart.total += item.price;
-                    this.cart.items.push(item);
-                    this.db.list('carts').update(cartKey! , this.cart);
-                    Swal.fire('Başarılı', 'Ürün başarıyla sepete eklendi' , 'success').then(() => {
-                        return;
-                    })
-                }
+            this.cart.items.push(item);
+            this.cart.total += item.price;
+            this.db.list<Cart>('carts').push(this.cart).then(response => {
+                localStorage.setItem('cartKey' , response.key!);
+            }).finally(() => {
+                location.reload();
+            })
         }
     } 
 
     removeFromCart(item:Item) : void { 
         let cartKey = localStorage.getItem('cartKey')!;
-        this.cart.items = this.cart.items.filter(items => items != item) 
-        this.cart.total -= item.price * item.quantity;
-        if(this.cart.items.length == 0 || this.cart.items == undefined || this.cart.items == null) {
+        this.cart!.items = this.cart!.items.filter(items => items != item) 
+        this.cart!.total -= item.price * item.quantity;
+        if(this.cart!.items.length == 0 || this.cart!.items == undefined || this.cart!.items == null) {
             localStorage.removeItem('cartKey');
             localStorage.removeItem('activeOffer');
             this.db.list('carts').remove(cartKey);
@@ -147,32 +100,57 @@ export class UserService implements OnInit {
         }  
     }
 
-    getCart() : Cart {
-        this.db.object<Cart>('carts/' + localStorage.getItem('cartKey')!).valueChanges().subscribe(cart => {
-            if(cart === null || cart === undefined) {
-                this.cart = {items:[] , offer : {code : '' , rate : 0, key : '' , hidden : false} , total : 0};
+    async getCart(): Promise<Cart> {
+        try {
+           const cart = await firstValueFrom(this.db.object<Cart>("carts/" + localStorage.getItem("cartKey")!).valueChanges());
+          
+          if (cart === null || cart === undefined) {
+            this.cart = {
+                items: [],
+                offer: {
+                    code: "",
+                    rate: 0,
+                    key: "",
+                    hidden: false,
+                }   ,
+                total: 0
             }
-            else {
-                this.cart = cart;
-            }
-        })
-        return this.cart;
-    }
+            return {
+              items: [],
+              offer: {
+                code: "",
+                rate: 0,
+                key: "",
+                hidden: false,
+              },
+              total: 0,
+            };
+          }
+          else {
+            this.cart = cart;
+            return cart;
+          }
+        } 
+        catch (error) {
+          console.error(error);
+          throw error;
+        }
+      }
 
     getCartItems() : Item[] {
-        return this.cart.items!;
+        return this.cart!.items;
     }
 
     getCartTotal() : number {
-        return this.cart.total;
+        return this.cart!.total;
     }
 
     setOffer(code : Offer) : Observable<Offer[]> {
-        return this.db.list<Offer>('offers').valueChanges()
+        return this.db.list<Offer>('offers').valueChanges();
     }
 
     getOffer() : Offer {
-        return this.activatedOffer
+        return this.activatedOffer;
     }
 
     getCurrentUser() : void {
@@ -203,9 +181,9 @@ export class UserService implements OnInit {
                 order.user = 'Anonymous';
             }
             this.db.list('orders').push(order).then(() => {
-                this.cart.total = 0;
-                this.cart.items = [];
-                this.cart.offer = {code : '' , rate : 0, key : '' , hidden : false};
+                this.cart!.total = 0;
+                this.cart!.items = [];
+                this.cart!.offer = {code : '' , rate : 0, key : '' , hidden : false};
                 this.db.list('carts').remove(this.cartKey).then(() => {
                     localStorage.removeItem('activeOffer')
                     localStorage.removeItem('cartKey')

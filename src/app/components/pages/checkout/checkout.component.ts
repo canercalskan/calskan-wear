@@ -23,7 +23,9 @@ export class CheckoutComponent{
     cart! : Cart
     cargo : number = this.UserService.cargo;
     constructor(private UserService : UserService , private router : Router , private route : ActivatedRoute , private db : AngularFireDatabase){
-        this.cart = this.UserService.getCart();
+        this.UserService.getCart().then((response) => {
+            this.cart = response;
+        })
         this.activatedOffer = this.cart.offer;
         if(this.cart.items.length == 0){
             this.router.navigate(['../']);
